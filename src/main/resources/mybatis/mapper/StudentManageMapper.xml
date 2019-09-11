@@ -9,19 +9,26 @@
         junior_grade,main_academy,major_number,major_name,
         exam_registration_number,department,grade_number
     </sql>
-    <insert id="add">
-        INSERT INTO
-        student_info_all
-        (
-        <include refid="baseSQL"/>
+    <!--
+    返回自动增长的主键且设置到id这个属性上
+    useGeneratedKeys="true"
+     keyProperty="id"
+    -->
+    <insert id="add" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO student
+        (sex,grade,number,department,major,class_teacher)
+        VALUES(
+        #{sex},
+        #{grade},
+        #{number},
+        #{department},
+        #{major},
+        #{classTeacher}
         )
-        VALUES
-        (
-        #{name},#{idNumber},#{sex},#{birthDate},
-        #{juniorNumber},#{juniorClass},#{juniorGrade},#{mainAcademy},
-        #{majorNumber},#{majorName},#{examRegistrationNumber},#{department},
-        #{gradeNumber}
-        )
+    </insert>
+    <insert id="addStudentUser">
+      INSERT  INTO student_user(student_id,user_id,teacher_name)
+      VALUES(#{studentId},#{userId},#{teacherName})
     </insert>
 
     <insert id="insertStudentInfo">
@@ -42,18 +49,31 @@
     </insert>
 
     <update id="update">
-       UPDATE student_info_all
-       SET
-        name=#{name},id_number=#{idNumber},sex=#{sex},birth_date=#{birthDate},
-        junior_number=#{juniorNumber},junior_class=#{juniorClass},
-        junior_grade=#{juniorGrade},main_academy=#{mainAcademy},
-        major_number=#{majorNumber},major_name=#{majorName},
-        exam_registration_number=#{examRegistrationNumber},department=#{department},
-        grade_number=#{gradeNumber}
-        WHERE id=#{id}
+       UPDATE student
+       <set>
+           <if test="sex!=null">
+               sex=#{sex},
+           </if>
+           <if test="grade!=null">
+               grade=#{grade},
+           </if>
+           <if test="number!=null">
+               number=#{number},
+           </if>
+           <if test="department!=null">
+               department=#{department},
+           </if>
+           <if test="major!=null">
+               major=#{major},
+           </if>
+           <if test="classTeacher!=null">
+               class_teacher=#{classTeacher},
+           </if>
+       </set>
+       WHERE id=#{id}
     </update>
     <delete id="delete">
-        UPDATE      student_info_all
+        UPDATE      student_user
         SET         delete_flag='0'
         WHERE       id=#{id}
     </delete>

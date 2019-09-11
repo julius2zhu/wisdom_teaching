@@ -11,6 +11,9 @@ public class WisdomTeachingApplicationTests {
 
     @Test
     public void contextLoads() {
+//        String password="julius";
+//        Md5Hash md5Hash=new Md5Hash(password,password,3);
+//        System.out.println("md5Hash = " + md5Hash);
 
     }
 }

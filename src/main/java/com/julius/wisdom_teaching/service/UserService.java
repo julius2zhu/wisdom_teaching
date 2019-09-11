@@ -43,4 +43,12 @@ public interface UserService {
      * @return 用户信息对象集合
      */
     List<User> queryUser();
+
+    /**
+     * 添加一个用户
+     *
+     * @param user 用户信息对象
+     * @return 受影响的行数
+     */
+    Integer addOne(User user);
 }

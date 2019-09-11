@@ -91,7 +91,7 @@ public class StudentInfoImport {
         }
         //写出数据
         response.setContentType(MediaType.APPLICATION_OCTET_STREAM_VALUE);
-        response.setHeader("Content-Disposition", "attachment;filename=test.xlsx");
+        response.setHeader("Content-Disposition", "attachment;filename=studentInfo.xlsx");
         studentInfoCheckService.selectStudentById(ids, outputStream);
     }
 }

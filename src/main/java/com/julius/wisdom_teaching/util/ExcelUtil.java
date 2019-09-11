@@ -3,6 +3,7 @@ package com.julius.wisdom_teaching.util;
 import com.julius.wisdom_teaching.domain.entity.StudentInfo;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -66,41 +67,46 @@ public class ExcelUtil {
         //XSS用于操作xlsx格式文档读写
         XSSFWorkbook workbook = new XSSFWorkbook();
         //创建sheet对象
-        Sheet sheet = workbook.createSheet("工作簿1");
+        Sheet sheet = workbook.createSheet("学生信息表");
         //创建一行作为表头
         Row row = sheet.createRow(0);
         //设置表头数据
         Cell cell = row.createCell(0, CellType.STRING);
         cell.setCellValue("姓名");
         cell = row.createCell(1, CellType.STRING);
-        cell.setCellValue("身份证号");
+        cell.setCellValue("性别(0男1女)");
         cell = row.createCell(2, CellType.STRING);
-        cell.setCellValue("性别");
+        cell.setCellValue("班级");
         cell = row.createCell(3, CellType.STRING);
-        cell.setCellValue("出生日期");
+        cell.setCellValue("学号");
         cell = row.createCell(4, CellType.STRING);
-        cell.setCellValue("专科学号");
+        cell.setCellValue("系别");
         cell = row.createCell(5, CellType.NUMERIC);
-        cell.setCellValue("专科班级");
+        cell.setCellValue("专业");
         cell = row.createCell(6, CellType.NUMERIC);
-        cell.setCellValue("专科年级");
-        cell = row.createCell(7, CellType.NUMERIC);
-        cell.setCellValue("主考院校");
-        cell = row.createCell(8, CellType.STRING);
-        cell.setCellValue("报考专业代号");
-        cell = row.createCell(9, CellType.STRING);
-        cell.setCellValue("报考专业名称");
-        cell = row.createCell(10, CellType.STRING);
-        cell.setCellValue("准考证号");
-        cell = row.createCell(11, CellType.STRING);
-        cell.setCellValue("所属学院");
-        cell = row.createCell(12, CellType.STRING);
-        cell.setCellValue("班级代码");
+        cell.setCellValue("班主任");
+        //遍历查找到的数据index遍历集合下标 k控制excel行下标
         for (int index = 0, k = 1; index < studentInfo.size(); index++, k++) {
+            //依次取出数据
             StudentInfo student = studentInfo.get(index);
+            //创建一行
             row = sheet.createRow(k);
+            //创建一列
             cell = row.createCell(0, CellType.STRING);
+            //设置值
             cell.setCellValue(student.getName());
+            cell = row.createCell(1, CellType.STRING);
+            cell.setCellValue(student.getSex());
+            cell = row.createCell(2, CellType.STRING);
+            cell.setCellValue(student.getGrade());
+            cell = row.createCell(3, CellType.STRING);
+            cell.setCellValue(student.getNumber());
+            cell = row.createCell(4, CellType.STRING);
+            cell.setCellValue(student.getDepartment());
+            cell = row.createCell(5, CellType.STRING);
+            cell.setCellValue(student.getMajor());
+            cell = row.createCell(6, CellType.STRING);
+            cell.setCellValue(student.getClassTeacher());
         }
         //将数据写出到输出流
         workbook.write(outputStream);

@@ -7,6 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -49,5 +50,10 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<User> queryUser() {
         return userMapper.queryUser();
+    }
+
+    @Override
+    public Integer addOne(User user) {
+        return userMapper.addOne(user);
     }
 }

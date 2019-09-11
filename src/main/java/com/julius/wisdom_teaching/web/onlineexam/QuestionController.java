@@ -20,14 +20,5 @@ public class QuestionController {
     @Autowired
     private QuestionCheckService questionCheckService;
 
-    /**
-     * 根据课程名称和时间返回文件的url地址
-     *
-     * @param id 文件地址id
-     * @return 文件的url地址
-     */
-    @GetMapping(GlobalUrlMapping.student_online_question_url)
-    public String fileUrl(Integer id) {
-        return questionCheckService.selectQuestionUrl(id);
-    }
+
 }

@@ -7,9 +7,27 @@
     <resultMap id="baseResult" type="User">
         <result property="createdDate" column="created_date"/>
     </resultMap>
+
+    <insert id="addOne" useGeneratedKeys="true" keyProperty="id">
+     INSERT INTO  user
+     (name,username,password,role,created_date)
+     VALUES
+     (#{name},#{username},#{password},#{role},now())
+    </insert>
+
     <update id="alterPassWord">
         UPDATE user_info SET password=#{newPassWord}
         WHERE  username=#{username} AND password=#{password}
+    </update>
+
+    <update id="updateStudent">
+        UPDATE user
+        <set>
+            <if test="name!=null">
+                name=#{name}
+            </if>
+        </set>
+        WHERE id=#{id}
     </update>
     <select id="findUserByUsername" resultType="User">
         SELECT name,username,password,role

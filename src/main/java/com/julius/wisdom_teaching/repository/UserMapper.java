@@ -1,5 +1,6 @@
 package com.julius.wisdom_teaching.repository;
 
+import com.julius.wisdom_teaching.domain.entity.StudentInfo;
 import com.julius.wisdom_teaching.domain.entity.User;
 
 import java.util.List;
@@ -38,7 +39,24 @@ public interface UserMapper {
 
     /**
      * 用户信息查询
+     *
      * @return
      */
     List<User> queryUser();
+
+    /**
+     * 添加一个用户,返回受影响的行数
+     *
+     * @param user 用户信息对象
+     * @return 受影响的行数
+     */
+    Integer addOne(User user);
+
+    /**
+     * 更新一条学生信息
+     *
+     * @param studentInfo 学生信息对象
+     * @return 受影响的行数
+     */
+    Integer updateStudent(StudentInfo studentInfo);
 }

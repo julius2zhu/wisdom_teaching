@@ -30,9 +30,11 @@ public class GlobalUrlMapping {
     public static final String student_upload_template = ROOT + "/upload_template";
     public static final String student_export = ROOT + "/student_export";
 
-    /* 学生在线考试*/
-    public static final String student_online_question_url = ROOT + "/online_question_url";
-
+    /* 课堂管理*/
+    //考勤信息提交
+    public static final String student_online_checkName = ROOT + "online_checkName";
+    //考勤信息查看
+    public static final String student_online_check = ROOT + "online_check";
     /*用户信息维护*/
     public static final String user_manage_query = ROOT + "/user_manage_query";
     /*公共数据查询,例如常见的下拉框中的数据*/

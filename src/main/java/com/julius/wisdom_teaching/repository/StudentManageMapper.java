@@ -15,13 +15,27 @@ import java.util.List;
 public interface StudentManageMapper {
     /**
      * 添加学生信息
+     *
      * @param studentInfo 学生信息实体对象
      * @return 受影响的行数
      */
     Integer add(StudentInfo studentInfo);
 
     /**
+     * 插入id到student_user表中
+     *
+     * @param studentId   student生成id
+     * @param userId      user生成的id
+     * @param teacherName 添加人姓名
+     * @return
+     */
+    Integer addStudentUser(@Param("studentId") Integer studentId,
+                           @Param("userId") Integer userId,
+                           @Param("teacherName") String teacherName);
+
+    /**
      * 更新学生信息
+     *
      * @param studentInfo 学生信息对象
      * @return 受影响的行数
      */
@@ -29,10 +43,12 @@ public interface StudentManageMapper {
 
     /**
      * 删除学生信息
+     *
      * @param id 学生主键id
      * @return 受影响的行数
      */
     Integer delete(Integer id);
+
     /**
      * 插入多个学生信息
      *

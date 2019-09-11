@@ -30,12 +30,15 @@
 
     <select id="selectStudentInfoByCondition" resultType="StudentInfo">
         SELECT
+        su.id,
+        su.student_id AS studentId,
         s.sex,
         s.grade,
         s.number,
         s.department,
         s.major,
-        u.name
+        u.name,
+        s.class_teacher AS classTeacher
         FROM
         student s
         LEFT JOIN student_user su ON su.student_id=s.id
@@ -54,6 +57,27 @@
                 s.major LIKE CONCAT('%',#{major},'%')
             </if>
             AND su.delete_flag='1'
+            AND su.teacher_name=#{teacherName}
         </where>
+    </select>
+    <select id="selectStudentById" resultType="StudentInfo">
+        SELECT
+        s.sex,
+        s.grade,
+        s.number,
+        s.department,
+        s.major,
+        u.name,
+        s.class_teacher AS classTeacher
+        FROM
+        student s
+        LEFT JOIN student_user su ON su.student_id=s.id
+        LEFT JOIN user u ON su.user_id=u.id
+        WHERE su.id IN
+        <foreach collection="ids" item="item" separator="," open="(" close=")"
+                 index="">
+            #{item}
+        </foreach>
+        AND  su.delete_flag='1'
     </select>
 </mapper>
