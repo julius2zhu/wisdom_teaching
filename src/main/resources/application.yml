@@ -1,0 +1,27 @@
+spring:
+  datasource:
+    username: root
+    password: root
+    url: jdbc:mysql://localhost:3306/wisdom_teaching
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    type: com.alibaba.druid.pool.DruidDataSource
+  servlet:
+    multipart:  #文件上传相关
+      enabled: true
+      max-file-size: 10MB
+mybatis:
+  config-location: classpath:mybatis/mybatis-config.xml
+  mapper-locations: classpath:mybatis/mapper/*.xml
+pagehelper:
+  helperDialect: mysql
+  reasonable: true
+  supportMethodsArguments: true
+  params: count=countSql
+server:
+  port: 80
+#logging:              #设置debug日志打印级别,生成环境开启info以上级别
+#  level: {com.julius.student_info_manage.service: info,
+#          com.julius.student_info_manage.web: info}
+
+
+

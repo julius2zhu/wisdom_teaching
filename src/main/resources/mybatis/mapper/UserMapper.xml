@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.julius.wisdom_teaching.repository.UserMapper">
+
+    <resultMap id="baseResult" type="User">
+        <result property="createdDate" column="created_date"/>
+    </resultMap>
+    <update id="alterPassWord">
+        UPDATE user_info SET password=#{newPassWord}
+        WHERE  username=#{username} AND password=#{password}
+    </update>
+    <select id="findUserByUsername" resultType="User">
+        SELECT name,username,password,role
+        FROM user
+        <where>
+            username=#{username}
+            AND delete_flag='1'
+        </where>
+    </select>
+
+    <select id="loginCheck" resultType="User">
+        SELECT name,username,password,role
+        FROM user_info
+        <where>
+            username=#{username}
+            AND password=#{password}
+            AND role=#{role}
+        </where>
+    </select>
+    <select id="queryUser" resultMap="baseResult">
+        SELECT  id,name,username,created_date,state
+        FROM    user
+        WHERE  delete_flag='1'
+    </select>
+</mapper>

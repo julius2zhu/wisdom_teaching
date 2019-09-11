@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.julius.wisdom_teaching.repository.StudentManageMapper">
+
+    <sql id="baseSQL">
+         name,id_number,sex,birth_date,junior_number,junior_class,
+        junior_grade,main_academy,major_number,major_name,
+        exam_registration_number,department,grade_number
+    </sql>
+    <insert id="add">
+        INSERT INTO
+        student_info_all
+        (
+        <include refid="baseSQL"/>
+        )
+        VALUES
+        (
+        #{name},#{idNumber},#{sex},#{birthDate},
+        #{juniorNumber},#{juniorClass},#{juniorGrade},#{mainAcademy},
+        #{majorNumber},#{majorName},#{examRegistrationNumber},#{department},
+        #{gradeNumber}
+        )
+    </insert>
+
+    <insert id="insertStudentInfo">
+        INSERT INTO
+        student_info_all
+        (
+        <include refid="baseSQL"/>
+        )
+        VALUES
+        <foreach collection="students" item="item" separator=",">
+            (
+            #{item.name},#{item.idNumber},#{item.sex},#{item.birthDate},
+            #{item.juniorNumber},#{item.juniorClass},#{item.juniorGrade},#{item.mainAcademy},
+            #{item.majorNumber},#{item.majorName},#{item.examRegistrationNumber},#{item.department},
+            #{item.gradeNumber}
+            )
+        </foreach>
+    </insert>
+
+    <update id="update">
+       UPDATE student_info_all
+       SET
+        name=#{name},id_number=#{idNumber},sex=#{sex},birth_date=#{birthDate},
+        junior_number=#{juniorNumber},junior_class=#{juniorClass},
+        junior_grade=#{juniorGrade},main_academy=#{mainAcademy},
+        major_number=#{majorNumber},major_name=#{majorName},
+        exam_registration_number=#{examRegistrationNumber},department=#{department},
+        grade_number=#{gradeNumber}
+        WHERE id=#{id}
+    </update>
+    <delete id="delete">
+        UPDATE      student_info_all
+        SET         delete_flag='0'
+        WHERE       id=#{id}
+    </delete>
+</mapper>

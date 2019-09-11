@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.julius.wisdom_teaching.repository.StudentInfoCheckMapper">
+    <!--通用查询SQL-->
+    <sql id="baseSelectSQL">
+        SELECT id,name,id_number,sex,birth_date,junior_number,junior_class,
+        junior_grade,main_academy,major_number,major_name,exam_registration_number,
+        department,grade_number
+        FROM  student_info_all
+    </sql>
+
+    <insert id="insertStudentInfo">
+        INSERT INTO
+        student_info_all
+        (
+        name,id_number,sex,birth_date,junior_number,junior_class,
+        junior_grade,main_academy,major_number,major_name,
+        exam_registration_number,department,grade_number
+        )
+        VALUES
+            (
+            #{name},#{idNumber},#{sex},#{birthDate},
+            #{juniorNumber},#{juniorClass},#{juniorGrade},#{mainAcademy},
+            #{majorNumber},#{majorName},#{examRegistrationNumber},#{department},
+            #{gradeNumber}
+            )
+    </insert>
+
+    <select id="selectStudentInfoByCondition" resultType="StudentInfo">
+        SELECT
+        s.sex,
+        s.grade,
+        s.number,
+        s.department,
+        s.major,
+        u.name
+        FROM
+        student s
+        LEFT JOIN student_user su ON su.student_id=s.id
+        LEFT JOIN user u ON su.user_id=u.id
+        <where>
+            <if test="name!=null">
+                u.name LIKE CONCAT('%',#{name},'%')
+            </if>
+            <if test="number!=null">
+                s.number=#{number}
+            </if>
+            <if test="department!=null">
+                s.department LIKE CONCAT('%',#{department},'%')
+            </if>
+            <if test="major!=null">
+                s.major LIKE CONCAT('%',#{major},'%')
+            </if>
+            AND su.delete_flag='1'
+        </where>
+    </select>
+</mapper>
