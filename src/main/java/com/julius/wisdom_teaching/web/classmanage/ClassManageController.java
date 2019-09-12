@@ -49,8 +49,9 @@ public class ClassManageController {
      */
     @GetMapping(GlobalUrlMapping.student_online_check)
     public List<OnlineCheckName> studentOnlineCheck(HttpServletRequest request) {
-        String name = request.getParameter("name");
+        //获取教师名称和学生id
+        String teacherName = request.getParameter("teacherName");
         String studentId = request.getParameter("studentId");
-        return this.classManageService.studentOnlineCheck(Integer.parseInt(studentId));
+        return this.classManageService.studentOnlineCheck(teacherName,Integer.parseInt(studentId));
     }
 }

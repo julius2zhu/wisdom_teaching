@@ -9,4 +9,9 @@
         FROM    student_user
         WHERE   id=#{id}
     </select>
+    <select id="selectStudentIdByTeacherName" resultType="integer">
+        SELECT  student_id FROM student_user
+        WHERE teacher_name=#{teacherName}
+    </select>
+
 </mapper>

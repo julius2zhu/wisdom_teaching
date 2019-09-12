@@ -26,6 +26,7 @@
      create_date AS  createDate
      FROM   online_check_name
      WHERE  student_id=#{studentId}
+     AND    teacher_name=#{teacherName}
      AND    online=1
     </select>
 </mapper>

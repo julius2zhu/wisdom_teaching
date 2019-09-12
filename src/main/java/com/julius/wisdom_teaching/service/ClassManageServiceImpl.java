@@ -42,7 +42,7 @@ public class ClassManageServiceImpl implements ClassManageService {
     }
 
     @Override
-    public List<OnlineCheckName> studentOnlineCheck(Integer studentId) {
-        return onlineCheckNameMapper.studentOnlineCheck(studentId);
+    public List<OnlineCheckName> studentOnlineCheck(String teacherName,Integer studentId) {
+        return onlineCheckNameMapper.studentOnlineCheck(teacherName,studentId);
     }
 }

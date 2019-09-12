@@ -37,8 +37,17 @@ public class GlobalUrlMapping {
     public static final String student_online_check = ROOT + "online_check";
     /*用户信息维护*/
     public static final String user_manage_query = ROOT + "/user_manage_query";
+
+    /*学生作业管理*/
+    //作业发布
+    public static final String student_issue_task = ROOT + "issue_task";
+    public static final String student_issue_task_check = ROOT + "issue_task_check";
     /*公共数据查询,例如常见的下拉框中的数据*/
     public static final String public_data_query_course = ROOT + "/query_course";
     public static final String public_data_query_question = ROOT + "/query_question";
     public static final String public_data_query_answer = ROOT + "/query_answer";
+
+    /*文件上传和下载地址控制*/
+    public static  final String    issue_task_path="D:/hometask//";
+
 }

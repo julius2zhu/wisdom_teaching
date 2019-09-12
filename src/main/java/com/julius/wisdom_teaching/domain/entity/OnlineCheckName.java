@@ -2,7 +2,6 @@ package com.julius.wisdom_teaching.domain.entity;
 
 import lombok.Getter;
 import lombok.Setter;
-import java.util.Date;
 
 /**
  * author julius.zhu
@@ -18,8 +17,6 @@ public class OnlineCheckName extends BaseDomain {
     private Integer studentId;
     //是否考勤1未考勤 0考勤
     private Integer online;
-    //创建日期
-    private Date createDate;
     //理由
     private String reason;
     //添加教师的名称

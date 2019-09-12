@@ -9,7 +9,6 @@ import com.julius.wisdom_teaching.repository.UserMapper;
 import org.apache.shiro.crypto.hash.Md5Hash;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 
 /**
@@ -31,6 +30,13 @@ public class StudentManageServiceImpl implements StudentManageService {
     @Override
     public Integer add(StudentInfo studentInfo) {
         //分步骤操作
+        //根据学生学号判断,该学生已经存在则直接插入student_user表,建立联系即可
+        StudentUser studentUser = studentManageMapper.selectStudentIdAndUserIdByNumber(studentInfo.getNumber());
+        //有该生信息,直接添加
+        if (studentUser != null) {
+            return studentManageMapper.addStudentUser(studentUser.getStudentId(),
+                    studentUser.getUserId(), studentInfo.getTeacherName());
+        }
         //1.首先插入student表
         studentManageMapper.add(studentInfo);
         //获取返回自增长的主键插入到student_user表中

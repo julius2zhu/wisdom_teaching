@@ -30,8 +30,10 @@ public interface OnlineCheckNameMapper {
     /**
      * 根据学生id查询学生考勤信息
      *
-     * @param studentId 学生id
+     * @param teacherName 教师名称
+     * @param studentId   学生id
      * @return
      */
-    List<OnlineCheckName> studentOnlineCheck(Integer studentId);
+    List<OnlineCheckName> studentOnlineCheck(@Param("teacherName") String teacherName,
+                                             @Param("studentId") Integer studentId);
 }

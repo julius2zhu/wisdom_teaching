@@ -1,6 +1,9 @@
 package com.julius.wisdom_teaching.repository;
 
 import com.julius.wisdom_teaching.domain.entity.StudentUser;
+import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 /**
  * author julius.zhu
@@ -17,4 +20,11 @@ public interface StudentUserMapper {
      * @return
      */
     StudentUser selectStudentUserInfo(Integer id);
+
+    /**
+     * 根据教师名称查询该教师下面所有学生id
+     * @param teacherName 教师名称
+     * @return
+     */
+    List<Integer>  selectStudentIdByTeacherName(@Param("teacherName") String teacherName);
 }

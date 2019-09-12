@@ -1,6 +1,7 @@
 package com.julius.wisdom_teaching.repository;
 
 import com.julius.wisdom_teaching.domain.entity.StudentInfo;
+import com.julius.wisdom_teaching.domain.entity.StudentUser;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -56,4 +57,12 @@ public interface StudentManageMapper {
      * @return 受影响的行数
      */
     Integer insertStudentInfo(@Param("students") List<StudentInfo> students);
+
+    /**
+     * 根据学生学号查询学生id和用户id
+     *
+     * @param number 学生学号
+     * @return
+     */
+    StudentUser selectStudentIdAndUserIdByNumber(String number);
 }

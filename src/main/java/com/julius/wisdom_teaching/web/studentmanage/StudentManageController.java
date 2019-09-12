@@ -23,6 +23,11 @@ public class StudentManageController {
     @Autowired
     private StudentManageService studentManageService;
 
+    /**
+     * 添加一条学生信息
+     * @param studentInfo 学生信息实体
+     * @return
+     */
     @PostMapping(GlobalUrlMapping.student_manage_add)
     public String add(@RequestBody StudentInfo studentInfo) {
         return studentManageService.add(studentInfo) > 0 ?

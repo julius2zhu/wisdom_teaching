@@ -49,32 +49,43 @@
     </insert>
 
     <update id="update">
-       UPDATE student
-       <set>
-           <if test="sex!=null">
-               sex=#{sex},
-           </if>
-           <if test="grade!=null">
-               grade=#{grade},
-           </if>
-           <if test="number!=null">
-               number=#{number},
-           </if>
-           <if test="department!=null">
-               department=#{department},
-           </if>
-           <if test="major!=null">
-               major=#{major},
-           </if>
-           <if test="classTeacher!=null">
-               class_teacher=#{classTeacher},
-           </if>
-       </set>
-       WHERE id=#{id}
+        UPDATE student
+        <set>
+            <if test="sex!=null">
+                sex=#{sex},
+            </if>
+            <if test="grade!=null">
+                grade=#{grade},
+            </if>
+            <if test="number!=null">
+                number=#{number},
+            </if>
+            <if test="department!=null">
+                department=#{department},
+            </if>
+            <if test="major!=null">
+                major=#{major},
+            </if>
+            <if test="classTeacher!=null">
+                class_teacher=#{classTeacher},
+            </if>
+        </set>
+        WHERE id=#{id}
     </update>
     <delete id="delete">
         UPDATE      student_user
         SET         delete_flag='0'
         WHERE       id=#{id}
     </delete>
+    <select id="selectStudentIdAndUserIdByNumber" resultType="StudentUser">
+      SELECT
+	  s.id AS studentId,
+	  u.id AS userId
+      FROM
+	  student s
+      LEFT JOIN user u ON s.number = u.username
+      WHERE
+	  u.username = #{number}
+    </select>
+
 </mapper>
