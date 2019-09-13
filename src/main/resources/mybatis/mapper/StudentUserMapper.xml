@@ -14,4 +14,10 @@
         WHERE teacher_name=#{teacherName}
     </select>
 
+    <select id="selectStudentUserInfoByUserId" resultType="java.lang.Integer">
+      SELECT  student_id AS studentId
+      FROM    student_user
+      WHERE   user_id=#{userId}
+    </select>
+
 </mapper>

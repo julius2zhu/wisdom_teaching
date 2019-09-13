@@ -27,4 +27,11 @@ public interface StudentUserMapper {
      * @return
      */
     List<Integer>  selectStudentIdByTeacherName(@Param("teacherName") String teacherName);
+
+    /**
+     * 根据用户id查询学生id信息
+     * @param userId
+     * @return
+     */
+    Integer selectStudentUserInfoByUserId(Integer userId);
 }
