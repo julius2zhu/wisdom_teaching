@@ -18,4 +18,19 @@ public interface HomeWorkStateMapper {
      * @param homeWorkStates
      */
     void pushTask(@Param("homeWorkStates") List<HomeWorkState> homeWorkStates);
+
+    /**
+     * 根据学生id查询学生的作业提交信息
+     *
+     * @param studentId 学生id
+     * @return
+     */
+    List<HomeWorkState> selectTaskSubmitState(Integer studentId);
+
+    /**
+     * 更新作业提交信息
+     *
+     * @param homeWorkState 作业提交信息对象
+     */
+    void updateTaskSubmitState(HomeWorkState homeWorkState);
 }

@@ -4,6 +4,15 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.julius.wisdom_teaching.repository.HomeWorkStateMapper">
 
+    <resultMap id="baseSelectMap" type="HomeWorkState">
+        <id property="id" column="id"/>
+        <result property="homeWork.name" column="name"/>
+        <result property="homeWork.path" column="path"/>
+        <result property="homeWork.describes" column="describes"/>
+        <result property="homeWork.teacherName" column="teacher_name"/>
+        <result property="submitState" column="submit_state"/>
+    </resultMap>
+
     <insert id="pushTask">
         INSERT INTO home_work_state
         (student_id,teacher_name,home_work_id,create_date)
@@ -17,4 +26,26 @@
             )
         </foreach>
     </insert>
+    <update id="updateTaskSubmitState">
+      UPDATE home_work_state
+      SET    submit_state='1',
+             submit_path=#{submitPath}
+      WHERE id=#{id}
+    </update>
+    <select id="selectTaskSubmitState" resultMap="baseSelectMap">
+    SELECT
+    hms.id,
+	hm.name,
+	hm.path,
+	hm.describes,
+    hm.teacher_name,
+    hms.submit_state
+    FROM
+	home_work AS hm
+    LEFT JOIN home_work_state AS hms ON hm.id = hms.home_work_id
+    WHERE
+	hms.student_id =#{studentId}
+    AND hm.delete_flag='1'
+    </select>
+
 </mapper>

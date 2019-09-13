@@ -3,8 +3,6 @@ package com.julius.wisdom_teaching.domain.entity;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.io.Serializable;
-
 /**
  * author julius.zhu
  * date   2019/5/29
@@ -14,8 +12,7 @@ import java.io.Serializable;
  */
 @Setter
 @Getter
-public class User implements Serializable {
-    private Integer id;
+public class User extends BaseDomain {
     //用户真实姓名
     private String name;
     //用户性别
@@ -26,8 +23,6 @@ public class User implements Serializable {
     private String password;
     //角色信息,学生0/教师1/管理员2
     private String role;
-    //注册时间
-    private String createdDate;
     //冻结状态,0,1
     private String state;
     //新密码
@@ -38,13 +33,11 @@ public class User implements Serializable {
     @Override
     public String toString() {
         return "User{" +
-                "id=" + id +
                 ", name='" + name + '\'' +
                 ", sex='" + sex + '\'' +
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
                 ", role='" + role + '\'' +
-                ", createdDate='" + createdDate + '\'' +
                 ", state='" + state + '\'' +
                 ", newPassWord='" + newPassWord + '\'' +
                 ", message='" + message + '\'' +

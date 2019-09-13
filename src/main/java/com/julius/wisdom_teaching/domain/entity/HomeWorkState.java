@@ -13,6 +13,8 @@ import lombok.Setter;
 @Setter
 @Getter
 public class HomeWorkState extends BaseDomain {
+    //作业信息对象
+    private HomeWork homeWork;
     //学生id
     private Integer studentId;
     //提交文件路径
@@ -26,4 +28,16 @@ public class HomeWorkState extends BaseDomain {
     //作业id
     private Integer homeWorkId;
 
+    @Override
+    public String toString() {
+        return "HomeWorkState{" +
+                "homeWork=" + homeWork +
+                ", studentId=" + studentId +
+                ", submitPath='" + submitPath + '\'' +
+                ", submitState='" + submitState + '\'' +
+                ", teacherName='" + teacherName + '\'' +
+                ", score=" + score +
+                ", homeWorkId=" + homeWorkId +
+                "} ";
+    }
 }

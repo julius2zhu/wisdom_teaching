@@ -3,8 +3,34 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.julius.wisdom_teaching.repository.HomeWorkMapper">
+
+    <update id="updateTask">
+        UPDATE home_work
+        <set>
+            <if test="name!=null">
+                name=#{name},
+            </if>
+            <if test="path!=null">
+                path=#{path},
+            </if>
+            <if test="describes!=null">
+                describes=#{describes},
+            </if>
+            <if test="teacherName!=null">
+                teacher_name=#{teacherName},
+            </if>
+            create_date=NOW()
+        </set>
+        WHERE id=#{id}
+    </update>
+    <delete id="delete">
+        UPDATE home_work
+        SET delete_flag='0'
+        WHERE  id=#{id}
+    </delete>
     <select id="selectHomeWorkByTeacherName" resultType="HomeWork">
-      SELECT   id,name,path,describes,create_date AS createDate
+      SELECT   id,name,path,describes,create_date AS createDate,
+                teacher_name AS teacherName
       FROM     home_work
       WHERE    teacher_name=#{teacherName}
                AND delete_flag='1'

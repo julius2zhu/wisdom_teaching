@@ -15,8 +15,24 @@ import java.util.List;
 public interface HomeWorkMapper {
     /**
      * 根据教师名称查询发布的作业
+     *
      * @param teacherName
      * @return
      */
     List<HomeWork> selectHomeWorkByTeacherName(@Param("teacherName") String teacherName);
+
+    /**
+     * 根据作业id删除作业
+     *
+     * @param id 作业id
+     * @return 受影响的行数
+     */
+    Integer delete(Integer id);
+
+    /**
+     * 跟新作业信息
+     *
+     * @param homeWork 作业信息对象
+     */
+    void updateTask(HomeWork homeWork);
 }
