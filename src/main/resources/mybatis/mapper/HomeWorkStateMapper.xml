@@ -13,6 +13,22 @@
         <result property="submitState" column="submit_state"/>
     </resultMap>
 
+    <resultMap id="baseSelectMap2" type="HomeWorkState">
+        <id property="id" column="id"/>
+        <result property="submitPath" column="submit_path"/>
+        <result property="submitState" column="submit_state"/>
+        <result property="score" column="score"/>
+        <result property="remark" column="remark"/>
+        <result property="homeWork.name" column="name"/>
+        <result property="user.name" column="u_name"/>
+    </resultMap>
+    <resultMap id="baseSelectMap3" type="HomeWorkState">
+        <result property="homeWork.name" column="name"/>
+        <result property="teacherName" column="teacher_name"/>
+        <result property="submitState" column="submit_state"/>
+        <result property="score" column="score"/>
+        <result property="remark" column="remark"/>
+    </resultMap>
     <insert id="pushTask">
         INSERT INTO home_work_state
         (student_id,teacher_name,home_work_id,create_date)
@@ -32,6 +48,14 @@
              submit_path=#{submitPath}
       WHERE id=#{id}
     </update>
+    <update id="studentSubmitTaskCorrect">
+        UPDATE home_work_state
+        <set>
+            score=#{score},
+            remark=#{remark}
+        </set>
+        WHERE id=#{id}
+    </update>
     <select id="selectTaskSubmitState" resultMap="baseSelectMap">
     SELECT
     hms.id,
@@ -46,6 +70,44 @@
     WHERE
 	hms.student_id =#{studentId}
     AND hm.delete_flag='1'
+    </select>
+    <select id="studentSubmitTaskRead" resultMap="baseSelectMap2">
+    SELECT
+	hms.id,
+	submit_path,
+	submit_state,
+	score,
+	remark,
+	hm.name,
+	u.name AS u_name
+    FROM
+	home_work_state AS hms
+    LEFT JOIN home_work AS hm ON hms.home_work_id = hm.id
+    LEFT JOIN student_user AS su ON hms.student_id = su.student_id
+    LEFT JOIN USER AS u ON su.user_id = u.id
+    WHERE
+	hms.teacher_name =#{teacherName}
+    </select>
+    <select id="studentCheckTaskScore" resultMap="baseSelectMap3">
+    SELECT
+	hm.NAME,
+	hms.teacher_name,
+	hms.submit_state,
+	hms.score,
+	hms.remark
+    FROM
+	home_work AS hm
+    LEFT JOIN home_work_state AS hms ON hm.id = hms.home_work_id
+    WHERE
+	hms.student_id = (
+		SELECT
+			su.student_id
+		FROM
+			USER u
+		LEFT JOIN student_user su ON u.id = su.user_id
+		WHERE
+			username =#{username}
+	)
     </select>
 
 </mapper>

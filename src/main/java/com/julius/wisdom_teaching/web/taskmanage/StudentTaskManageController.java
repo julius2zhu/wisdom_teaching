@@ -1,6 +1,7 @@
 package com.julius.wisdom_teaching.web.taskmanage;
 
 import com.julius.wisdom_teaching.domain.entity.HomeWork;
+import com.julius.wisdom_teaching.domain.entity.HomeWorkState;
 import com.julius.wisdom_teaching.domain.entity.User;
 import com.julius.wisdom_teaching.service.HomeWorkService;
 import com.julius.wisdom_teaching.service.StudentTaskManageService;
@@ -96,6 +97,28 @@ public class StudentTaskManageController {
     }
 
     /**
+     * 查看学生作业提交情况
+     *
+     * @param homeWorkState 包含条件信息
+     * @return
+     */
+    @PostMapping(GlobalUrlMapping.student_submit_task_read)
+    public Map<String, Object> studentSubmitTaskRead(@RequestBody HomeWorkState homeWorkState) {
+        return this.homeWorkService.studentSubmitTaskRead(homeWorkState);
+    }
+
+    /**
+     * 教师批改学生作业
+     *
+     * @param homeWorkState 学生作业提交状态对象
+     * @return 结果
+     */
+    @PostMapping(GlobalUrlMapping.student_submit_task_correct)
+    public String studentSubmitTaskCorrect(@RequestBody HomeWorkState homeWorkState) {
+        return this.homeWorkService.studentSubmitTaskCorrect(homeWorkState);
+    }
+
+    /**
      * 根据作业id删除作业信息
      *
      * @param id 作业id
@@ -131,5 +154,16 @@ public class StudentTaskManageController {
         String filename = file.getOriginalFilename();
         int id = Integer.parseInt(request.getParameter("id"));
         return studentTaskManageService.updateTaskSubmitState(inputStream, filename, id);
+    }
+
+    /**
+     * 学生查看作业分数和评语
+     *
+     * @param user 用户信息对象
+     * @return
+     */
+    @PostMapping(GlobalUrlMapping.student_task_submit_score)
+    public Map<String, Object> studentCheckTaskScore(@RequestBody  User user) {
+        return this.homeWorkService.studentCheckTaskScore(user);
     }
 }

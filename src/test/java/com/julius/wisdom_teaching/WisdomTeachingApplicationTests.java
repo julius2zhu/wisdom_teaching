@@ -6,17 +6,16 @@ import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import java.util.UUID;
+import java.io.IOException;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class WisdomTeachingApplicationTests {
 
     @Test
-    public void contextLoads() {
+    public void contextLoads() throws IOException {
         String password="luolala";
         Md5Hash md5Hash=new Md5Hash(password,password,3);
-        System.out.println("md5Hash = " + md5Hash);
-        System.out.println(UUID.randomUUID().toString().length());
+
     }
 }

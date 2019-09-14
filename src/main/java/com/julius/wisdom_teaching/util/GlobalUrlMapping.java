@@ -53,10 +53,17 @@ public class GlobalUrlMapping {
     public static final String student_issue_task_download = ROOT + "issue_task_download";
     //删除发布作业
     public static final String student_issue_task_delete = ROOT + "issue_task_delete";
+    //教师阅读作业提交情况
+    public static final String student_submit_task_read = ROOT + "student_submit_task_read";
+    //教师批改学生作业
+    public static final String student_submit_task_correct = ROOT + "student_submit_task_correct";
+
     //学生查看作业
     public static final String student_task_submit_check = ROOT + "student_task_submit_check";
     //学生上传作业
     public static final String student_task_submit_upload = ROOT + "student_task_submit_upload";
+    //学生查看成绩和评语
+    public static final String student_task_submit_score= ROOT + "student_task_submit_score";
 
 
     /*公共数据查询,例如常见的下拉框中的数据*/
@@ -65,15 +72,21 @@ public class GlobalUrlMapping {
     public static final String public_data_query_answer = ROOT + "/query_answer";
 
     /*文件上传和下载地址控制*/
-    public static final String issue_task_path = "D:/hometask/issue/";
-    public static final String submit_task_path = "D:/hometask/submit/";
+    public static String issue_task_path = "/hometask/issue/";
+    public static String submit_task_path = "/hometask/submit/";
 
     //初始化创建所有必须的文件夹
     static {
-        //用于创建文件夹
+        //获取当前项目所在的文件夹(Windows包含盘符,linux系统下面则要修改代码)
+        File f = new File("");
+        String absolutePath = f.getAbsolutePath();
+        //将所有的\替换成/
+        absolutePath = absolutePath.replace("\\", "/");
+        issue_task_path = absolutePath + issue_task_path;
         File f1 = new File(issue_task_path);
         if (!f1.exists())
             f1.mkdirs();
+        submit_task_path = absolutePath + submit_task_path;
         File f2 = new File(submit_task_path);
         if (!f2.exists())
             f2.mkdirs();

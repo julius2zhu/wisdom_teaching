@@ -33,4 +33,28 @@ public interface HomeWorkStateMapper {
      * @param homeWorkState 作业提交信息对象
      */
     void updateTaskSubmitState(HomeWorkState homeWorkState);
+
+    /**
+     * 根据教师姓名查询学生作业提交情况
+     *
+     * @param teacherName 教师姓名
+     * @return
+     */
+    List<HomeWorkState> studentSubmitTaskRead(String teacherName);
+
+    /**
+     * 教师批改学生作业
+     *
+     * @param homeWorkState 作业状态信息
+     * @return
+     */
+    Integer studentSubmitTaskCorrect(HomeWorkState homeWorkState);
+
+    /**
+     * 学生查询作业成绩和评语
+     *
+     * @param username 用户名
+     * @return
+     */
+    List<HomeWorkState> studentCheckTaskScore(String username);
 }
