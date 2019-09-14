@@ -59,4 +59,36 @@ public interface UserMapper {
      * @return 受影响的行数
      */
     Integer updateStudent(StudentInfo studentInfo);
+
+    /**
+     * 删除用户信息
+     *
+     * @param user 用户信息对象
+     * @return
+     */
+    int deleteUser(User user);
+
+    /**
+     * 冻结/解冻
+     *
+     * @param user 用户信息对象
+     * @return
+     */
+    int freeOrThaw(User user);
+
+    /**
+     * 根据用户名检查用户是否被冻结
+     *
+     * @param username 用户名
+     * @return 记录
+     */
+    int checkIsFreeze(String username);
+
+    /**
+     * 更新用户信息
+     *
+     * @param user 用户信息对象
+     * @return
+     */
+    int update(User user);
 }

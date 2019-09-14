@@ -42,5 +42,37 @@ public interface UserService {
      * @param user 用户信息对象
      * @return 受影响的行数
      */
-    Integer addOne(User user);
+    int addOne(User user);
+
+    /**
+     * 删除用户信息
+     *
+     * @param user 用户信息对象
+     * @return
+     */
+    String deleteUser(User user);
+
+    /**
+     * 冻结/解冻
+     *
+     * @param user 用户信息对象
+     * @return
+     */
+    String freeOrThaw(User user);
+
+    /**
+     * 检查通用户是否被冻结
+     *
+     * @param username 用户账号
+     * @return
+     */
+    int checkIsFreeze(String username);
+
+    /**
+     * 更新用户信息
+     *
+     * @param user 用户信息对象
+     * @return
+     */
+    int update(User user);
 }

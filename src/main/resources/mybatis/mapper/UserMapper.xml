@@ -6,7 +6,7 @@
 
     <insert id="addOne" useGeneratedKeys="true" keyProperty="id">
      INSERT INTO  user
-     (name,username,password,role,created_date)
+     (name,username,password,role,create_date)
      VALUES
      (#{name},#{username},#{password},#{role},now())
     </insert>
@@ -25,6 +25,28 @@
         </set>
         WHERE id=#{id}
     </update>
+    <update id="freeOrThaw">
+     UPDATE  user
+     SET     state=#{state}
+     WHERE   id=#{id}
+    </update>
+
+    <update id="update">
+        UPDATE user
+        <set>
+            name=#{name},
+            username=#{username},
+            role=#{role}
+        </set>
+        WHERE id=#{id}
+    </update>
+
+    <delete id="deleteUser">
+        UPDATE user
+        SET delete_flag='0'
+        WHERE id=#{id}
+    </delete>
+
     <select id="findUserByUsername" resultType="User">
         SELECT id,name,username,password,role
         FROM user
@@ -44,8 +66,14 @@
         </where>
     </select>
     <select id="queryUser" resultType="User">
-        SELECT  id,name,username,created_date,state
+        SELECT  id,name,username,role,create_date AS createDate,state
         FROM    user
-        WHERE  delete_flag='1'
+        WHERE   delete_flag='1'
+    </select>
+
+    <select id="checkIsFreeze" resultType="integer">
+        SELECT  COUNT(*) FROM user
+        WHERE   username=#{username}
+                 AND state='0'
     </select>
 </mapper>

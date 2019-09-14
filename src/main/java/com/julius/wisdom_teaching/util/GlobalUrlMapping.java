@@ -1,7 +1,6 @@
 package com.julius.wisdom_teaching.util;
 
 import org.springframework.stereotype.Component;
-
 import java.io.File;
 
 /**
@@ -17,13 +16,12 @@ public class GlobalUrlMapping {
     //根路径请求
     private static final String ROOT = "/wisdom_teaching/";
 
-    /**
-     * 登录登出修改密码模块
-     **/
+    /* 登录登出修改密码模块*/
     //登陆
     public static final String LOGIN = ROOT + "login";
-
+    //密码修改
     public static final String alter_password = ROOT + "alter_password";
+
     /*学生信息查看模块*/
     public static final String STUDENT_INFO_CHECK = ROOT + "student_check";
     /*学生信息维护*/
@@ -41,8 +39,16 @@ public class GlobalUrlMapping {
     public static final String student_online_checkName = ROOT + "online_checkName";
     //考勤信息查看
     public static final String student_online_check = ROOT + "online_check";
+
     /*用户信息维护*/
-    public static final String user_manage_query = ROOT + "/user_manage_query";
+    //查看用户信息
+    public static final String user_manage_query = ROOT + "user_manage_query";
+    //删除用户信息
+    public static final String user_manage_delete = ROOT + "user_manage_delete";
+    //冻结/解冻用户
+    public static final String user_manage_freezeOrThaw = ROOT + "user_manage_freezeOrThaw";
+    //添加或者修改用户信息
+    public static final String user_manage_addOrUpdate = ROOT + "user_manage_addOrUpdate";
 
     /*学生作业管理*/
     //作业发布/更新
@@ -63,13 +69,14 @@ public class GlobalUrlMapping {
     //学生上传作业
     public static final String student_task_submit_upload = ROOT + "student_task_submit_upload";
     //学生查看成绩和评语
-    public static final String student_task_submit_score= ROOT + "student_task_submit_score";
+    public static final String student_task_submit_score = ROOT + "student_task_submit_score";
 
 
     /*公共数据查询,例如常见的下拉框中的数据*/
     public static final String public_data_query_course = ROOT + "/query_course";
     public static final String public_data_query_question = ROOT + "/query_question";
     public static final String public_data_query_answer = ROOT + "/query_answer";
+    public static final String public_data_query_user= ROOT + "public_data_query_user";
 
     /*文件上传和下载地址控制*/
     public static String issue_task_path = "/hometask/issue/";

@@ -2,13 +2,15 @@ package com.julius.wisdom_teaching.web.datacontroller;
 
 import com.julius.wisdom_teaching.domain.entity.Answer;
 import com.julius.wisdom_teaching.domain.entity.SelectBase;
+import com.julius.wisdom_teaching.domain.entity.User;
 import com.julius.wisdom_teaching.repository.CourseMapper;
+import com.julius.wisdom_teaching.service.UserService;
+import com.julius.wisdom_teaching.util.CommonResult;
 import com.julius.wisdom_teaching.util.GlobalUrlMapping;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 
@@ -24,6 +26,12 @@ import java.util.List;
 public class PublicDataController {
     @Autowired
     private CourseMapper courseMapper;
+    private UserService userService;
+
+    @Autowired
+    public PublicDataController(UserService userService) {
+        this.userService = userService;
+    }
 
     /**
      * 查询课程信息
@@ -56,5 +64,17 @@ public class PublicDataController {
     @GetMapping(GlobalUrlMapping.public_data_query_answer)
     public List<Answer> queryAnswer(String courseId, Integer questionId) {
         return courseMapper.queryAnswer(courseId, questionId);
+    }
+
+    /**
+     * 根据用户名查询用户是否存在
+     *
+     * @param request 请求对象
+     * @return
+     */
+    @GetMapping(GlobalUrlMapping.public_data_query_user)
+    public String selectUserByUserName(HttpServletRequest request) {
+        return userService.findUserByUsername(request.getParameter("username"))
+                != null ? CommonResult.USERNAME_EXIST : null;
     }
 }

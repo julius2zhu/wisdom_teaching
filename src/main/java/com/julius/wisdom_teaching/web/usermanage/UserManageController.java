@@ -2,11 +2,11 @@ package com.julius.wisdom_teaching.web.usermanage;
 
 import com.julius.wisdom_teaching.domain.entity.User;
 import com.julius.wisdom_teaching.service.UserService;
+import com.julius.wisdom_teaching.util.CommonResult;
 import com.julius.wisdom_teaching.util.GlobalUrlMapping;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
 
 /**
@@ -27,9 +27,46 @@ public class UserManageController {
      *
      * @return 用户信息对象集合
      */
-
     @GetMapping(GlobalUrlMapping.user_manage_query)
     public List<User> queryUser() {
         return userService.queryUser();
     }
+
+    /**
+     * 删除用户信息
+     *
+     * @param user 用户信息对象
+     * @return
+     */
+    @PostMapping(GlobalUrlMapping.user_manage_delete)
+    public String deleteUser(@RequestBody User user) {
+        return userService.deleteUser(user);
+    }
+
+    /**
+     * 冻结或者解冻
+     *
+     * @param user 用户信息对象
+     * @return
+     */
+    @PostMapping(GlobalUrlMapping.user_manage_freezeOrThaw)
+    public String freeOrThaw(@RequestBody User user) {
+        return userService.freeOrThaw(user);
+    }
+
+    /**
+     * 添加/更新用户
+     *
+     * @param user 用户信息对象
+     * @return
+     */
+    @PostMapping(GlobalUrlMapping.user_manage_addOrUpdate)
+    public String userAddOrUpdate(@RequestBody User user) {
+        if (user.getId() > 0) {
+            //更新
+            return userService.update(user) > 0 ? CommonResult.SUCCESS : CommonResult.FAIL;
+        }
+        return userService.addOne(user) > 0 ? CommonResult.SUCCESS : CommonResult.FAIL;
+    }
 }
+

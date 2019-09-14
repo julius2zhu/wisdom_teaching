@@ -37,6 +37,12 @@ public class LoginController {
     @PostMapping(GlobalUrlMapping.LOGIN)
     //@RequestBody映射ajax请求中对象的数据
     public User login(@RequestBody User user) {
+        //检查是否被冻结
+        int record = userService.checkIsFreeze(user.getUsername());
+        if (record > 0) {
+            user.setMessage(CommonResult.FREEZE);
+            return user;
+        }
         //获取当前登陆的主体
         Subject subject = SecurityUtils.getSubject();
         //创建登陆账号和密码

@@ -55,7 +55,30 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Integer addOne(User user) {
+    public int addOne(User user) {
+        //取出用户传递的密码,设置该属性,加密器通过该属性进行加密
+        user.setNewPassWord(user.getUsername());
+        user.setPassword(EncryptUtil.encrypt(user));
         return userMapper.addOne(user);
+    }
+
+    @Override
+    public String deleteUser(User user) {
+        return userMapper.deleteUser(user) > 0 ? CommonResult.SUCCESS : CommonResult.FAIL;
+    }
+
+    @Override
+    public String freeOrThaw(User user) {
+        return userMapper.freeOrThaw(user) > 0 ? CommonResult.SUCCESS : CommonResult.FAIL;
+    }
+
+    @Override
+    public int checkIsFreeze(String username) {
+        return userMapper.checkIsFreeze(username);
+    }
+
+    @Override
+    public int update(User user) {
+        return userMapper.update(user);
     }
 }
