@@ -1,6 +1,7 @@
 package com.julius.wisdom_teaching.service;
 
-import com.julius.wisdom_teaching.domain.entity.StudentCheckInfoCondition;
+import com.julius.wisdom_teaching.domain.entity.StudentInfo;
+
 import java.io.OutputStream;
 import java.util.Map;
 
@@ -18,7 +19,7 @@ public interface StudentInfoCheckService {
      * @param condition 查询条件
      * @return 学生信息对象集合
      */
-    Map<String, Object> selectAllStudentInfo(StudentCheckInfoCondition condition);
+    Map<String, Object> selectAllStudentInfo(StudentInfo condition);
 
     /**
      * 查询符合条件的学生信息
@@ -26,7 +27,7 @@ public interface StudentInfoCheckService {
      * @param condition 条件
      * @return 学生信息对象集合
      */
-    Map<String, Object> selectStudentInfoByCondition(StudentCheckInfoCondition condition);
+    Map<String, Object> selectStudentInfoByCondition(StudentInfo condition);
 
     /**
      * 根据单个或者多个id查询学生信息

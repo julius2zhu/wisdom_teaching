@@ -17,7 +17,7 @@ import java.util.List;
  * describe:
  * 操作excel表格的工具类,包括读取excel表格数据以及导入数据
  */
-public class ExcelUtil {
+public interface ExcelUtil {
     /**
      * 读取excel表格中数据
      *
@@ -25,7 +25,7 @@ public class ExcelUtil {
      * @return 学生对象集合
      * @throws IOException 文件读取异常/文件被占用会抛出该异常
      */
-    public static List<StudentInfo> readExcel(InputStream inputStream) throws IOException {
+      static List<StudentInfo> readExcel(InputStream inputStream) throws IOException {
         List<StudentInfo> students = new ArrayList<>();
         //根据的excel文件创建一个WorkBook，用于读取其中的sheet中信息
         Workbook workbook = WorkbookFactory.create(inputStream);
@@ -62,7 +62,7 @@ public class ExcelUtil {
      * @return 是否成功
      * @throws IOException 输入输出异常
      */
-    public static Boolean exportExcel(OutputStream outputStream, List<StudentInfo> studentInfo) throws
+      static Boolean exportExcel(OutputStream outputStream, List<StudentInfo> studentInfo) throws
             IOException {
         //XSS用于操作xlsx格式文档读写
         XSSFWorkbook workbook = new XSSFWorkbook();

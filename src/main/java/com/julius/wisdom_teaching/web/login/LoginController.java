@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
  * date   2019/5/29
  * time   16:27
  * describe:
- * 登录登出控制
+ * 登录注册 修改密码等
  */
 @CrossOrigin(origins = "*")
 @RestController
@@ -63,6 +63,17 @@ public class LoginController {
             user.setMessage("密码错误,请检查输入信息!");
         }
         return user;
+    }
+
+    /**
+     * 处理用户注册
+     *
+     * @param user 用户信息对象
+     * @return
+     */
+    @PostMapping(GlobalUrlMapping.REGISTER)
+    public String register(@RequestBody User user) {
+        return userService.register(user);
     }
 
     /**

@@ -10,7 +10,8 @@ import org.apache.shiro.crypto.hash.Md5Hash;
  * describe:
  * 负责处理密码加密的工具类
  */
-public class EncryptUtil {
+public interface EncryptUtil {
+
     /**
      * 根据密码进行加密,默认加盐使用用户名进行加盐
      * 散列次数默认为3为了和验证时候一致
@@ -18,7 +19,7 @@ public class EncryptUtil {
      * @param user 用户信息对象
      * @return 加密后的密码
      */
-    public static String encrypt(User user) {
+    static String encrypt(User user) {
         return new Md5Hash(user.getNewPassWord(), user.getUsername(), 3).toString();
     }
 
@@ -30,7 +31,7 @@ public class EncryptUtil {
      * @param count    散列次数
      * @return 加密后的密码
      */
-    public static String encrypt(String password, String salt, int count) {
+    static String encrypt(String password, String salt, int count) {
         return new Md5Hash(password, salt, count).toString();
     }
 }

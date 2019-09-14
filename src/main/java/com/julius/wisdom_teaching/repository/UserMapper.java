@@ -91,4 +91,12 @@ public interface UserMapper {
      * @return
      */
     int update(User user);
+
+    /**
+     * 处理用户注册
+     *
+     * @param user 用户信息对象
+     * @return 受影响的行数
+     */
+    int register(User user);
 }

@@ -2,10 +2,10 @@ package com.julius.wisdom_teaching.service;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import com.julius.wisdom_teaching.domain.entity.StudentCheckInfoCondition;
 import com.julius.wisdom_teaching.domain.entity.StudentInfo;
 import com.julius.wisdom_teaching.repository.StudentInfoCheckMapper;
 import com.julius.wisdom_teaching.util.ExcelUtil;
+import com.julius.wisdom_teaching.util.SelectResultWrap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -30,39 +30,16 @@ public class StudentInfoCheckServiceImp implements StudentInfoCheckService {
     private StudentInfoCheckMapper studentInfoCheckMapper;
 
     @Override
-    public Map<String, Object> selectAllStudentInfo(StudentCheckInfoCondition condition) {
-        //获取下当前页和每页显示的条数
+    public Map<String, Object> selectAllStudentInfo(StudentInfo condition) {
         PageHelper.startPage(condition.getCurrentPage(), condition.getCount());
-        //必须紧跟查询条件
-        List<StudentInfo> studentInfo = studentInfoCheckMapper.selectAllStudentInfo();
-        //包装下
-        PageInfo<StudentInfo> pageInfo = new PageInfo<>(studentInfo);
-        Map<String, Object> map = new HashMap<>();
-        //存放相关的分页信息
-        condition.setTotalPage(pageInfo.getPages());
-        condition.setTotalCount((int) pageInfo.getTotal());
-        map.put("pageInfo", condition);
-        //存放数据
-        map.put("data", pageInfo.getList());
-        return map;
+        return SelectResultWrap.resultWrap(studentInfoCheckMapper.selectAllStudentInfo());
     }
 
     @Override
-    public Map<String, Object> selectStudentInfoByCondition(StudentCheckInfoCondition condition) {
+    public Map<String, Object> selectStudentInfoByCondition(StudentInfo condition) {
         //获取下当前页和每页显示的条数
         PageHelper.startPage(condition.getCurrentPage(), condition.getCount());
-        //必须紧跟查询条件
-        List<StudentInfo> studentInfo = studentInfoCheckMapper.selectStudentInfoByCondition(condition);
-        //包装下
-        PageInfo<StudentInfo> pageInfo = new PageInfo<>(studentInfo);
-        Map<String, Object> map = new HashMap<>();
-        //存放相关的分页信息
-        condition.setTotalPage(pageInfo.getPages());
-        condition.setTotalCount((int) pageInfo.getTotal());
-        map.put("pageInfo", condition);
-        //存放数据
-        map.put("data", pageInfo.getList());
-        return map;
+        return SelectResultWrap.resultWrap(studentInfoCheckMapper.selectStudentInfoByCondition(condition));
     }
 
     @Override

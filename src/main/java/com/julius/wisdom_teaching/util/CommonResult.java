@@ -8,6 +8,9 @@ package com.julius.wisdom_teaching.util;
  * 通用提示结果返回
  */
 public class CommonResult {
+    public CommonResult() {
+    }
+
     public static final String SUCCESS = "成功";
     public static final String FAIL = "失败";
     public static final String FREEZE = "该账号已经被冻结,请联系管理员!";

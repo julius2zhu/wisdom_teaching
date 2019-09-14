@@ -1,6 +1,7 @@
 package com.julius.wisdom_teaching.util;
 
 import org.springframework.stereotype.Component;
+
 import java.io.File;
 
 /**
@@ -13,12 +14,15 @@ import java.io.File;
  */
 @Component
 public class GlobalUrlMapping {
+    private GlobalUrlMapping(){}
     //根路径请求
     private static final String ROOT = "/wisdom_teaching/";
 
-    /* 登录登出修改密码模块*/
+    /* 登录,注册,修改密码模块*/
     //登陆
     public static final String LOGIN = ROOT + "login";
+    //注册
+    public static final String REGISTER = ROOT + "register";
     //密码修改
     public static final String alter_password = ROOT + "alter_password";
 
@@ -76,7 +80,7 @@ public class GlobalUrlMapping {
     public static final String public_data_query_course = ROOT + "/query_course";
     public static final String public_data_query_question = ROOT + "/query_question";
     public static final String public_data_query_answer = ROOT + "/query_answer";
-    public static final String public_data_query_user= ROOT + "public_data_query_user";
+    public static final String public_data_query_user = ROOT + "public_data_query_user";
 
     /*文件上传和下载地址控制*/
     public static String issue_task_path = "/hometask/issue/";

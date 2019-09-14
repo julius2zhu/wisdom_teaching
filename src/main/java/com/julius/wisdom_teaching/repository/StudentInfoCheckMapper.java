@@ -1,6 +1,4 @@
 package com.julius.wisdom_teaching.repository;
-
-import com.julius.wisdom_teaching.domain.entity.StudentCheckInfoCondition;
 import com.julius.wisdom_teaching.domain.entity.StudentInfo;
 import org.apache.ibatis.annotations.Param;
 import java.util.List;
@@ -34,7 +32,7 @@ public interface StudentInfoCheckMapper {
      * @param condition 条件
      * @return 学生信息对象集合
      */
-    List<StudentInfo> selectStudentInfoByCondition(StudentCheckInfoCondition condition);
+    List<StudentInfo> selectStudentInfoByCondition(StudentInfo condition);
 
     /**
      * 根据学生单个id或者多个id集合查询学生信息

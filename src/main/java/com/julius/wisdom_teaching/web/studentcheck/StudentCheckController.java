@@ -1,7 +1,5 @@
 package com.julius.wisdom_teaching.web.studentcheck;
-
-
-import com.julius.wisdom_teaching.domain.entity.StudentCheckInfoCondition;
+import com.julius.wisdom_teaching.domain.entity.StudentInfo;
 import com.julius.wisdom_teaching.service.StudentInfoCheckService;
 import com.julius.wisdom_teaching.util.GlobalUrlMapping;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,8 +31,7 @@ public class StudentCheckController {
      * @return 符合条件的学生信息对象集合
      */
     @PostMapping(GlobalUrlMapping.STUDENT_INFO_CHECK)
-    public Map<String, Object> select(@RequestBody StudentCheckInfoCondition condition) {
-        System.out.println(condition);
+    public Map<String, Object> select(@RequestBody StudentInfo condition) {
         return studentInfoCheckService.selectStudentInfoByCondition(condition);
     }
 }

@@ -3,8 +3,6 @@ package com.julius.wisdom_teaching.domain.entity;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.io.Serializable;
-
 /**
  * author julius.zhu
  * date   2019/5/29
@@ -14,7 +12,7 @@ import java.io.Serializable;
  */
 @Setter
 @Getter
-public class StudentInfo extends StudentBase implements Serializable {
+public class StudentInfo extends BaseDomain  {
     //学生id
     private Integer studentId;
     //学生姓名

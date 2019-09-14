@@ -81,4 +81,10 @@ public class UserServiceImpl implements UserService {
     public int update(User user) {
         return userMapper.update(user);
     }
+
+    @Override
+    public String register(User user) {
+        user.setPassword(EncryptUtil.encrypt(user.getPassword(), user.getUsername(), 3));
+        return userMapper.register(user) > 0 ? CommonResult.SUCCESS : CommonResult.FAIL;
+    }
 }

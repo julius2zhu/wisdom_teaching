@@ -12,14 +12,12 @@ import lombok.Setter;
  */
 @Setter
 @Getter
-public class StudentUser {
-    private Integer id;
+public class StudentUser extends BaseDomain {
     private Integer studentId;
     private Integer userId;
     @Override
     public String toString() {
         return "StudentUser{" +
-                "id=" + id +
                 ", studentId=" + studentId +
                 ", userId=" + userId +
                 '}';

@@ -11,6 +11,11 @@
      (#{name},#{username},#{password},#{role},now())
     </insert>
 
+    <insert id="register">
+        INSERT  INTO user(name,username,password,create_date)
+        VALUES (#{name},#{username},#{password},NOW())
+    </insert>
+
     <update id="alterPassWord">
         UPDATE user SET password=#{newPassWord}
         WHERE  username=#{username}

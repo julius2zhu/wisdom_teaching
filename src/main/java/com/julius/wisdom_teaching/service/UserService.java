@@ -75,4 +75,12 @@ public interface UserService {
      * @return
      */
     int update(User user);
+
+    /**
+     * 处理用户注册
+     *
+     * @param user 用户信息对象
+     * @return 注册结果
+     */
+    String register(User user);
 }
