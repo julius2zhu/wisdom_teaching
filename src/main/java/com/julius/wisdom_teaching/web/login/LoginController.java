@@ -2,20 +2,18 @@ package com.julius.wisdom_teaching.web.login;
 
 import com.julius.wisdom_teaching.domain.entity.User;
 import com.julius.wisdom_teaching.service.UserService;
+import com.julius.wisdom_teaching.util.CommonResult;
 import com.julius.wisdom_teaching.util.GlobalUrlMapping;
 import org.apache.shiro.SecurityUtils;
-import org.apache.shiro.authc.IncorrectCredentialsException;
+import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.UnknownAccountException;
 import org.apache.shiro.authc.UsernamePasswordToken;
-import org.apache.shiro.authz.AuthorizationException;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-
-import javax.servlet.http.HttpServletRequest;
 
 /**
  * author julius.zhu
@@ -33,13 +31,12 @@ public class LoginController {
     /**
      * 处理用户登录
      *
-     * @param user    用户信息对象实体
-     * @param request 请求对象
+     * @param user 用户信息对象实体
      * @return 返回用户角色信息
      */
     @PostMapping(GlobalUrlMapping.LOGIN)
     //@RequestBody映射ajax请求中对象的数据
-    public User login(@RequestBody User user, HttpServletRequest request) {
+    public User login(@RequestBody User user) {
         //获取当前登陆的主体
         Subject subject = SecurityUtils.getSubject();
         //创建登陆账号和密码
@@ -56,10 +53,8 @@ public class LoginController {
             user.setRole(u.getRole());
         } catch (UnknownAccountException e1) {
             user.setMessage("账号不存在,请检查输入信息!");
-        } catch (IncorrectCredentialsException e2) {
+        } catch (AuthenticationException e2) {
             user.setMessage("密码错误,请检查输入信息!");
-        } catch (AuthorizationException e3) {
-            user.setMessage("系统出错,请稍后再试!");
         }
         return user;
     }
@@ -67,15 +62,16 @@ public class LoginController {
     /**
      * 用户修改密码
      *
-     * @param user    用户信息对象
-     * @param request 请求对象
+     * @param user 用户信息对象
      * @return 结果
      */
     @PostMapping(GlobalUrlMapping.alter_password)
-    public String alterPassWord(@RequestBody User user, HttpServletRequest request) {
-        //获取当前登录用户信息
-//        User currentUser = UserContext.getCurrentUser(request.getSession());
-//        user.setUsername(currentUser.getUsername());
-        return userService.alterPassWord(user);
+    public String alterPassWord(@RequestBody User user) {
+        try {
+            userService.alterPassWord(user);
+        } catch (AuthenticationException e) {
+            return CommonResult.FAIL;
+        }
+        return CommonResult.SUCCESS;
     }
 }

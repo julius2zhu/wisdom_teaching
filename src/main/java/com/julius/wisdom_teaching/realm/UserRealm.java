@@ -29,8 +29,6 @@ public class UserRealm extends AuthorizingRealm {
 
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
-
-        System.out.println("授权");
         return null;
     }
 

@@ -12,8 +12,8 @@
     </insert>
 
     <update id="alterPassWord">
-        UPDATE user_info SET password=#{newPassWord}
-        WHERE  username=#{username} AND password=#{password}
+        UPDATE user SET password=#{newPassWord}
+        WHERE  username=#{username}
     </update>
 
     <update id="updateStudent">

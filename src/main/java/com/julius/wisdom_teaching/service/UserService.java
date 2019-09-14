@@ -1,8 +1,8 @@
 package com.julius.wisdom_teaching.service;
 
 import com.julius.wisdom_teaching.domain.entity.User;
+import org.apache.shiro.authc.AuthenticationException;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 /**
@@ -21,21 +21,13 @@ public interface UserService {
      */
     User findUserByUsername(String username);
 
-    /**
-     * 保存用户信息和登陆日志信息
-     *
-     * @param user    用户信息对象实体
-     * @param request 请求对象
-     */
-    void saveUserInfoAndLog(User user, HttpServletRequest request);
 
     /**
      * 用户修改密码
      *
      * @param user 用户信息对象
-     * @return 结果
      */
-    String alterPassWord(User user);
+    void alterPassWord(User user) throws AuthenticationException;
 
     /**
      * 用户信息查询
