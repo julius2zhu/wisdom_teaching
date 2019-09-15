@@ -49,4 +49,8 @@
             AND delete_flag='1'
         </where>
     </select>
+    <select id="queryResoucesById" resultType="string">
+        SELECT  path FROM public_resources
+        WHERE   id=#{id}
+    </select>
 </mapper>

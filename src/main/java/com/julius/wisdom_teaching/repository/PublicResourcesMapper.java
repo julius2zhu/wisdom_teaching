@@ -50,4 +50,12 @@ public interface PublicResourcesMapper {
      * @return
      */
     List<PublicResources> queryPublicResources(PublicResources condition);
+
+    /**
+     * 根据资源id查询资源路径
+     *
+     * @param id 资源id
+     * @return
+     */
+    String queryResoucesById(Integer id);
 }

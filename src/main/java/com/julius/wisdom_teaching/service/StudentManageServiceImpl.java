@@ -6,9 +6,11 @@ import com.julius.wisdom_teaching.domain.entity.User;
 import com.julius.wisdom_teaching.repository.StudentManageMapper;
 import com.julius.wisdom_teaching.repository.StudentUserMapper;
 import com.julius.wisdom_teaching.repository.UserMapper;
+import com.julius.wisdom_teaching.util.EncryptUtil;
 import org.apache.shiro.crypto.hash.Md5Hash;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import java.util.List;
 
 /**
@@ -45,8 +47,7 @@ public class StudentManageServiceImpl implements StudentManageService {
         User user = new User();
         user.setName(studentInfo.getName());
         user.setUsername(studentInfo.getNumber());
-        Md5Hash md5Hash = new Md5Hash(studentInfo.getNumber(), studentInfo.getNumber(), 3);
-        user.setPassword(md5Hash.toString());
+        user.setPassword(EncryptUtil.encrypt(studentInfo.getNumber(), studentInfo.getNumber(), 3));
         user.setRole("0");
         userMapper.addOne(user);
         Integer userId = user.getId();

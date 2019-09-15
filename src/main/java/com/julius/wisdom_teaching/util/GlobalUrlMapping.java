@@ -40,7 +40,6 @@ public class GlobalUrlMapping {
     public static final String student_manage_delete = ROOT + "student_manage/delete";
 
     /*学生信息导入和导出*/
-    public static final String student_download_template = ROOT + "/download_template";
     public static final String student_upload_template = ROOT + "/upload_template";
     public static final String student_export = ROOT + "/student_export";
 
@@ -87,15 +86,14 @@ public class GlobalUrlMapping {
     public static final String public_data_query_user = ROOT + "public_data_query_user";
     //查询公共资源
     public static final String public_data_query_resources = ROOT + "public_data_query_resources";
-
+    //根据资源id去数据库中查找路径进行下载
+    public static final String public_data_resources_download = ROOT + "public_data_resources_download";
 
     /*资源库管理*/
     //资源添加
     public static final String resources_add = ROOT + "resources_add";
     //资源删除
     public static final String resources_delete = ROOT + "resources_delete";
-    //资源修改
-    public static final String resources_update = ROOT + "resources_update";
 
     /*文件上传和下载地址控制*/
     public static String issue_task_path = "/hometask/issue/";

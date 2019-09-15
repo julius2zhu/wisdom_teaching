@@ -22,10 +22,11 @@ public interface ExcelUtil {
      * 读取excel表格中数据
      *
      * @param inputStream 读取文件的输入流
+     * @param teacherName 导入教师名称
      * @return 学生对象集合
      * @throws IOException 文件读取异常/文件被占用会抛出该异常
      */
-      static List<StudentInfo> readExcel(InputStream inputStream) throws IOException {
+    static List<StudentInfo> readExcel(InputStream inputStream, String teacherName) throws IOException {
         List<StudentInfo> students = new ArrayList<>();
         //根据的excel文件创建一个WorkBook，用于读取其中的sheet中信息
         Workbook workbook = WorkbookFactory.create(inputStream);
@@ -39,17 +40,47 @@ public interface ExcelUtil {
             //循环遍历列
             int cellIndex = 0;
             Cell cell = row.getCell(cellIndex);
-            StudentInfo student = new StudentInfo();
+            StudentInfo studentInfo = new StudentInfo();
+            studentInfo.setTeacherName(teacherName);
             while (cell != null) {
-                //统一设置,不然会出现非法状态异常
-                //该方法官方提示将会在5.0版本中移除
                 cell.setCellType(CellType.STRING);
-                String value = cell.getStringCellValue();
-                //针对部分类型进行特殊处理
-                students.add(student);
-                rowIndex++;
-                row = sheet.getRow(rowIndex);
+                String string = null;
+                switch (cellIndex) {
+                    case 0:
+                        string = cell.getRichStringCellValue().getString();
+                        studentInfo.setName(string);
+                        break;
+                    case 1:
+                        string = cell.getRichStringCellValue().getString();
+                        studentInfo.setSex(string);
+                        break;
+                    case 2:
+                        string = cell.getRichStringCellValue().getString();
+                        studentInfo.setNumber(string);
+                        break;
+                    case 3:
+                        string = cell.getRichStringCellValue().getString();
+                        studentInfo.setGrade(string);
+                        break;
+                    case 4:
+                        string = cell.getRichStringCellValue().getString();
+                        studentInfo.setDepartment(string);
+                        break;
+                    case 5:
+                        string = cell.getRichStringCellValue().getString();
+                        studentInfo.setMajor(string);
+                        break;
+                    case 6:
+                        string = cell.getRichStringCellValue().getString();
+                        studentInfo.setClassTeacher(string);
+                        break;
+                }
+                cellIndex++;
+                cell = row.getCell(cellIndex);
             }
+            rowIndex++;
+            row = sheet.getRow(rowIndex);
+            students.add(studentInfo);
         }
         return students;
     }
@@ -62,7 +93,7 @@ public interface ExcelUtil {
      * @return 是否成功
      * @throws IOException 输入输出异常
      */
-      static Boolean exportExcel(OutputStream outputStream, List<StudentInfo> studentInfo) throws
+    static Boolean exportExcel(OutputStream outputStream, List<StudentInfo> studentInfo) throws
             IOException {
         //XSS用于操作xlsx格式文档读写
         XSSFWorkbook workbook = new XSSFWorkbook();
@@ -81,9 +112,9 @@ public interface ExcelUtil {
         cell.setCellValue("学号");
         cell = row.createCell(4, CellType.STRING);
         cell.setCellValue("系别");
-        cell = row.createCell(5, CellType.NUMERIC);
+        cell = row.createCell(5, CellType.STRING);
         cell.setCellValue("专业");
-        cell = row.createCell(6, CellType.NUMERIC);
+        cell = row.createCell(6, CellType.STRING);
         cell.setCellValue("班主任");
         //遍历查找到的数据index遍历集合下标 k控制excel行下标
         for (int index = 0, k = 1; index < studentInfo.size(); index++, k++) {
@@ -112,4 +143,12 @@ public interface ExcelUtil {
         workbook.write(outputStream);
         return true;
     }
+
+//    static Integer getNumber() {
+//
+//    }
+//
+//    static Integer getString() {
+//
+//    }
 }

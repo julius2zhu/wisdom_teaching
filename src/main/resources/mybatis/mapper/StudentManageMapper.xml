@@ -85,7 +85,7 @@
 	  student s
       LEFT JOIN user u ON s.number = u.username
       WHERE
-	  u.username = #{number}
+	  s.number = #{number}
     </select>
 
 </mapper>
