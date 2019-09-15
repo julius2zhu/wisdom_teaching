@@ -5,9 +5,12 @@ import com.julius.wisdom_teaching.service.UserService;
 import com.julius.wisdom_teaching.util.CommonResult;
 import com.julius.wisdom_teaching.util.GlobalUrlMapping;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
+import java.util.Map;
 
 /**
  * author julius.zhu
@@ -25,11 +28,12 @@ public class UserManageController {
     /**
      * 用户信息查询
      *
-     * @return 用户信息对象集合
+     * @param condition 查询条件对象
+     * @return
      */
-    @GetMapping(GlobalUrlMapping.user_manage_query)
-    public List<User> queryUser() {
-        return userService.queryUser();
+    @PostMapping(GlobalUrlMapping.user_manage_query)
+    public Map<String, Object> queryUser(@RequestBody User condition) {
+        return userService.queryUser(condition);
     }
 
     /**

@@ -1,9 +1,11 @@
 package com.julius.wisdom_teaching.service;
 
+import com.github.pagehelper.PageHelper;
 import com.julius.wisdom_teaching.domain.entity.User;
 import com.julius.wisdom_teaching.repository.UserMapper;
 import com.julius.wisdom_teaching.util.CommonResult;
 import com.julius.wisdom_teaching.util.EncryptUtil;
+import com.julius.wisdom_teaching.util.SelectResultWrap;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.UsernamePasswordToken;
@@ -17,6 +19,7 @@ import org.springframework.stereotype.Service;
 import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Map;
 
 /**
  * author julius.zhu
@@ -50,8 +53,10 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<User> queryUser() {
-        return userMapper.queryUser();
+    public Map<String,Object> queryUser(User condition) {
+        PageHelper.startPage(condition.getCurrentPage(), condition.getCount());
+        return SelectResultWrap.resultWrap(userMapper.queryUser(condition));
+
     }
 
     @Override

@@ -16,6 +16,14 @@
         VALUES (#{name},#{username},#{password},NOW())
     </insert>
 
+    <insert id="addUsersUseTest">
+        INSERT INTO user(name,username,role,create_date)
+        VALUES
+        <foreach collection="users" item="item" separator=",">
+            (#{item.name},#{item.username},#{role},NOW())
+        </foreach>
+    </insert>
+
     <update id="alterPassWord">
         UPDATE user SET password=#{newPassWord}
         WHERE  username=#{username}
@@ -71,9 +79,21 @@
         </where>
     </select>
     <select id="queryUser" resultType="User">
-        SELECT  id,name,username,role,create_date AS createDate,state
-        FROM    user
-        WHERE   delete_flag='1'
+        SELECT id,name,username,role,
+        create_date AS createDate,state
+        FROM user
+        <where>
+            <if test="name!=null">
+                AND name LIKE CONCAT('%',#{name},'%')
+            </if>
+            <if test="username!=null">
+                AND username LIKE CONCAT('%',#{username},'%')
+            </if>
+            <if test="state!=null">
+                AND state=#{state}
+            </if>
+            AND delete_flag='1'
+        </where>
     </select>
 
     <select id="checkIsFreeze" resultType="integer">

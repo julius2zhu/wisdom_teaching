@@ -1,6 +1,7 @@
 package com.julius.wisdom_teaching.web.studentmanage;
 
 import com.julius.wisdom_teaching.domain.entity.StudentInfo;
+import com.julius.wisdom_teaching.service.StudentInfoCheckService;
 import com.julius.wisdom_teaching.service.StudentManageService;
 import com.julius.wisdom_teaching.util.CommonResult;
 import com.julius.wisdom_teaching.util.GlobalUrlMapping;
@@ -9,6 +10,8 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.Map;
 
 /**
  * author julius.zhu
@@ -20,9 +23,24 @@ import org.springframework.web.bind.annotation.RestController;
 @CrossOrigin(origins = "*")
 @RestController
 public class StudentManageController {
+    private final StudentManageService studentManageService;
+    private final StudentInfoCheckService studentInfoCheckService;
     @Autowired
-    private StudentManageService studentManageService;
+    public StudentManageController(StudentManageService studentManageService, StudentInfoCheckService studentInfoCheckService) {
+        this.studentManageService = studentManageService;
+        this.studentInfoCheckService = studentInfoCheckService;
+    }
 
+    /**
+     * 根据条件查询学生信息
+     *
+     * @param condition 条件对象
+     * @return 符合条件的学生信息对象集合
+     */
+    @PostMapping(GlobalUrlMapping.STUDENT_INFO_CHECK)
+    public Map<String, Object> select(@RequestBody StudentInfo condition) {
+        return studentInfoCheckService.selectStudentInfoByCondition(condition);
+    }
     /**
      * 添加一条学生信息
      * @param studentInfo 学生信息实体

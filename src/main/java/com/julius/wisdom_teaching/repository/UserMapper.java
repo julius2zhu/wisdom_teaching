@@ -2,6 +2,7 @@ package com.julius.wisdom_teaching.repository;
 
 import com.julius.wisdom_teaching.domain.entity.StudentInfo;
 import com.julius.wisdom_teaching.domain.entity.User;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -40,9 +41,10 @@ public interface UserMapper {
     /**
      * 用户信息查询
      *
+     * @param condition 条件信息
      * @return
      */
-    List<User> queryUser();
+    List<User> queryUser(User condition);
 
     /**
      * 添加一个用户,返回受影响的行数
@@ -99,4 +101,11 @@ public interface UserMapper {
      * @return 受影响的行数
      */
     int register(User user);
+
+    /**
+     * 添加多个用户,仅仅用作测试使用
+     *
+     * @param users 用户信息对象集合
+     */
+    void addUsersUseTest(@Param("users") List<User> users);
 }

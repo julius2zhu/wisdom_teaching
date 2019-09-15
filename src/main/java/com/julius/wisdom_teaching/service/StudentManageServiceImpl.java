@@ -50,6 +50,7 @@ public class StudentManageServiceImpl implements StudentManageService {
         user.setRole("0");
         userMapper.addOne(user);
         Integer userId = user.getId();
+        //建立联系
         return studentManageMapper.addStudentUser(studentId, userId, studentInfo.getTeacherName());
     }
 

@@ -17,7 +17,7 @@ public interface HomeWorkService {
     /**
      * 根据教师名称查询
      *
-     * @param homeWork
+     * @param homeWork 作业信息对象
      * @return
      */
     Map<String, Object> selectHomeWorkByTeacherName(HomeWork homeWork);

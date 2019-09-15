@@ -72,7 +72,7 @@ public class StudentTaskManageController {
     /**
      * 发布作业信息查看
      *
-     * @param homeWork
+     * @param homeWork 作业信息对象
      * @return
      */
     @PostMapping(GlobalUrlMapping.student_issue_task_check)
@@ -163,7 +163,7 @@ public class StudentTaskManageController {
      * @return
      */
     @PostMapping(GlobalUrlMapping.student_task_submit_score)
-    public Map<String, Object> studentCheckTaskScore(@RequestBody  User user) {
+    public Map<String, Object> studentCheckTaskScore(@RequestBody User user) {
         return this.homeWorkService.studentCheckTaskScore(user);
     }
 }

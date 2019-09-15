@@ -3,7 +3,7 @@ package com.julius.wisdom_teaching.service;
 import com.julius.wisdom_teaching.domain.entity.User;
 import org.apache.shiro.authc.AuthenticationException;
 
-import java.util.List;
+import java.util.Map;
 
 /**
  * author julius.zhu
@@ -32,9 +32,10 @@ public interface UserService {
     /**
      * 用户信息查询
      *
+     * @param condition 条件对象
      * @return 用户信息对象集合
      */
-    List<User> queryUser();
+    Map<String, Object> queryUser(User condition);
 
     /**
      * 添加一个用户

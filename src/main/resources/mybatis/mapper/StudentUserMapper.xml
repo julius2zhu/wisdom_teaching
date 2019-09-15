@@ -4,6 +4,16 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.julius.wisdom_teaching.repository.StudentUserMapper">
 
+    <insert id="addStudentUseTest">
+        INSERT INTO student(sex,grade,number,department,major,class_teacher)
+        VALUES
+        <foreach collection="studentInfos" item="item" separator=",">
+            (#{item.sex},#{item.grade},
+            #{item.number},#{item.department},
+            #{item.major},#{item.classTeacher})
+        </foreach>
+    </insert>
+
     <select id="selectStudentUserInfo" resultType="StudentUser">
         SELECT  student_id AS studentId,user_id AS userId
         FROM    student_user
