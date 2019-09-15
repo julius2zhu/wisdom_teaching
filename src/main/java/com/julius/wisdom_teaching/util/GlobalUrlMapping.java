@@ -1,5 +1,7 @@
 package com.julius.wisdom_teaching.util;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 import java.io.File;
@@ -14,7 +16,11 @@ import java.io.File;
  */
 @Component
 public class GlobalUrlMapping {
-    private GlobalUrlMapping(){}
+    private static final Logger logger = LoggerFactory.getLogger("GlobalUrlMapping");
+
+    private GlobalUrlMapping() {
+    }
+
     //根路径请求
     private static final String ROOT = "/wisdom_teaching/";
 
@@ -77,14 +83,25 @@ public class GlobalUrlMapping {
 
 
     /*公共数据查询,例如常见的下拉框中的数据*/
-    public static final String public_data_query_course = ROOT + "/query_course";
-    public static final String public_data_query_question = ROOT + "/query_question";
-    public static final String public_data_query_answer = ROOT + "/query_answer";
+    //根据用户名查询用户是否存在
     public static final String public_data_query_user = ROOT + "public_data_query_user";
+    //查询公共资源
+    public static final String public_data_query_resources = ROOT + "public_data_query_resources";
+
+
+    /*资源库管理*/
+    //资源添加
+    public static final String resources_add = ROOT + "resources_add";
+    //资源删除
+    public static final String resources_delete = ROOT + "resources_delete";
+    //资源修改
+    public static final String resources_update = ROOT + "resources_update";
 
     /*文件上传和下载地址控制*/
     public static String issue_task_path = "/hometask/issue/";
     public static String submit_task_path = "/hometask/submit/";
+    //公共资源上传存放的路径
+    public static String resources_upload = "/public/resources/";
 
     //初始化创建所有必须的文件夹
     static {
@@ -101,5 +118,9 @@ public class GlobalUrlMapping {
         File f2 = new File(submit_task_path);
         if (!f2.exists())
             f2.mkdirs();
+        resources_upload = absolutePath + resources_upload;
+        File f3 = new File(resources_upload);
+        if (!f3.exists())
+            f3.mkdirs();
     }
 }

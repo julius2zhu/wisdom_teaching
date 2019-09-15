@@ -12,6 +12,8 @@ public class BaseDomain {
     private Integer id;
     //创建日期
     private String createDate;
+    //更新日期
+    private String updateDate;
     //当前页
     private Integer currentPage;
     //总页数
@@ -20,6 +22,14 @@ public class BaseDomain {
     private Integer count;
     //总条数
     private Integer totalCount;
+
+    public final String getUpdateDate() {
+        return updateDate;
+    }
+
+    public final void setUpdateDate(String updateDate) {
+        this.updateDate = updateDate;
+    }
 
     public final Integer getCurrentPage() {
         return currentPage;
@@ -68,6 +78,4 @@ public class BaseDomain {
     public final void setId(Integer id) {
         this.id = id;
     }
-
-
 }
