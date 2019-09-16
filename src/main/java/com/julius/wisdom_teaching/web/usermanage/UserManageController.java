@@ -4,6 +4,7 @@ import com.julius.wisdom_teaching.domain.entity.User;
 import com.julius.wisdom_teaching.service.UserService;
 import com.julius.wisdom_teaching.util.CommonResult;
 import com.julius.wisdom_teaching.util.GlobalUrlMapping;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -31,6 +32,7 @@ public class UserManageController {
      * @param condition 查询条件对象
      * @return
      */
+    @RequiresPermissions(CommonResult.ROLE_ADMIN_PERMISSION)
     @PostMapping(GlobalUrlMapping.user_manage_query)
     public Map<String, Object> queryUser(@RequestBody User condition) {
         return userService.queryUser(condition);
@@ -42,6 +44,7 @@ public class UserManageController {
      * @param user 用户信息对象
      * @return
      */
+    @RequiresPermissions(CommonResult.ROLE_ADMIN_PERMISSION)
     @PostMapping(GlobalUrlMapping.user_manage_delete)
     public String deleteUser(@RequestBody User user) {
         return userService.deleteUser(user);
@@ -53,6 +56,7 @@ public class UserManageController {
      * @param user 用户信息对象
      * @return
      */
+    @RequiresPermissions(CommonResult.ROLE_ADMIN_PERMISSION)
     @PostMapping(GlobalUrlMapping.user_manage_freezeOrThaw)
     public String freeOrThaw(@RequestBody User user) {
         return userService.freeOrThaw(user);
@@ -64,6 +68,7 @@ public class UserManageController {
      * @param user 用户信息对象
      * @return
      */
+    @RequiresPermissions(CommonResult.ROLE_ADMIN_PERMISSION)
     @PostMapping(GlobalUrlMapping.user_manage_addOrUpdate)
     public String userAddOrUpdate(@RequestBody User user) {
         if (user.getId() > 0) {

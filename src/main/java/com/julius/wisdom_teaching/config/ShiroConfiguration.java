@@ -2,9 +2,12 @@ package com.julius.wisdom_teaching.config;
 
 import com.julius.wisdom_teaching.realm.UserRealm;
 import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
+import org.apache.shiro.cache.ehcache.EhCacheManager;
 import org.apache.shiro.mgt.SecurityManager;
+import org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
+import org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -42,6 +45,7 @@ public class ShiroConfiguration {
     public SecurityManager defaultWebSecurityManager() {
         DefaultWebSecurityManager securityManager = new DefaultWebSecurityManager();
         securityManager.setRealm(userRealm());
+        securityManager.setCacheManager(ehCacheManager());
         return securityManager;
     }
 
@@ -52,7 +56,7 @@ public class ShiroConfiguration {
         shiroFilterFactoryBean.setSecurityManager(defaultWebSecurityManager());
         //默认跳转的登陆请求,使用/即可
         shiroFilterFactoryBean.setLoginUrl("/");
-        shiroFilterFactoryBean.setUnauthorizedUrl("/404");
+        shiroFilterFactoryBean.setUnauthorizedUrl("/noPermission");
 //        shiroFilterFactoryBean.setSuccessUrl("/");
         Map<String, String> chains = new HashMap<>();
         //创建一些拦截规则
@@ -65,5 +69,29 @@ public class ShiroConfiguration {
 //        chains.put("/**", "anon");
         shiroFilterFactoryBean.setFilterChainDefinitionMap(chains);
         return shiroFilterFactoryBean;
+    }
+
+    //开启aop注解支持
+    @Bean
+    public AuthorizationAttributeSourceAdvisor authorizationAttributeSourceAdvisor() {
+        AuthorizationAttributeSourceAdvisor authorizationAttributeSourceAdvisor = new AuthorizationAttributeSourceAdvisor();
+        authorizationAttributeSourceAdvisor.setSecurityManager(defaultWebSecurityManager());
+        return authorizationAttributeSourceAdvisor;
+    }
+
+    //自动创建代理,配合上面aop注解支持使用
+    @Bean
+    public DefaultAdvisorAutoProxyCreator advisorAutoProxyCreator() {
+        DefaultAdvisorAutoProxyCreator advisorAutoProxyCreator = new DefaultAdvisorAutoProxyCreator();
+        advisorAutoProxyCreator.setProxyTargetClass(true);
+        return advisorAutoProxyCreator;
+    }
+
+    //注入缓存
+    @Bean
+    public EhCacheManager ehCacheManager() {
+        EhCacheManager cacheManager = new EhCacheManager();
+        cacheManager.setCacheManagerConfigFile("classpath:shiro/shiro-ehcache.xml");
+        return cacheManager;
     }
 }

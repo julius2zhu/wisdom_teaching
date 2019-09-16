@@ -5,7 +5,9 @@ import com.julius.wisdom_teaching.domain.entity.HomeWorkState;
 import com.julius.wisdom_teaching.domain.entity.User;
 import com.julius.wisdom_teaching.service.HomeWorkService;
 import com.julius.wisdom_teaching.service.StudentTaskManageService;
+import com.julius.wisdom_teaching.util.CommonResult;
 import com.julius.wisdom_teaching.util.GlobalUrlMapping;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
@@ -44,9 +46,10 @@ public class StudentTaskManageController {
      *
      * @param file    作业文件
      * @param request 请求对象
-     * @return
+     * @return 结果
      * @throws IOException
      */
+    @RequiresPermissions(CommonResult.ROLE_TEACHER_PERMISSION)
     @PostMapping(GlobalUrlMapping.student_issue_task)
     public String issueTaskOrUpdate(MultipartFile file, HttpServletRequest request) throws IOException {
         //获取相关信息
@@ -97,11 +100,12 @@ public class StudentTaskManageController {
     }
 
     /**
-     * 查看学生作业提交情况
+     * 教师查看学生作业提交情况
      *
      * @param homeWorkState 包含条件信息
      * @return
      */
+    @RequiresPermissions(CommonResult.ROLE_TEACHER_PERMISSION)
     @PostMapping(GlobalUrlMapping.student_submit_task_read)
     public Map<String, Object> studentSubmitTaskRead(@RequestBody HomeWorkState homeWorkState) {
         return this.homeWorkService.studentSubmitTaskRead(homeWorkState);
@@ -113,17 +117,19 @@ public class StudentTaskManageController {
      * @param homeWorkState 学生作业提交状态对象
      * @return 结果
      */
+    @RequiresPermissions(CommonResult.ROLE_TEACHER_PERMISSION)
     @PostMapping(GlobalUrlMapping.student_submit_task_correct)
     public String studentSubmitTaskCorrect(@RequestBody HomeWorkState homeWorkState) {
         return this.homeWorkService.studentSubmitTaskCorrect(homeWorkState);
     }
 
     /**
-     * 根据作业id删除作业信息
+     * 教师根据作业id删除作业信息
      *
      * @param id 作业id
      * @return
      */
+    @RequiresPermissions(CommonResult.ROLE_TEACHER_PERMISSION)
     @GetMapping(GlobalUrlMapping.student_issue_task_delete)
     public String issueTaskDelete(Integer id) {
         return this.homeWorkService.delete(id);
@@ -135,6 +141,7 @@ public class StudentTaskManageController {
      * @param user 用户信息对象
      * @return
      */
+    @RequiresPermissions(CommonResult.ROLE_STUDENT_PERMISSION)
     @PostMapping(GlobalUrlMapping.student_task_submit_check)
     public Map<String, Object> selectTaskSubmitState(@RequestBody User user) {
         return this.homeWorkService.selectTaskSubmitState(user);
@@ -147,6 +154,7 @@ public class StudentTaskManageController {
      * @param request 请求对象
      * @return
      */
+    @RequiresPermissions(CommonResult.ROLE_STUDENT_PERMISSION)
     @PostMapping(GlobalUrlMapping.student_task_submit_upload)
     public String updateTaskSubmitState(MultipartFile file, HttpServletRequest request) throws IOException {
         //获取输入流和文件名以及主键信息
@@ -162,6 +170,7 @@ public class StudentTaskManageController {
      * @param user 用户信息对象
      * @return
      */
+    @RequiresPermissions(CommonResult.ROLE_STUDENT_PERMISSION)
     @PostMapping(GlobalUrlMapping.student_task_submit_score)
     public Map<String, Object> studentCheckTaskScore(@RequestBody User user) {
         return this.homeWorkService.studentCheckTaskScore(user);

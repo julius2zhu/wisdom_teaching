@@ -2,7 +2,9 @@ package com.julius.wisdom_teaching.web.classmanage;
 
 import com.julius.wisdom_teaching.domain.entity.OnlineCheckName;
 import com.julius.wisdom_teaching.service.ClassManageService;
+import com.julius.wisdom_teaching.util.CommonResult;
 import com.julius.wisdom_teaching.util.GlobalUrlMapping;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -34,24 +36,27 @@ public class ClassManageController {
      * @param request 请求对象
      * @return
      */
+    @RequiresPermissions(CommonResult.ROLE_TEACHER_PERMISSION)
     @GetMapping(GlobalUrlMapping.student_online_checkName)
     public String onlineCheckName(HttpServletRequest request) {
         String what = request.getParameter("what");
         String ids = request.getParameter("ids");
         String teacherName = request.getParameter("teacherName");
-        return this.classManageService.onlineCheckName(what, ids,teacherName);
+        return this.classManageService.onlineCheckName(what, ids, teacherName);
     }
 
     /**
      * 考勤信息查看
-     * @param request
+     *
+     * @param request 请求对象
      * @return
      */
+    @RequiresPermissions(CommonResult.ROLE_TEACHER_PERMISSION)
     @GetMapping(GlobalUrlMapping.student_online_check)
     public List<OnlineCheckName> studentOnlineCheck(HttpServletRequest request) {
         //获取教师名称和学生id
         String teacherName = request.getParameter("teacherName");
         String studentId = request.getParameter("studentId");
-        return this.classManageService.studentOnlineCheck(teacherName,Integer.parseInt(studentId));
+        return this.classManageService.studentOnlineCheck(teacherName, Integer.parseInt(studentId));
     }
 }

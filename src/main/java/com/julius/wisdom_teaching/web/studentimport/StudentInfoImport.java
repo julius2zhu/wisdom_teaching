@@ -3,8 +3,10 @@ package com.julius.wisdom_teaching.web.studentimport;
 import com.julius.wisdom_teaching.domain.entity.StudentInfo;
 import com.julius.wisdom_teaching.service.StudentInfoCheckService;
 import com.julius.wisdom_teaching.service.StudentManageService;
+import com.julius.wisdom_teaching.util.CommonResult;
 import com.julius.wisdom_teaching.util.ExcelUtil;
 import com.julius.wisdom_teaching.util.GlobalUrlMapping;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -41,6 +43,7 @@ public class StudentInfoImport {
      * @param request 请求对象
      * @throws IOException
      */
+    @RequiresPermissions(CommonResult.ROLE_TEACHER_PERMISSION)
     @PostMapping(GlobalUrlMapping.student_upload_template)
     public void uploadTemplate(MultipartFile file, HttpServletRequest request) throws IOException {
         String teacherName = request.getParameter("teacherName");
@@ -58,6 +61,7 @@ public class StudentInfoImport {
      * @param ids      多个id的字符串
      * @param response 相应对象
      */
+    @RequiresPermissions(CommonResult.ROLE_TEACHER_PERMISSION)
     @GetMapping(GlobalUrlMapping.student_export)
     public void exportExcelData(String ids, HttpServletResponse response) {
         OutputStream outputStream = null;

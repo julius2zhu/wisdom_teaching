@@ -31,6 +31,7 @@ public class GlobalUrlMapping {
     public static final String REGISTER = ROOT + "register";
     //密码修改
     public static final String alter_password = ROOT + "alter_password";
+    public static final String no_permission = "/noPermission";
 
     /*学生信息查看模块*/
     public static final String STUDENT_INFO_CHECK = ROOT + "student_check";
