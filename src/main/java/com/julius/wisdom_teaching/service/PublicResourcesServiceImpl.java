@@ -8,6 +8,7 @@ import com.julius.wisdom_teaching.util.GlobalUrlMapping;
 import com.julius.wisdom_teaching.util.SelectResultWrap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
@@ -22,6 +23,7 @@ import java.util.UUID;
  * time   16:52
  * describe:
  */
+@Transactional
 @Service
 public class PublicResourcesServiceImpl implements PublicResourcesService {
 

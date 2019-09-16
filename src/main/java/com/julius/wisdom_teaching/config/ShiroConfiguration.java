@@ -60,9 +60,9 @@ public class ShiroConfiguration {
         //公共静态资源可以匿名访问
         chains.put("/dist/**", "anon");
         //这个拦截需要放到最后
-//        chains.put("/**", "authc");
+        chains.put("/**", "authc");
         //所有请求都可匿名访问,开发时候可以使用
-        chains.put("/**", "anon");
+//        chains.put("/**", "anon");
         shiroFilterFactoryBean.setFilterChainDefinitionMap(chains);
         return shiroFilterFactoryBean;
     }

@@ -9,6 +9,7 @@ import com.julius.wisdom_teaching.repository.StudentUserMapper;
 import com.julius.wisdom_teaching.util.GlobalUrlMapping;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -24,6 +25,7 @@ import java.util.UUID;
  * time   10:48
  * describe:
  */
+@Transactional
 @Service
 public class StudentTaskManageServiceImpl implements StudentTaskManageService {
 

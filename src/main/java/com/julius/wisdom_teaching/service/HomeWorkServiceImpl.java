@@ -12,6 +12,7 @@ import com.julius.wisdom_teaching.repository.UserMapper;
 import com.julius.wisdom_teaching.util.SelectResultWrap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashMap;
 import java.util.List;
@@ -23,6 +24,7 @@ import java.util.Map;
  * time   12:54
  * describe:
  */
+@Transactional
 @Service
 public class HomeWorkServiceImpl implements HomeWorkService {
     @Autowired

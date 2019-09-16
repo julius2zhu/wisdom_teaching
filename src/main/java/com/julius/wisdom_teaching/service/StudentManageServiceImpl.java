@@ -10,6 +10,7 @@ import com.julius.wisdom_teaching.util.EncryptUtil;
 import org.apache.shiro.crypto.hash.Md5Hash;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -20,6 +21,7 @@ import java.util.List;
  * describe:
  * 学生信息维护业务层接口实现类
  */
+@Transactional
 @Service
 public class StudentManageServiceImpl implements StudentManageService {
     @Autowired

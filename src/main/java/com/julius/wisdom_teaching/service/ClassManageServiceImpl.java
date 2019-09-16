@@ -4,6 +4,7 @@ import com.julius.wisdom_teaching.domain.entity.OnlineCheckName;
 import com.julius.wisdom_teaching.repository.OnlineCheckNameMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -15,6 +16,7 @@ import java.util.List;
  * time   17:45
  * describe:
  */
+@Transactional
 @Service
 public class ClassManageServiceImpl implements ClassManageService {
     @Autowired
@@ -42,7 +44,7 @@ public class ClassManageServiceImpl implements ClassManageService {
     }
 
     @Override
-    public List<OnlineCheckName> studentOnlineCheck(String teacherName,Integer studentId) {
-        return onlineCheckNameMapper.studentOnlineCheck(teacherName,studentId);
+    public List<OnlineCheckName> studentOnlineCheck(String teacherName, Integer studentId) {
+        return onlineCheckNameMapper.studentOnlineCheck(teacherName, studentId);
     }
 }
