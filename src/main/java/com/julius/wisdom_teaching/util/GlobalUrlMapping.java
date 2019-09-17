@@ -31,7 +31,6 @@ public class GlobalUrlMapping {
     public static final String REGISTER = ROOT + "register";
     //密码修改
     public static final String alter_password = ROOT + "alter_password";
-    public static final String no_permission = "/noPermission";
 
     /*学生信息查看模块*/
     public static final String STUDENT_INFO_CHECK = ROOT + "student_check";
@@ -80,7 +79,15 @@ public class GlobalUrlMapping {
     public static final String student_task_submit_upload = ROOT + "student_task_submit_upload";
     //学生查看成绩和评语
     public static final String student_task_submit_score = ROOT + "student_task_submit_score";
+    /*课程信息管理*/
+    //查看课程信息
+    public static final String course_manage_check = ROOT + "course_manage_check";
 
+    /*试题信息管理*/
+    //添加试题信息
+    public static final String examination_manage_add = ROOT + "examination_manage_add";
+    //添加试题记录
+    public static final String examination_manage_addRecord = ROOT + "examination_manage_addRecord";
 
     /*公共数据查询,例如常见的下拉框中的数据*/
     //根据用户名查询用户是否存在

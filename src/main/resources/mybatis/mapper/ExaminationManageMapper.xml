@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.julius.wisdom_teaching.repository.ExaminationManageMapper">
+
+    <insert id="add" useGeneratedKeys="true" keyProperty="id">
+        INSERT  INTO examination
+        (name,describes,course_id,create_name,
+        create_date,update_date)
+        VALUES
+        (#{name},#{describes},#{courseId},#{createName},NOW(),NOW())
+    </insert>
+
+    <insert id="addRecord">
+    INSERT INTO examination_record
+    (question,select_a,select_b,select_c,
+     select_d,select_e,select_f,
+     select_g,correct,e_analyze,question_type,
+     examination_id
+    )
+    VALUES
+    (
+    #{question},#{selectA},#{selectB},#{selectC},
+    #{selectD},#{selectE},#{selectF},#{selectG},
+    #{correct},#{analyze},#{questionType},#{examinationId}
+    )
+    </insert>
+</mapper>

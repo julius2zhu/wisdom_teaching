@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.julius.wisdom_teaching.repository.CourseManageMapper">
+
+    <resultMap id="baseResult1" type="Course">
+        <result property="createName" column="create_name"/>
+        <result property="createDate" column="create_date"/>
+        <result property="updateDate" column="update_date"/>
+    </resultMap>
+    <select id="selectCourse" resultMap="baseResult1">
+        SELECT label,describes,value,create_name,create_date,update_date
+        FROM course
+        <where>
+            <if test="label!=null">
+                AND label LIKE CONCAT('%',#{label},'%')
+            </if>
+            <if test="value!=null">
+                AND value= #{value}
+            </if>
+            AND delete_flag='1'
+        </where>
+    </select>
+</mapper>
