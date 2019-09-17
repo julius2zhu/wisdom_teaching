@@ -29,15 +29,5 @@ public class CourseManageController {
         this.courseService = courseService;
     }
 
-    /**
-     * 根据课程信息条件查询课程信息
-     *
-     * @param condition 条件信息
-     * @return
-     */
-    @PostMapping(GlobalUrlMapping.course_manage_check)
-    @RequiresPermissions(CommonResult.ROLE_TEACHER_PERMISSION)
-    public Map<String, Object> selectCourse(Course condition) {
-        return this.courseService.selectCourse(condition);
-    }
+
 }

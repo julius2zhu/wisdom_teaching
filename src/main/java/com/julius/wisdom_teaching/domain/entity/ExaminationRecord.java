@@ -31,4 +31,22 @@ public class ExaminationRecord extends BaseDomain {
     private Integer questionType;
     //对应试题id
     private Integer examinationId;
+
+    @Override
+    public String toString() {
+        return "ExaminationRecord{" +
+                "question='" + question + '\'' +
+                ", selectA='" + selectA + '\'' +
+                ", selectB='" + selectB + '\'' +
+                ", selectC='" + selectC + '\'' +
+                ", selectD='" + selectD + '\'' +
+                ", selectE='" + selectE + '\'' +
+                ", selectF='" + selectF + '\'' +
+                ", selectG='" + selectG + '\'' +
+                ", correct='" + correct + '\'' +
+                ", analyze='" + analyze + '\'' +
+                ", questionType=" + questionType +
+                ", examinationId=" + examinationId +
+                "} ";
+    }
 }

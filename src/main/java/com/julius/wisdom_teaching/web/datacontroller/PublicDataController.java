@@ -1,11 +1,18 @@
 package com.julius.wisdom_teaching.web.datacontroller;
 
+import com.julius.wisdom_teaching.domain.entity.Course;
+import com.julius.wisdom_teaching.domain.entity.Examination;
+import com.julius.wisdom_teaching.domain.entity.ExaminationRecord;
 import com.julius.wisdom_teaching.domain.entity.PublicResources;
+import com.julius.wisdom_teaching.repository.ExaminationManageMapper;
 import com.julius.wisdom_teaching.repository.PublicResourcesMapper;
+import com.julius.wisdom_teaching.service.CourseService;
+import com.julius.wisdom_teaching.service.ExaminationRecordService;
 import com.julius.wisdom_teaching.service.PublicResourcesService;
 import com.julius.wisdom_teaching.service.UserService;
 import com.julius.wisdom_teaching.util.CommonResult;
 import com.julius.wisdom_teaching.util.GlobalUrlMapping;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
@@ -15,6 +22,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.List;
 import java.util.Map;
 
 
@@ -33,12 +41,18 @@ public class PublicDataController {
     private final PublicResourcesService resourcesService;
     @Autowired
     private PublicResourcesMapper resourcesMapper;
+    private final ExaminationRecordService examinationRecordService;
+    private final CourseService courseService;
 
     @Autowired
     public PublicDataController(UserService userService,
-                                PublicResourcesService resourcesService) {
+                                PublicResourcesService resourcesService,
+                                CourseService courseService,
+                                ExaminationRecordService examinationRecordService) {
         this.userService = userService;
         this.resourcesService = resourcesService;
+        this.courseService = courseService;
+        this.examinationRecordService = examinationRecordService;
     }
 
     /**
@@ -78,5 +92,38 @@ public class PublicDataController {
         response.setContentType(MediaType.APPLICATION_OCTET_STREAM_VALUE);
         response.setHeader("Content-Disposition", "attachment;filename=" + fileName);
         Files.copy(Paths.get(path), response.getOutputStream());
+    }
+
+    /**
+     * 根据课程信息条件查询课程信息
+     *
+     * @param condition 条件信息
+     * @return
+     */
+    @PostMapping(GlobalUrlMapping.public_data_course_query)
+    public Map<String, Object> selectCourse(Course condition) {
+        return this.courseService.selectCourse(condition);
+    }
+
+    /**
+     * 根据课程id查询题目信息
+     *
+     * @param condition 条件信息
+     * @return
+     */
+    @PostMapping(GlobalUrlMapping.public_data_examination_query)
+    public List<Examination> selectExaminationByCourseId(@RequestBody Course condition) {
+        return this.examinationRecordService.selectExaminationByCourseId(condition.getValue());
+    }
+
+    /**
+     * 根据试题id和题目类型查询记录
+     *
+     * @param condition 条件信息
+     * @return
+     */
+    @PostMapping(GlobalUrlMapping.public_data_examination_record_query)
+    public Map<String, Object> selectExaminationRecord(@RequestBody ExaminationRecord condition) {
+        return this.examinationRecordService.selectExaminationRecord(condition);
     }
 }

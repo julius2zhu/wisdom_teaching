@@ -3,6 +3,16 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.julius.wisdom_teaching.repository.ExaminationManageMapper">
+    <resultMap id="baseSelectSQL" type="ExaminationRecord">
+        <result property="selectA" column="select_a"/>
+        <result property="selectB" column="select_b"/>
+        <result property="selectC" column="select_c"/>
+        <result property="selectD" column="select_d"/>
+        <result property="selectE" column="select_e"/>
+        <result property="selectF" column="select_f"/>
+        <result property="selectG" column="select_g"/>
+        <result property="analyze" column="e_analyze"/>
+    </resultMap>
 
     <insert id="add" useGeneratedKeys="true" keyProperty="id">
         INSERT  INTO examination
@@ -26,4 +36,18 @@
     #{correct},#{analyze},#{questionType},#{examinationId}
     )
     </insert>
+    <select id="selectExaminationByCourseId" resultType="Examination">
+       SELECT   id AS value,name AS label
+       FROM     examination
+       WHERE    course_id=#{id}
+    </select>
+
+    <select id="selectExaminationRecord" resultMap="baseSelectSQL">
+     SELECT  id,question,select_a,select_b,select_c,
+     select_d,select_e,select_f,select_g,correct,e_analyze
+     FROM examination_record
+     WHERE question_type=#{questionType}
+     AND examination_id=#{examinationId}
+     AND delete_flag='1'
+    </select>
 </mapper>

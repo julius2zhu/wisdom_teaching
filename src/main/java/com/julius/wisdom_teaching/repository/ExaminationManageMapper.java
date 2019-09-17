@@ -3,6 +3,8 @@ package com.julius.wisdom_teaching.repository;
 import com.julius.wisdom_teaching.domain.entity.Examination;
 import com.julius.wisdom_teaching.domain.entity.ExaminationRecord;
 
+import java.util.List;
+
 /**
  * author julius.zhu
  * date   2019/9/17
@@ -26,4 +28,20 @@ public interface ExaminationManageMapper {
      * @return
      */
     int addRecord(ExaminationRecord examinationRecord);
+
+    /**
+     * 根据课程id查询对应的试题信息
+     *
+     * @param value 课程id
+     * @return
+     */
+    List<Examination> selectExaminationByCourseId(Integer value);
+
+    /**
+     * 根据试题id和题目类型查询记录数
+     *
+     * @param condition 条件
+     * @return
+     */
+    List<ExaminationRecord> selectExaminationRecord(ExaminationRecord condition);
 }

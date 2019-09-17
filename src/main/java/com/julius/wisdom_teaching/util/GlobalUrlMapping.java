@@ -80,8 +80,7 @@ public class GlobalUrlMapping {
     //学生查看成绩和评语
     public static final String student_task_submit_score = ROOT + "student_task_submit_score";
     /*课程信息管理*/
-    //查看课程信息
-    public static final String course_manage_check = ROOT + "course_manage_check";
+
 
     /*试题信息管理*/
     //添加试题信息
@@ -96,6 +95,12 @@ public class GlobalUrlMapping {
     public static final String public_data_query_resources = ROOT + "public_data_query_resources";
     //根据资源id去数据库中查找路径进行下载
     public static final String public_data_resources_download = ROOT + "public_data_resources_download";
+    //查询所有的课程信息
+    public static final String public_data_course_query = ROOT + "public_data_course_query";
+    //查询指定课程所包含的试题信息
+    public static final String public_data_examination_query = ROOT + "public_data_examination_query";
+   //根据试题id和题目类型查询对应的记录
+    public static final String public_data_examination_record_query = ROOT + "public_data_examination_record_query";
 
     /*资源库管理*/
     //资源添加

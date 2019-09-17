@@ -21,4 +21,19 @@ public class Examination extends BaseDomain {
     private Integer courseId;
     //创建人姓名
     private String createName;
+    //为了符合前端需求,特意加两个属性,仅仅用作查询setter方法使用
+    private String label;
+    private String value;
+
+    @Override
+    public String toString() {
+        return "Examination{" +
+                "name='" + name + '\'' +
+                ", describes='" + describes + '\'' +
+                ", courseId=" + courseId +
+                ", createName='" + createName + '\'' +
+                ", label='" + label + '\'' +
+                ", value='" + value + '\'' +
+                "} ";
+    }
 }

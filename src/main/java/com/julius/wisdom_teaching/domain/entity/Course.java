@@ -21,4 +21,14 @@ public class Course extends BaseDomain {
     private Integer value;
     //创建人姓名
     private String createName;
+
+    @Override
+    public String toString() {
+        return "Course{" +
+                "label='" + label + '\'' +
+                ", describes='" + describes + '\'' +
+                ", value=" + value +
+                ", createName='" + createName + '\'' +
+                "} ";
+    }
 }

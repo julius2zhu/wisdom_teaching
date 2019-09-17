@@ -18,7 +18,7 @@ import java.io.IOException;
  * date   2019/9/15
  * time   16:41
  * describe:
- * 公共资源控制层
+ * 资源信息管理控制层
  */
 @CrossOrigin(origins = "*")
 @RestController
