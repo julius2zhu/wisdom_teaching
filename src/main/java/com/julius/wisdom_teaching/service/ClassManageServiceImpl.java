@@ -2,6 +2,7 @@ package com.julius.wisdom_teaching.service;
 
 import com.julius.wisdom_teaching.domain.entity.OnlineCheckName;
 import com.julius.wisdom_teaching.repository.OnlineCheckNameMapper;
+import com.julius.wisdom_teaching.util.CommonResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -23,24 +24,9 @@ public class ClassManageServiceImpl implements ClassManageService {
     private OnlineCheckNameMapper onlineCheckNameMapper;
 
     @Override
-    public String onlineCheckName(String what, String ids, String teacherName) {
-        //分割id
-        String[] split = ids.split(",");
-        if ("insert".equalsIgnoreCase(what)) {
-            List<OnlineCheckName> onlineCheckNames = new ArrayList<>();
-            for (String id : split) {
-                OnlineCheckName onlineCheckName = new OnlineCheckName();
-                onlineCheckName.setStudentId(Integer.parseInt(id));
-                onlineCheckName.setOnline(0);
-                onlineCheckName.setTeacherName(teacherName);
-                onlineCheckNames.add(onlineCheckName);
-            }
-            onlineCheckNameMapper.insert(onlineCheckNames);
-        } else {
-            //更新操作
-            onlineCheckNameMapper.update(Arrays.asList(split));
-        }
-        return "成功";
+    public String onlineCheckName(List<OnlineCheckName> onlineCheckNames) {
+        onlineCheckNameMapper.insert(onlineCheckNames);
+        return CommonResult.SUCCESS;
     }
 
     @Override

@@ -15,18 +15,17 @@ public interface ClassManageService {
     /**
      * 考堂考勤
      *
-     * @param what 做什么
-     * @param ids  被添加/修改的id
-     * @param teacherName 添加教师的名称
+     * @param onlineCheckNames 考勤信息对象
      * @return
      */
-    String onlineCheckName(String what, String ids, String teacherName);
+    String onlineCheckName(List<OnlineCheckName> onlineCheckNames);
 
     /**
      * 根据学生id查询学生考勤信息
+     *
      * @param teacherName 教师名称
-     * @param studentId 学生id
-     * @return  考勤信息对象集合
+     * @param studentId   学生id
+     * @return 考勤信息对象集合
      */
-    List<OnlineCheckName> studentOnlineCheck(String teacherName,Integer studentId);
+    List<OnlineCheckName> studentOnlineCheck(String teacherName, Integer studentId);
 }

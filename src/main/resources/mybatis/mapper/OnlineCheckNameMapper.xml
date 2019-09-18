@@ -4,22 +4,15 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.julius.wisdom_teaching.repository.OnlineCheckNameMapper">
 
-
     <insert id="insert">
-        INSERT INTO online_check_name(student_id,online,create_date,reason,teacher_name)
+        INSERT INTO
+        online_check_name(student_id,online,create_date,reason,teacher_name)
         VALUES
         <foreach collection="onlineCheckNames" item="item" separator=",">
             (#{item.studentId},#{item.online},NOW(),'',#{item.teacherName})
         </foreach>
     </insert>
-    <update id="update">
-        UPDATE online_check_name
-        SET online=1
-        WHERE id IN
-        <foreach collection="ids" item="item" separator="," open="(" close=")">
-            #{item}
-        </foreach>
-    </update>
+
     <select id="studentOnlineCheck" resultType="OnlineCheckName">
      SELECT student_id AS studentId,
      online,

@@ -6,11 +6,10 @@ import com.julius.wisdom_teaching.util.CommonResult;
 import com.julius.wisdom_teaching.util.GlobalUrlMapping;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -33,16 +32,14 @@ public class ClassManageController {
     /**
      * 课堂考勤
      *
-     * @param request 请求对象
+     * @param onlineCheckNames 考勤信息对象
      * @return
      */
     @RequiresPermissions(CommonResult.ROLE_TEACHER_PERMISSION)
-    @GetMapping(GlobalUrlMapping.student_online_checkName)
-    public String onlineCheckName(HttpServletRequest request) {
-        String what = request.getParameter("what");
-        String ids = request.getParameter("ids");
-        String teacherName = request.getParameter("teacherName");
-        return this.classManageService.onlineCheckName(what, ids, teacherName);
+    @PostMapping(GlobalUrlMapping.student_online_checkName)
+    public String onlineCheckName(@RequestBody  OnlineCheckName[] onlineCheckNames) {
+        return this.classManageService.
+                onlineCheckName(Arrays.asList(onlineCheckNames));
     }
 
     /**
