@@ -65,7 +65,6 @@
         FROM user
         <where>
             username=#{username}
-            AND delete_flag='1'
         </where>
     </select>
 

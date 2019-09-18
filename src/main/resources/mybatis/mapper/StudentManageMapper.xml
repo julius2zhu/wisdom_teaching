@@ -87,5 +87,14 @@
       WHERE
 	  s.number = #{number}
     </select>
+    <select id="selectStudentExists" resultType="integer">
+         SELECT  COUNT(*)
+         FROM    student_user
+         WHERE
+          student_id=#{studentId}
+          AND  user_id=#{userId}
+          AND  teacher_name=#{teacherName}
+          AND  delete_flag='1'
+    </select>
 
 </mapper>

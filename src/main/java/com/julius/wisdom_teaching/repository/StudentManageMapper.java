@@ -65,4 +65,16 @@ public interface StudentManageMapper {
      * @return
      */
     StudentUser selectStudentIdAndUserIdByNumber(String number);
+
+    /**
+     * 根据学生id 用户id 以及教师名判断教师和学生是否已经建立联系
+     *
+     * @param studentId   学生id
+     * @param userId      用户id
+     * @param teacherName 教师名
+     * @return
+     */
+    int selectStudentExists(@Param("studentId") Integer studentId,
+                            @Param("userId") Integer userId,
+                            @Param("teacherName") String teacherName);
 }
