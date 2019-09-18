@@ -19,4 +19,29 @@ public interface CourseService {
      * @return
      */
     Map<String, Object> selectCourse(Course condition);
+
+    /**
+     * 更新课程信息
+     *
+     * @param course 课程信息对象
+     * @return
+     */
+    String update(Course course);
+
+    /**
+     * 添加课程信息
+     *
+     * @param course 课程信息对象
+     * @return
+     */
+    String add(Course course);
+
+    /**
+     * 根据课程删除课程信息
+     *
+     * @param id 课程id
+     * @return
+     */
+    String courseDelete(Integer id);
+
 }

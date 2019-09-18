@@ -101,7 +101,7 @@ public class PublicDataController {
      * @return
      */
     @PostMapping(GlobalUrlMapping.public_data_course_query)
-    public Map<String, Object> selectCourse(Course condition) {
+    public Map<String, Object> selectCourse(@RequestBody Course condition) {
         return this.courseService.selectCourse(condition);
     }
 

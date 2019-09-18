@@ -8,9 +8,8 @@ import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.Map;
 
 /**
  * author julius.zhu
@@ -29,5 +28,30 @@ public class CourseManageController {
         this.courseService = courseService;
     }
 
+    /**
+     * 添加或者更新课程信息
+     *
+     * @param course 课程信息对象
+     * @return
+     */
+    @PostMapping(GlobalUrlMapping.course_manage_addOrUpdate)
+    @RequiresPermissions(CommonResult.ROLE_ADMIN_PERMISSION)
+    public String courseAddOrUpdate(@RequestBody Course course) {
+        if (course.getId() > 0) {
+            return courseService.update(course);
+        }
+        return courseService.add(course);
+    }
 
+    /**
+     * 根据课程id删除课程信息
+     *
+     * @param id 课程id
+     * @return
+     */
+    @PostMapping(GlobalUrlMapping.course_manage_delete)
+    @RequiresPermissions(CommonResult.ROLE_ADMIN_PERMISSION)
+    public String courseDelete(@RequestBody Course id) {
+        return courseService.courseDelete(id.getId());
+    }
 }

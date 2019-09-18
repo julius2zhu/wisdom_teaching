@@ -9,8 +9,38 @@
         <result property="createDate" column="create_date"/>
         <result property="updateDate" column="update_date"/>
     </resultMap>
+
+    <insert id="add">
+    INSERT  INTO course(label,describes,value,
+                 create_name,create_date,update_date)
+     VALUES(
+         #{label},
+         #{describes},
+         #{value},
+         #{createName},
+         NOW(),
+         NOW()
+        )
+    </insert>
+
+    <update id="update">
+    UPDATE    course
+    SET
+    label=#{label},
+    describes=#{describes},
+    value=#{value},
+    create_name=#{createName},
+    update_date=NOW()
+    WHERE id=#{id}
+    </update>
+
+    <update id="courseDelete">
+      UPDATE course
+      SET    delete_flag='0'
+      WHERE  id=#{id}
+    </update>
     <select id="selectCourse" resultMap="baseResult1">
-        SELECT label,describes,value,create_name,create_date,update_date
+        SELECT id,label,describes,value,create_name,create_date,update_date
         FROM course
         <where>
             <if test="label!=null">

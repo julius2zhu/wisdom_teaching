@@ -14,8 +14,33 @@ import java.util.List;
 public interface CourseManageMapper {
     /**
      * 根据条件查询课程信息
+     *
      * @param condition 课程信息对象
      * @return
      */
     List<Course> selectCourse(Course condition);
+
+    /**
+     * 添加课程信息
+     *
+     * @param course 课程信息对象
+     * @return
+     */
+    int add(Course course);
+
+    /**
+     * 更新课程信息
+     *
+     * @param course 课程信息对象
+     * @return
+     */
+    int update(Course course);
+
+    /**
+     * 根据课程id删除课程信息
+     *
+     * @param id 课程id
+     * @return
+     */
+    int courseDelete(Integer id);
 }
