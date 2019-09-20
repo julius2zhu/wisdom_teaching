@@ -25,6 +25,10 @@ public class CourseServiceImpl implements CourseService {
 
     @Override
     public Map<String, Object> selectCourse(Course condition) {
+        if (condition.getCurrentPage() == null || condition.getCount() == null) {
+            condition.setCurrentPage(1);
+            condition.setCount(200);
+        }
         PageHelper.startPage(condition.getCurrentPage(), condition.getCount());
         return SelectResultWrap.resultWrap(courseManageMapper.selectCourse(condition));
     }
