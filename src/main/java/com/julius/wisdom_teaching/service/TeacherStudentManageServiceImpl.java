@@ -54,4 +54,9 @@ public class TeacherStudentManageServiceImpl implements TeacherStudentManageServ
             teacherStudentManageMapper.add(studentInfo);
         }
     }
+
+    @Override
+    public Integer selectStudentIdByUsername(Integer username) {
+        return teacherStudentManageMapper.selectStudentIdByUsername(username);
+    }
 }

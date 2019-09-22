@@ -58,4 +58,9 @@ public class StudentManageServiceImpl implements StudentManageService {
     public Integer delete(Integer id) {
         return studentManageMapper.delete(id);
     }
+
+    @Override
+    public Integer findStudentNumberByUsername(String username) {
+        return studentManageMapper.findStudentNumberByUsername(username);
+    }
 }

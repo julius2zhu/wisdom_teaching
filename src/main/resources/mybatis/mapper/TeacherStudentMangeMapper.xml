@@ -51,4 +51,16 @@
               AND user_id=#{userId}
               AND delete_flag='1'
     </select>
+
+    <select id="selectTeacherIdByNumber" resultType="integer">
+      SELECT user_id FROM teacher_student
+      WHERE  number=#{number}
+             AND delete_flag='1'
+    </select>
+
+    <select id="selectStudentIdByUsername" resultType="integer">
+        SELECT  id  FROM   teacher_student
+        WHERE   number=#{number}
+                AND  delete_flag='1'
+    </select>
 </mapper>

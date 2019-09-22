@@ -1,5 +1,6 @@
 package com.julius.wisdom_teaching.service;
 
+import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.julius.wisdom_teaching.domain.entity.HomeWork;
@@ -30,11 +31,16 @@ public class HomeWorkServiceImpl implements HomeWorkService {
     @Autowired
     private HomeWorkMapper homeWorkMapper;
     @Autowired
-    private UserMapper userMapper;
-    @Autowired
-    private StudentUserMapper studentUserMapper;
-    @Autowired
     private HomeWorkStateMapper homeWorkStateMapper;
+    private final TeacherStudentManageService teacherStudentManageService;
+    private StudentManageService studentManageService;
+
+    @Autowired
+    public HomeWorkServiceImpl(TeacherStudentManageService teacherStudentManageService,
+                               StudentManageService studentManageService) {
+        this.teacherStudentManageService = teacherStudentManageService;
+        this.studentManageService = studentManageService;
+    }
 
     @Override
     public Map<String, Object> selectHomeWorkByUserId(HomeWork homeWork) {
@@ -51,13 +57,12 @@ public class HomeWorkServiceImpl implements HomeWorkService {
 
     @Override
     public Map<String, Object> selectTaskSubmitState(User user) {
-        //根据用户名查看学生id
-        //查询用户id
-        Integer userId = userMapper.findUserByUsername(user.getUsername()).getId();
-        //根据用户id获取学生id
-        Integer studentId = studentUserMapper.selectStudentUserInfoByUserId(userId);
+        //根据用户名查询学生学号
+        Integer studentNumber =
+                studentManageService.findStudentNumberByUsername(user.getUsername());
         PageHelper.startPage(user.getCurrentPage(), user.getCount());
-        return SelectResultWrap.resultWrap(homeWorkStateMapper.selectTaskSubmitState(studentId));
+        return SelectResultWrap.
+                resultWrap(homeWorkStateMapper.selectTaskSubmitState(studentNumber));
     }
 
     @Override
@@ -74,7 +79,10 @@ public class HomeWorkServiceImpl implements HomeWorkService {
 
     @Override
     public Map<String, Object> studentCheckTaskScore(User user) {
+        //获取到该生学号信息
+        Integer number = studentManageService.findStudentNumberByUsername(user.getUsername());
         PageHelper.startPage(user.getCurrentPage(), user.getCount());
-        return SelectResultWrap.resultWrap(homeWorkStateMapper.studentCheckTaskScore(user.getUsername()));
+        //根据该生学号信息去查询该生属于所有教师的下面学生id
+        return SelectResultWrap.resultWrap(homeWorkStateMapper.studentCheckTaskScore(number));
     }
 }

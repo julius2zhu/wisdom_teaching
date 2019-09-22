@@ -77,4 +77,12 @@ public interface StudentManageMapper {
     int selectStudentExists(@Param("studentId") Integer studentId,
                             @Param("userId") Integer userId,
                             @Param("teacherName") String teacherName);
+
+    /**
+     * 根据用户名查询学号信息
+     *
+     * @param username 用户名
+     * @return
+     */
+    Integer findStudentNumberByUsername(String username);
 }

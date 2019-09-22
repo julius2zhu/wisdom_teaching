@@ -96,5 +96,14 @@
           AND  teacher_name=#{teacherName}
           AND  delete_flag='1'
     </select>
+    <select id="findStudentNumberByUsername" resultType="integer">
+        SELECT  s.number FROM  student AS s
+        WHERE
+            s.user_id=(
+            SELECT  u.id   FROM user  AS u
+            WHERE  username=#{username}
+            AND     delete_flag='1'
+            )
+    </select>
 
 </mapper>

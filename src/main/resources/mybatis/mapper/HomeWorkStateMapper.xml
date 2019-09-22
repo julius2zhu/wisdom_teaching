@@ -6,10 +6,10 @@
 
     <resultMap id="baseSelectMap" type="HomeWorkState">
         <id property="id" column="id"/>
-        <result property="homeWork.name" column="name"/>
+        <result property="homeWork.name" column="h_name"/>
         <result property="homeWork.path" column="path"/>
         <result property="homeWork.describes" column="describes"/>
-        <result property="homeWork.userId" column="user_id"/>
+        <result property="user.name" column="u_name"/>
         <result property="submitState" column="submit_state"/>
     </resultMap>
 
@@ -19,12 +19,12 @@
         <result property="submitState" column="submit_state"/>
         <result property="score" column="score"/>
         <result property="remark" column="remark"/>
-        <result property="homeWork.name" column="name"/>
-        <result property="user.name" column="u_name"/>
+        <result property="homeWork.name" column="h_name"/>
+        <result property="user.name" column="s_name"/>
     </resultMap>
     <resultMap id="baseSelectMap3" type="HomeWorkState">
-        <result property="homeWork.name" column="name"/>
-        <result property="userId" column="user_id"/>
+        <result property="homeWork.name" column="h_name"/>
+        <result property="user.name" column="u_name"/>
         <result property="submitState" column="submit_state"/>
         <result property="score" column="score"/>
         <result property="remark" column="remark"/>
@@ -59,51 +59,61 @@
     <select id="selectTaskSubmitState" resultMap="baseSelectMap">
     SELECT
     hms.id,
-	hm.name,
-	hm.path,
+	hm. NAME AS h_name,
 	hm.describes,
-    hm.teacher_name,
-    hms.submit_state
-    FROM
-	home_work AS hm
-    LEFT JOIN home_work_state AS hms ON hm.id = hms.home_work_id
-    WHERE
-	hms.student_id =#{studentId}
-    AND hm.delete_flag='1'
-    </select>
-    <select id="studentSubmitTaskRead" resultMap="baseSelectMap2">
-    SELECT
-	ts. NAME,
-	hm. NAME,
 	hms.submit_state,
-	hms.submit_path
+	hm.path,
+	u.name AS u_name
     FROM
 	home_work_state AS hms
     LEFT JOIN home_work AS hm ON hms.home_work_id = hm.id
-    LEFT JOIN teacher_student AS ts ON hms.student_id = ts.id
+    LEFT JOIN USER AS u ON u.id = hms.user_id
     WHERE
-	     hms.user_id=#{userId}
-	     AND  hms.delete_flag='1'
+	hms.student_id IN (
+		SELECT
+			ts.id
+		FROM
+			teacher_student AS ts
+		WHERE
+			ts.number =#{number}
+		AND delete_flag = '1'
+	)
+    </select>
+    <select id="studentSubmitTaskRead" resultMap="baseSelectMap2">
+     SELECT
+	 hms.id,
+	 hms.submit_state,
+	 hms.submit_path,
+	 hm.name AS h_name,
+     ts.name AS s_name
+     FROM
+	 home_work_state AS hms
+     LEFT JOIN home_work AS hm ON hm.id = hms.home_work_id
+     LEFT JOIN teacher_student AS ts ON ts.id = hms.student_id
+     WHERE
+	 hms.user_id = #{userId}
+	 AND hms.delete_flag='1'
     </select>
     <select id="studentCheckTaskScore" resultMap="baseSelectMap3">
-    SELECT
-	hm.NAME,
-	hms.teacher_name,
+   SELECT
+	hm.name AS h_name,
+	u.name AS u_name,
 	hms.submit_state,
 	hms.score,
 	hms.remark
     FROM
-	home_work AS hm
-    LEFT JOIN home_work_state AS hms ON hm.id = hms.home_work_id
+	home_work_state AS hms
+    LEFT JOIN home_work AS hm ON hms.home_work_id = hm.id
+    LEFT JOIN USER AS u ON u.id = hms.user_id
     WHERE
-	hms.student_id = (
+	hms.student_id IN (
 		SELECT
-			su.student_id
+			ts.id
 		FROM
-			USER u
-		LEFT JOIN student_user su ON u.id = su.user_id
+			teacher_student AS ts
 		WHERE
-			username =#{username}
+			ts.number =#{number}
+		AND delete_flag = '1'
 	)
     </select>
 

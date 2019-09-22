@@ -53,8 +53,8 @@ public interface HomeWorkStateMapper {
     /**
      * 学生查询作业成绩和评语
      *
-     * @param username 用户名
+     * @param number 学生学号
      * @return
      */
-    List<HomeWorkState> studentCheckTaskScore(String username);
+    List<HomeWorkState> studentCheckTaskScore(Integer number);
 }

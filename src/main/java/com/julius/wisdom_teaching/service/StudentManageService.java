@@ -43,4 +43,12 @@ public interface StudentManageService {
      * @return 受影响的行数
      */
     Integer delete(Integer id);
+
+    /**
+     * 根据用户名查询学号
+     *
+     * @param username 用户名
+     * @return
+     */
+    Integer findStudentNumberByUsername(String username);
 }

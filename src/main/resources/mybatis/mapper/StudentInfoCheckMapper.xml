@@ -76,20 +76,19 @@
         </foreach>
     </select>
     <select id="selectStudentInfoByNumber" resultType="StudentInfo">
-        SELECT
-        su.student_id AS studentId,
-        s.sex,
-        s.grade,
-        s.number,
-        s.department,
-        s.major,
-        u.name,
-        s.class_teacher AS classTeacher
-        FROM
-        student s
-        LEFT JOIN student_user su ON su.student_id=s.id
-        LEFT JOIN user u ON su.user_id=u.id
-        WHERE  s.number=#{number}
-               AND su.delete_flag='1'
+   SELECT
+	u.name,
+	s.sex,
+	s.grade,
+	s.number,
+	s.department,
+	s.major,
+	s.class_teacher AS classTeacher
+    FROM
+	student s
+    LEFT JOIN USER u ON s.user_id = u.id
+    WHERE
+	s.number = #{number}
+    AND s.delete_flag = '1'
     </select>
 </mapper>

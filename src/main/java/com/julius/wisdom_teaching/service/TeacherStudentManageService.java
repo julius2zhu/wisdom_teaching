@@ -42,4 +42,11 @@ public interface TeacherStudentManageService {
      * @param studentInfos 学生信息对象集合
      */
     void importStudentInfo(List<StudentInfo> studentInfos);
+
+    /**
+     * 查询学生id根据用户名进行查询
+     * @param username 用户名
+     * @return
+     */
+    Integer selectStudentIdByUsername(Integer  username);
 }
