@@ -18,16 +18,16 @@ public interface OnlineCheckNameMapper {
      *
      * @param onlineCheckNames
      */
-    void insert(@Param("onlineCheckNames") List<OnlineCheckName> onlineCheckNames);
+    void insert(@Param("onlineCheckNames") OnlineCheckName[] onlineCheckNames);
 
 
     /**
      * 根据学生id查询学生考勤信息
      *
-     * @param teacherName 教师名称
-     * @param studentId   学生id
+     * @param userId    添加者id
+     * @param studentId 学生id
      * @return
      */
-    List<OnlineCheckName> studentOnlineCheck(@Param("teacherName") String teacherName,
+    List<OnlineCheckName> studentOnlineCheck(@Param("userId") Integer userId,
                                              @Param("studentId") Integer studentId);
 }

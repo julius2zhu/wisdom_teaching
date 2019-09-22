@@ -1,7 +1,6 @@
 package com.julius.wisdom_teaching.repository;
 
 import com.julius.wisdom_teaching.domain.entity.HomeWork;
-import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -14,12 +13,12 @@ import java.util.List;
  */
 public interface HomeWorkMapper {
     /**
-     * 根据教师名称查询发布的作业
+     * 根据发布者id称查询发布的作业
      *
-     * @param teacherName
+     * @param homeWork 作业信息对象
      * @return
      */
-    List<HomeWork> selectHomeWorkByTeacherName(@Param("teacherName") String teacherName);
+    List<HomeWork> selectHomeWorkByUserId(HomeWork homeWork);
 
     /**
      * 根据作业id删除作业

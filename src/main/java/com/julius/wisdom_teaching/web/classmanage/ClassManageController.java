@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -37,9 +36,9 @@ public class ClassManageController {
      */
     @RequiresPermissions(CommonResult.ROLE_TEACHER_PERMISSION)
     @PostMapping(GlobalUrlMapping.student_online_checkName)
-    public String onlineCheckName(@RequestBody  OnlineCheckName[] onlineCheckNames) {
+    public String onlineCheckName(@RequestBody OnlineCheckName[] onlineCheckNames) {
         return this.classManageService.
-                onlineCheckName(Arrays.asList(onlineCheckNames));
+                onlineCheckName(onlineCheckNames);
     }
 
     /**
@@ -51,9 +50,9 @@ public class ClassManageController {
     @RequiresPermissions(CommonResult.ROLE_TEACHER_PERMISSION)
     @GetMapping(GlobalUrlMapping.student_online_check)
     public List<OnlineCheckName> studentOnlineCheck(HttpServletRequest request) {
-        //获取教师名称和学生id
-        String teacherName = request.getParameter("teacherName");
-        String studentId = request.getParameter("studentId");
-        return this.classManageService.studentOnlineCheck(teacherName, Integer.parseInt(studentId));
+        //获取添加者id和学生id
+        return this.classManageService.studentOnlineCheck(
+                Integer.parseInt(request.getParameter("userId")),
+                Integer.valueOf(request.getParameter("studentId")));
     }
 }

@@ -19,8 +19,8 @@ public class HomeWork extends BaseDomain {
     private String path;
     //描述信息
     private String describes;
-    //上传教师的名称
-    private String teacherName;
+    //发布者id
+    private Integer userId;
 
     @Override
     public String toString() {
@@ -28,7 +28,7 @@ public class HomeWork extends BaseDomain {
                 "name='" + name + '\'' +
                 ", path='" + path + '\'' +
                 ", describes='" + describes + '\'' +
-                ", teacherName='" + teacherName + '\'' +
+                ", userId='" + userId + '\'' +
                 "} " ;
     }
 }

@@ -15,10 +15,19 @@ import lombok.Setter;
 public class OnlineCheckName extends BaseDomain {
     //学生id
     private Integer studentId;
+    //添加者id
+    private Integer userId;
     //是否考勤1未考勤 0考勤
     private Integer online;
     //理由
     private String reason;
-    //添加教师的名称
-    private String teacherName;
+    @Override
+    public String toString() {
+        return "OnlineCheckName{" +
+                "studentId=" + studentId +
+                ", userId=" + userId +
+                ", online=" + online +
+                ", reason='" + reason + '\'' +
+                "} " + super.toString();
+    }
 }

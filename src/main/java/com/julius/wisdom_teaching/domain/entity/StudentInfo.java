@@ -12,7 +12,7 @@ import lombok.Setter;
  */
 @Setter
 @Getter
-public class StudentInfo extends BaseDomain  {
+public class StudentInfo extends BaseDomain {
     //学生id
     private Integer studentId;
     //学生姓名
@@ -22,7 +22,7 @@ public class StudentInfo extends BaseDomain  {
     //学生班级号
     private String grade;
     //学生学号
-    private String number;
+    private Integer number;
     //学生所在系别
     private String department;
     //学生专业
@@ -31,18 +31,22 @@ public class StudentInfo extends BaseDomain  {
     private String classTeacher;
     //添加人姓名
     private String teacherName;
+    //添加人id
+    private Integer userId;
 
     @Override
     public String toString() {
         return "StudentInfo{" +
-                "name='" + name + '\'' +
+                "studentId=" + studentId +
+                ", name='" + name + '\'' +
                 ", sex='" + sex + '\'' +
                 ", grade='" + grade + '\'' +
-                ", number='" + number + '\'' +
+                ", number=" + number +
                 ", department='" + department + '\'' +
                 ", major='" + major + '\'' +
                 ", classTeacher='" + classTeacher + '\'' +
                 ", teacherName='" + teacherName + '\'' +
-                "} ";
+                ", userId=" + userId +
+                "} " + super.toString();
     }
 }

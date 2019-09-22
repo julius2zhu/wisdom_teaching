@@ -9,7 +9,7 @@
         <result property="homeWork.name" column="name"/>
         <result property="homeWork.path" column="path"/>
         <result property="homeWork.describes" column="describes"/>
-        <result property="homeWork.teacherName" column="teacher_name"/>
+        <result property="homeWork.userId" column="user_id"/>
         <result property="submitState" column="submit_state"/>
     </resultMap>
 
@@ -24,19 +24,19 @@
     </resultMap>
     <resultMap id="baseSelectMap3" type="HomeWorkState">
         <result property="homeWork.name" column="name"/>
-        <result property="teacherName" column="teacher_name"/>
+        <result property="userId" column="user_id"/>
         <result property="submitState" column="submit_state"/>
         <result property="score" column="score"/>
         <result property="remark" column="remark"/>
     </resultMap>
     <insert id="pushTask">
         INSERT INTO home_work_state
-        (student_id,teacher_name,home_work_id,create_date)
+        (student_id,user_id,home_work_id,create_date)
         VALUES
         <foreach collection="homeWorkStates" item="item" separator=",">
             (
             #{item.studentId},
-            #{item.teacherName},
+            #{item.userId},
             #{item.homeWorkId},
             NOW()
             )
@@ -73,20 +73,17 @@
     </select>
     <select id="studentSubmitTaskRead" resultMap="baseSelectMap2">
     SELECT
-	hms.id,
-	submit_path,
-	submit_state,
-	score,
-	remark,
-	hm.name,
-	u.name AS u_name
+	ts. NAME,
+	hm. NAME,
+	hms.submit_state,
+	hms.submit_path
     FROM
 	home_work_state AS hms
     LEFT JOIN home_work AS hm ON hms.home_work_id = hm.id
-    LEFT JOIN student_user AS su ON hms.student_id = su.student_id
-    LEFT JOIN USER AS u ON su.user_id = u.id
+    LEFT JOIN teacher_student AS ts ON hms.student_id = ts.id
     WHERE
-	hms.teacher_name =#{teacherName}
+	     hms.user_id=#{userId}
+	     AND  hms.delete_flag='1'
     </select>
     <select id="studentCheckTaskScore" resultMap="baseSelectMap3">
     SELECT

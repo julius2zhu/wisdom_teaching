@@ -30,7 +30,53 @@
 
     <select id="selectStudentInfoByCondition" resultType="StudentInfo">
         SELECT
-        su.id,
+        id,
+        name,
+        sex,
+        grade,
+        number,
+        department,
+        major,
+        class_teacher AS classTeacher
+        FROM teacher_student
+        <where>
+            <if test="name!=null">
+                name LIKE CONCAT('%',#{name},'%')
+            </if>
+            <if test="number!=null">
+                number=#{number}
+            </if>
+            <if test="grade!=null">
+                grade=#{grade}
+            </if>
+            <if test="department!=null">
+                department LIKE CONCAT('%',#{department},'%')
+            </if>
+            <if test="major!=null">
+                major LIKE CONCAT('%',#{major},'%')
+            </if>
+            AND delete_flag='1'
+            AND user_id=#{userId}
+        </where>
+    </select>
+    <select id="selectStudentById" resultType="StudentInfo">
+        SELECT
+        id,
+        name,
+        sex,
+        grade,
+        number,
+        department,
+        major,
+        class_teacher AS classTeacher
+        FROM teacher_student
+        WHERE id IN
+        <foreach collection="ids" item="item" separator="," open="(" close=")">
+            #{item}
+        </foreach>
+    </select>
+    <select id="selectStudentInfoByNumber" resultType="StudentInfo">
+        SELECT
         su.student_id AS studentId,
         s.sex,
         s.grade,
@@ -43,41 +89,7 @@
         student s
         LEFT JOIN student_user su ON su.student_id=s.id
         LEFT JOIN user u ON su.user_id=u.id
-        <where>
-            <if test="name!=null">
-                u.name LIKE CONCAT('%',#{name},'%')
-            </if>
-            <if test="number!=null">
-                s.number=#{number}
-            </if>
-            <if test="department!=null">
-                s.department LIKE CONCAT('%',#{department},'%')
-            </if>
-            <if test="major!=null">
-                s.major LIKE CONCAT('%',#{major},'%')
-            </if>
-            AND su.delete_flag='1'
-            AND su.teacher_name=#{teacherName}
-        </where>
-    </select>
-    <select id="selectStudentById" resultType="StudentInfo">
-        SELECT
-        s.sex,
-        s.grade,
-        s.number,
-        s.department,
-        s.major,
-        u.name,
-        s.class_teacher AS classTeacher
-        FROM
-        student s
-        LEFT JOIN student_user su ON su.student_id=s.id
-        LEFT JOIN user u ON su.user_id=u.id
-        WHERE su.id IN
-        <foreach collection="ids" item="item" separator="," open="(" close=")"
-                 index="">
-            #{item}
-        </foreach>
-        AND  su.delete_flag='1'
+        WHERE  s.number=#{number}
+               AND su.delete_flag='1'
     </select>
 </mapper>

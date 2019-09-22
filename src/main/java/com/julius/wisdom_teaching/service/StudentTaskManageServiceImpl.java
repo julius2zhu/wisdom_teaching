@@ -39,8 +39,8 @@ public class StudentTaskManageServiceImpl implements StudentTaskManageService {
     private HomeWorkMapper homeWorkMapper;
 
     @Override
-    public String issueTask(InputStream inputStream, HomeWork homeWork) throws IOException {
-        //将文件保存起来
+    public String issueTask(InputStream inputStream,
+                            HomeWork homeWork, List<Integer> studentIds) throws IOException {//将文件保存起来
         String name = homeWork.getPath();
         String uuid = UUID.randomUUID().toString().substring(0, 35);
         String fileName = uuid + name.substring((name.lastIndexOf(".")));
@@ -50,21 +50,19 @@ public class StudentTaskManageServiceImpl implements StudentTaskManageService {
         homeWork.setPath(wholePath);
         //插入数据库操作
         if (studentTaskManageMapper.issueTask(homeWork) > 0) {
-            //推送给所有的学生
-            //获取自动生成的主键
-            int taskId = homeWork.getId();
-            String teacherName = homeWork.getTeacherName();
-            //获取该教师负责的所有学生id信息
-            List<Integer> studentIds = studentUserMapper.selectStudentIdByTeacherName(teacherName);
-            List<HomeWorkState> homeWorkStates = new ArrayList<>();
+            //获取作业自动生成的主键
+            int homeWorkId = homeWork.getId();
+            //添加者id
+            Integer userId = homeWork.getUserId();
+            final List<HomeWorkState> homeWorkStates = new ArrayList<>();
             for (Integer studentId : studentIds) {
                 HomeWorkState homeWorkState = new HomeWorkState();
                 homeWorkState.setStudentId(studentId);
-                homeWorkState.setTeacherName(teacherName);
-                homeWorkState.setHomeWorkId(taskId);
+                homeWorkState.setUserId(userId);
+                homeWorkState.setHomeWorkId(homeWorkId);
                 homeWorkStates.add(homeWorkState);
             }
-            //执行推送给所有学生
+            //推送给学生
             homeWorkStateMapper.pushTask(homeWorkStates);
             return "成功";
         }

@@ -24,13 +24,13 @@ public class ClassManageServiceImpl implements ClassManageService {
     private OnlineCheckNameMapper onlineCheckNameMapper;
 
     @Override
-    public String onlineCheckName(List<OnlineCheckName> onlineCheckNames) {
+    public String onlineCheckName(OnlineCheckName[] onlineCheckNames) {
         onlineCheckNameMapper.insert(onlineCheckNames);
         return CommonResult.SUCCESS;
     }
 
     @Override
-    public List<OnlineCheckName> studentOnlineCheck(String teacherName, Integer studentId) {
-        return onlineCheckNameMapper.studentOnlineCheck(teacherName, studentId);
+    public List<OnlineCheckName> studentOnlineCheck(Integer userId, Integer studentId) {
+        return onlineCheckNameMapper.studentOnlineCheck(userId, studentId);
     }
 }

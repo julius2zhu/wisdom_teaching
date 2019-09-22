@@ -1,6 +1,8 @@
 package com.julius.wisdom_teaching.repository;
+
 import com.julius.wisdom_teaching.domain.entity.StudentInfo;
 import org.apache.ibatis.annotations.Param;
+
 import java.util.List;
 
 /**
@@ -37,8 +39,16 @@ public interface StudentInfoCheckMapper {
     /**
      * 根据学生单个id或者多个id集合查询学生信息
      *
-     * @param ids id集合
+     * @param ids id数组
      * @return 学生信息对象
      */
-    List<StudentInfo> selectStudentById(@Param("ids") List<String> ids);
+    List<StudentInfo> selectStudentById(@Param("ids") Integer[] ids);
+
+    /**
+     * 根据学生学号查询学生信息
+     *
+     * @param number 学生学号
+     * @return 学生信息对象
+     */
+    StudentInfo selectStudentInfoByNumber(Integer number);
 }

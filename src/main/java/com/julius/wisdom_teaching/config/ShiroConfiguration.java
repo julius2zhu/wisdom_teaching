@@ -4,6 +4,7 @@ import com.julius.wisdom_teaching.realm.UserRealm;
 import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
 import org.apache.shiro.cache.ehcache.EhCacheManager;
 import org.apache.shiro.mgt.SecurityManager;
+import org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
 import org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator;
@@ -63,7 +64,7 @@ public class ShiroConfiguration {
         //公共静态资源可以匿名访问
         chains.put("/dist/**", "anon");
         //这个拦截需要放到最后
-//        chains.put("/**", "authc");
+        chains.put("/**", "authc");
         //所有请求都可匿名访问,开发时候可以使用
 //        chains.put("/**", "anon");
         shiroFilterFactoryBean.setFilterChainDefinitionMap(chains);
@@ -71,12 +72,12 @@ public class ShiroConfiguration {
     }
 
     //开启aop注解支持
-//    @Bean
-//    public AuthorizationAttributeSourceAdvisor authorizationAttributeSourceAdvisor() {
-//        AuthorizationAttributeSourceAdvisor authorizationAttributeSourceAdvisor = new AuthorizationAttributeSourceAdvisor();
-//        authorizationAttributeSourceAdvisor.setSecurityManager(defaultWebSecurityManager());
-//        return authorizationAttributeSourceAdvisor;
-//    }
+    @Bean
+    public AuthorizationAttributeSourceAdvisor authorizationAttributeSourceAdvisor() {
+        AuthorizationAttributeSourceAdvisor authorizationAttributeSourceAdvisor = new AuthorizationAttributeSourceAdvisor();
+        authorizationAttributeSourceAdvisor.setSecurityManager(defaultWebSecurityManager());
+        return authorizationAttributeSourceAdvisor;
+    }
 
     //自动创建代理,配合上面aop注解支持使用
     @Bean

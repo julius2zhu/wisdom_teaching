@@ -16,9 +16,6 @@
             <if test="describes!=null">
                 describes=#{describes},
             </if>
-            <if test="teacherName!=null">
-                teacher_name=#{teacherName},
-            </if>
             create_date=NOW()
         </set>
         WHERE id=#{id}
@@ -28,11 +25,16 @@
         SET delete_flag='0'
         WHERE  id=#{id}
     </delete>
-    <select id="selectHomeWorkByTeacherName" resultType="HomeWork">
-      SELECT   id,name,path,describes,create_date AS createDate,
-                teacher_name AS teacherName
-      FROM     home_work
-      WHERE    teacher_name=#{teacherName}
-               AND delete_flag='1'
+    <select id="selectHomeWorkByUserId" resultType="HomeWork">
+        SELECT id,name,path,describes,create_date AS createDate,
+        user_id AS userId
+        FROM home_work
+        <where>
+            <if test="name!=null">
+                name  LIKE  CONCAT('%',#{name},'%')
+            </if>
+            AND user_id=#{userId}
+            AND delete_flag='1'
+        </where>
     </select>
 </mapper>

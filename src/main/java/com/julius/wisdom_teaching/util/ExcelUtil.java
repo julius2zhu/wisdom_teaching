@@ -22,11 +22,11 @@ public interface ExcelUtil {
      * 读取excel表格中数据
      *
      * @param inputStream 读取文件的输入流
-     * @param teacherName 导入教师名称
+     * @param userId      添加者id
      * @return 学生对象集合
      * @throws IOException 文件读取异常/文件被占用会抛出该异常
      */
-    static List<StudentInfo> readExcel(InputStream inputStream, String teacherName) throws IOException {
+    static List<StudentInfo> readExcel(InputStream inputStream, Integer userId) throws IOException {
         List<StudentInfo> students = new ArrayList<>();
         //根据的excel文件创建一个WorkBook，用于读取其中的sheet中信息
         Workbook workbook = WorkbookFactory.create(inputStream);
@@ -41,7 +41,7 @@ public interface ExcelUtil {
             int cellIndex = 0;
             Cell cell = row.getCell(cellIndex);
             StudentInfo studentInfo = new StudentInfo();
-            studentInfo.setTeacherName(teacherName);
+            studentInfo.setUserId(userId);
             while (cell != null) {
                 cell.setCellType(CellType.STRING);
                 String string = null;
@@ -56,7 +56,7 @@ public interface ExcelUtil {
                         break;
                     case 2:
                         string = cell.getRichStringCellValue().getString();
-                        studentInfo.setNumber(string);
+                        studentInfo.setNumber(Integer.valueOf(string));
                         break;
                     case 3:
                         string = cell.getRichStringCellValue().getString();

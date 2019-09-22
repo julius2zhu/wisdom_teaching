@@ -4,6 +4,7 @@ import com.julius.wisdom_teaching.domain.entity.HomeWork;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.List;
 
 /**
  * author julius.zhu
@@ -17,9 +18,10 @@ public interface StudentTaskManageService {
      *
      * @param inputStream 文件名称
      * @param homeWork    作业信息实体对象
+     * @param studentIds  需要推送的学生id集合
      * @return
      */
-    String issueTask(InputStream inputStream, HomeWork homeWork) throws IOException;
+    String issueTask(InputStream inputStream, HomeWork homeWork, List<Integer> studentIds) throws IOException;
 
     /**
      * 更新作业

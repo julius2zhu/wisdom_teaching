@@ -32,8 +32,16 @@ public interface StudentInfoCheckService {
     /**
      * 根据单个或者多个id查询学生信息
      *
-     * @param ids          ids拼接的字符串
+     * @param ids          id数组
      * @param outputStream 输出流对象
      */
-    void selectStudentById(String ids, OutputStream outputStream);
+    void selectStudentById(Integer[] ids, OutputStream outputStream);
+
+    /**
+     * 根据学生学号查询学生信息
+     *
+     * @param number 学生学号
+     * @return 学生信息对象
+     */
+    StudentInfo selectStudentInfoByNumber(Integer number);
 }

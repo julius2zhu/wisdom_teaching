@@ -5,12 +5,12 @@
 <mapper namespace="com.julius.wisdom_teaching.repository.StudentTaskManageMapper">
     <insert id="issueTask" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO  home_work
-        (name,path,describes,teacher_name,create_date)
+        (name,path,describes,user_id,create_date)
         VALUES
          (#{name},
          #{path},
          #{describes},
-         #{teacherName},
+         #{userId},
          NOW()
          )
     </insert>

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.julius.wisdom_teaching.repository.TeacherStudentManageMapper">
+
+    <insert id="add">
+        INSERT INTO teacher_student
+        (name,sex,grade,number,department,major,class_teacher,user_id,
+        create_date,update_date)
+        VALUES(
+        #{name},
+        #{sex},
+        #{grade},
+        #{number},
+        #{department},
+        #{major},
+        #{classTeacher},
+        #{userId},
+        NOW(),
+        NOW()
+        )
+    </insert>
+
+    <update id="update">
+        UPDATE teacher_student
+        <set>
+            name=#{name},
+            sex=#{sex},
+            grade=#{grade},
+            number=#{number},
+            department=#{department},
+            major=#{major},
+            class_teacher=#{classTeacher},
+            update_date=NOW()
+        </set>
+        WHERE user_id=#{userId}
+        AND id=#{id}
+    </update>
+
+    <delete id="delete">
+      UPDATE    teacher_student
+                 SET delete_flag='0'
+      WHERE      id=#{id}
+    </delete>
+
+    <select id="selectExistsByUserId" resultType="integer">
+     SELECT  COUNT(*) FROM teacher_student
+     WHERE
+              number=#{number}
+              AND user_id=#{userId}
+              AND delete_flag='1'
+    </select>
+</mapper>

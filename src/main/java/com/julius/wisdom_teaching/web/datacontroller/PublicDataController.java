@@ -1,18 +1,10 @@
 package com.julius.wisdom_teaching.web.datacontroller;
 
-import com.julius.wisdom_teaching.domain.entity.Course;
-import com.julius.wisdom_teaching.domain.entity.Examination;
-import com.julius.wisdom_teaching.domain.entity.ExaminationRecord;
-import com.julius.wisdom_teaching.domain.entity.PublicResources;
-import com.julius.wisdom_teaching.repository.ExaminationManageMapper;
+import com.julius.wisdom_teaching.domain.entity.*;
 import com.julius.wisdom_teaching.repository.PublicResourcesMapper;
-import com.julius.wisdom_teaching.service.CourseService;
-import com.julius.wisdom_teaching.service.ExaminationRecordService;
-import com.julius.wisdom_teaching.service.PublicResourcesService;
-import com.julius.wisdom_teaching.service.UserService;
+import com.julius.wisdom_teaching.service.*;
 import com.julius.wisdom_teaching.util.CommonResult;
 import com.julius.wisdom_teaching.util.GlobalUrlMapping;
-import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
@@ -37,22 +29,26 @@ import java.util.Map;
 @CrossOrigin(origins = "*")
 @RestController
 public class PublicDataController {
-    private final UserService userService;
-    private final PublicResourcesService resourcesService;
+
     @Autowired
     private PublicResourcesMapper resourcesMapper;
     private final ExaminationRecordService examinationRecordService;
     private final CourseService courseService;
+    private final UserService userService;
+    private final PublicResourcesService resourcesService;
+    private final StudentInfoCheckService studentInfoCheckService;
 
     @Autowired
     public PublicDataController(UserService userService,
                                 PublicResourcesService resourcesService,
                                 CourseService courseService,
-                                ExaminationRecordService examinationRecordService) {
+                                ExaminationRecordService examinationRecordService,
+                                StudentInfoCheckService studentInfoCheckService) {
         this.userService = userService;
         this.resourcesService = resourcesService;
         this.courseService = courseService;
         this.examinationRecordService = examinationRecordService;
+        this.studentInfoCheckService = studentInfoCheckService;
     }
 
     /**
@@ -125,5 +121,16 @@ public class PublicDataController {
     @PostMapping(GlobalUrlMapping.public_data_examination_record_query)
     public Map<String, Object> selectExaminationRecord(@RequestBody ExaminationRecord condition) {
         return this.examinationRecordService.selectExaminationRecord(condition);
+    }
+
+    /**
+     * 根据学生学号查询该生的信息
+     *
+     * @param studentInfo 学生学号
+     * @return 学生信息对象
+     */
+    @PostMapping(GlobalUrlMapping.public_data_student_info_query)
+    public StudentInfo selectStudentInfoByNumber(@RequestBody StudentInfo studentInfo) {
+        return studentInfoCheckService.selectStudentInfoByNumber(studentInfo.getNumber());
     }
 }

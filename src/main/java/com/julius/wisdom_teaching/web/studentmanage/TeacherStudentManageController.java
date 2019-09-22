@@ -2,7 +2,7 @@ package com.julius.wisdom_teaching.web.studentmanage;
 
 import com.julius.wisdom_teaching.domain.entity.StudentInfo;
 import com.julius.wisdom_teaching.service.StudentInfoCheckService;
-import com.julius.wisdom_teaching.service.StudentManageService;
+import com.julius.wisdom_teaching.service.TeacherStudentManageService;
 import com.julius.wisdom_teaching.util.CommonResult;
 import com.julius.wisdom_teaching.util.GlobalUrlMapping;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
@@ -19,17 +19,18 @@ import java.util.Map;
  * date   2019/5/30
  * time   22:57
  * describe:
- * 学生信息管理controller层
+ * 教师和学生关系管理controller层
  */
 @CrossOrigin(origins = "*")
 @RestController
-public class StudentManageController {
-    private final StudentManageService studentManageService;
+public class TeacherStudentManageController {
+    private final TeacherStudentManageService teacherStudentManageService;
     private final StudentInfoCheckService studentInfoCheckService;
 
     @Autowired
-    public StudentManageController(StudentManageService studentManageService, StudentInfoCheckService studentInfoCheckService) {
-        this.studentManageService = studentManageService;
+    public TeacherStudentManageController(TeacherStudentManageService teacherStudentManageService,
+                                          StudentInfoCheckService studentInfoCheckService) {
+        this.teacherStudentManageService = teacherStudentManageService;
         this.studentInfoCheckService = studentInfoCheckService;
     }
 
@@ -54,8 +55,7 @@ public class StudentManageController {
     @RequiresPermissions(CommonResult.ROLE_TEACHER_PERMISSION)
     @PostMapping(GlobalUrlMapping.student_manage_add)
     public String add(@RequestBody StudentInfo studentInfo) {
-        return studentManageService.add(studentInfo) > 0 ?
-                CommonResult.SUCCESS : CommonResult.FAIL;
+        return teacherStudentManageService.add(studentInfo);
     }
 
     /**
@@ -67,8 +67,7 @@ public class StudentManageController {
     @RequiresPermissions(CommonResult.ROLE_TEACHER_PERMISSION)
     @PostMapping(GlobalUrlMapping.student_manage_update)
     public String update(@RequestBody StudentInfo studentInfo) {
-        return studentManageService.update(studentInfo) > 0 ?
-                CommonResult.SUCCESS : CommonResult.FAIL;
+        return teacherStudentManageService.update(studentInfo);
     }
 
     /**
@@ -80,7 +79,7 @@ public class StudentManageController {
     @RequiresPermissions(CommonResult.ROLE_TEACHER_PERMISSION)
     @PostMapping(GlobalUrlMapping.student_manage_delete)
     public String delete(@RequestBody StudentInfo studentInfo) {
-        return studentManageService.delete(studentInfo.getId()) > 0 ?
-                CommonResult.SUCCESS : CommonResult.FAIL;
+        return teacherStudentManageService.delete(studentInfo.getId());
+
     }
 }

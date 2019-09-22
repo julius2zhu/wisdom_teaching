@@ -19,6 +19,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -42,7 +44,7 @@ public class StudentTaskManageController {
     }
 
     /**
-     * 教师发布作作业且推送给负责的所有学生/更新作业
+     * 教师发布作作业且推送给负责的学生/更新作业
      *
      * @param file    作业文件
      * @param request 请求对象
@@ -57,19 +59,24 @@ public class StudentTaskManageController {
         String originalFilename = file.getOriginalFilename();
         String taskName = request.getParameter("name");
         String describes = request.getParameter("describes");
-        String teacherName = request.getParameter("teacherName");
+        Integer userId = Integer.valueOf(request.getParameter("userId"));
         HomeWork homeWork = new HomeWork();
         homeWork.setName(taskName);
         homeWork.setPath(originalFilename);
         homeWork.setDescribes(describes);
-        homeWork.setTeacherName(teacherName);
+        homeWork.setUserId(userId);
         //判断是新增还是更新
         int id = Integer.parseInt(request.getParameter("id"));
         if (id > 0) {
             homeWork.setId(id);
             return studentTaskManageService.updateTask(inputStream, homeWork);
         }
-        return studentTaskManageService.issueTask(inputStream, homeWork);
+        final List<Integer> ids = new ArrayList<>();
+        String[] studentIds = request.getParameter("studentIds").split(",");
+        for (String studentId : studentIds) {
+            ids.add(Integer.valueOf(studentId));
+        }
+        return studentTaskManageService.issueTask(inputStream, homeWork, ids);
     }
 
     /**
@@ -80,7 +87,7 @@ public class StudentTaskManageController {
      */
     @PostMapping(GlobalUrlMapping.student_issue_task_check)
     public Map<String, Object> selectHomeWork(@RequestBody HomeWork homeWork) {
-        return this.homeWorkService.selectHomeWorkByTeacherName(homeWork);
+        return this.homeWorkService.selectHomeWorkByUserId(homeWork);
     }
 
     /**

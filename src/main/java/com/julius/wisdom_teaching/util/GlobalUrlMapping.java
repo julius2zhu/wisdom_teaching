@@ -104,6 +104,8 @@ public class GlobalUrlMapping {
     public static final String public_data_examination_query = ROOT + "public_data_examination_query";
     //根据试题id和题目类型查询对应的记录
     public static final String public_data_examination_record_query = ROOT + "public_data_examination_record_query";
+    //根据学生学号查询学生信息
+    public static final String public_data_student_info_query = ROOT + "public_data_student_info_query";
 
     /*资源库管理*/
     //资源添加

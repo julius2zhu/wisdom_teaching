@@ -43,11 +43,9 @@ public class StudentInfoCheckServiceImp implements StudentInfoCheckService {
     }
 
     @Override
-    public void selectStudentById(String ids, OutputStream outputStream) {
-        String[] idsString = ids.split(",");
-        List<String> idsList = Arrays.asList(idsString);
+    public void selectStudentById(Integer[] ids, OutputStream outputStream) {
         try {
-            ExcelUtil.exportExcel(outputStream, studentInfoCheckMapper.selectStudentById(idsList));
+            ExcelUtil.exportExcel(outputStream, studentInfoCheckMapper.selectStudentById(ids));
         } catch (IOException e) {
             e.printStackTrace();
         } finally {
@@ -60,5 +58,10 @@ public class StudentInfoCheckServiceImp implements StudentInfoCheckService {
                 }
             }
         }
+    }
+
+    @Override
+    public StudentInfo selectStudentInfoByNumber(Integer number) {
+        return studentInfoCheckMapper.selectStudentInfoByNumber(number);
     }
 }

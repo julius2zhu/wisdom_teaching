@@ -33,33 +33,9 @@ public class StudentManageServiceImpl implements StudentManageService {
 
     @Override
     public Integer add(StudentInfo studentInfo) {
-        //分步骤操作
-        //根据学生学号判断,该学生已经存在则直接插入student_user表,建立联系即可
-        StudentUser studentUser = studentManageMapper.selectStudentIdAndUserIdByNumber(studentInfo.getNumber());
-        //有该生信息
-        if (studentUser != null) {
-            //再次判断,若是已经建立联系则不执行插入操作,保持默认
-            if (studentManageMapper.selectStudentExists(studentUser.getStudentId(),
-                    studentUser.getUserId(), studentInfo.getTeacherName()) > 0) {
-                return 1;
-            }
-            return studentManageMapper.addStudentUser(studentUser.getStudentId(),
-                    studentUser.getUserId(), studentInfo.getTeacherName());
-        }
-        //1.首先插入student表
-        studentManageMapper.add(studentInfo);
-        //获取返回自增长的主键插入到student_user表中
-        Integer studentId = studentInfo.getId();
-        //2.插入user表
-        User user = new User();
-        user.setName(studentInfo.getName());
-        user.setUsername(studentInfo.getNumber());
-        user.setPassword(EncryptUtil.encrypt(studentInfo.getNumber(), studentInfo.getNumber(), 3));
-        user.setRole("0");
-        userMapper.addOne(user);
-        Integer userId = user.getId();
-        //建立联系
-        return studentManageMapper.addStudentUser(studentId, userId, studentInfo.getTeacherName());
+        //添加之前判断该教师是否存在该生信息,存在则提示
+
+        return null;
     }
 
     @Override

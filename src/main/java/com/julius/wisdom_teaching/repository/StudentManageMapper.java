@@ -64,7 +64,7 @@ public interface StudentManageMapper {
      * @param number 学生学号
      * @return
      */
-    StudentUser selectStudentIdAndUserIdByNumber(String number);
+    StudentUser selectStudentIdAndUserIdByNumber(Integer number);
 
     /**
      * 根据学生id 用户id 以及教师名判断教师和学生是否已经建立联系

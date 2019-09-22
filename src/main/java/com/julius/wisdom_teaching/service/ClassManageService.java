@@ -18,14 +18,14 @@ public interface ClassManageService {
      * @param onlineCheckNames 考勤信息对象
      * @return
      */
-    String onlineCheckName(List<OnlineCheckName> onlineCheckNames);
+    String onlineCheckName(OnlineCheckName[] onlineCheckNames);
 
     /**
      * 根据学生id查询学生考勤信息
      *
-     * @param teacherName 教师名称
-     * @param studentId   学生id
+     * @param userId    添加者id
+     * @param studentId 学生id
      * @return 考勤信息对象集合
      */
-    List<OnlineCheckName> studentOnlineCheck(String teacherName, Integer studentId);
+    List<OnlineCheckName> studentOnlineCheck(Integer userId, Integer studentId);
 }

@@ -23,8 +23,8 @@ public class HomeWorkState extends BaseDomain {
     private String submitPath;
     //提交状态
     private String submitState;
-    //教师名称
-    private String teacherName;
+    //发布者id
+    private Integer userId;
     //分数
     private Double score;
     //教师评语
@@ -39,7 +39,7 @@ public class HomeWorkState extends BaseDomain {
                 ", studentId=" + studentId +
                 ", submitPath='" + submitPath + '\'' +
                 ", submitState='" + submitState + '\'' +
-                ", teacherName='" + teacherName + '\'' +
+                ", userId='" + userId + '\'' +
                 ", score=" + score +
                 ", homeWorkId=" + homeWorkId +
                 "} ";

@@ -6,20 +6,20 @@
 
     <insert id="insert">
         INSERT INTO
-        online_check_name(student_id,online,create_date,reason,teacher_name)
+        online_check_name(student_id,online,create_date,reason,user_id)
         VALUES
         <foreach collection="onlineCheckNames" item="item" separator=",">
-            (#{item.studentId},#{item.online},NOW(),'',#{item.teacherName})
+            (#{item.id},#{item.online},NOW(),'',#{item.userId})
         </foreach>
     </insert>
 
     <select id="studentOnlineCheck" resultType="OnlineCheckName">
      SELECT student_id AS studentId,
-     online,
-     create_date AS  createDate
+     online,create_date AS  createDate
      FROM   online_check_name
-     WHERE  student_id=#{studentId}
-     AND    teacher_name=#{teacherName}
-     AND    online=1
+     WHERE
+           user_Id=#{userId}
+     AND  student_id=#{studentId}
+     AND  online=1
     </select>
 </mapper>

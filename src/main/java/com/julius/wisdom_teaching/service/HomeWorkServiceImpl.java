@@ -37,11 +37,11 @@ public class HomeWorkServiceImpl implements HomeWorkService {
     private HomeWorkStateMapper homeWorkStateMapper;
 
     @Override
-    public Map<String, Object> selectHomeWorkByTeacherName(HomeWork homeWork) {
+    public Map<String, Object> selectHomeWorkByUserId(HomeWork homeWork) {
         //获取下当前页和每页显示的条数
         PageHelper.startPage(homeWork.getCurrentPage(), homeWork.getCount());
         //必须紧跟查询条件
-        return SelectResultWrap.resultWrap(homeWorkMapper.selectHomeWorkByTeacherName(homeWork.getTeacherName()));
+        return SelectResultWrap.resultWrap(homeWorkMapper.selectHomeWorkByUserId(homeWork));
     }
 
     @Override
@@ -63,7 +63,7 @@ public class HomeWorkServiceImpl implements HomeWorkService {
     @Override
     public Map<String, Object> studentSubmitTaskRead(HomeWorkState homeWorkState) {
         PageHelper.startPage(homeWorkState.getCurrentPage(), homeWorkState.getCount());
-        return SelectResultWrap.resultWrap(homeWorkStateMapper.studentSubmitTaskRead(homeWorkState.getTeacherName()));
+        return SelectResultWrap.resultWrap(homeWorkStateMapper.studentSubmitTaskRead(homeWorkState.getUserId()));
     }
 
     @Override

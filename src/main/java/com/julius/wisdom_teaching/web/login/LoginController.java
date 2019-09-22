@@ -55,6 +55,7 @@ public class LoginController {
             //没有出现异常
             User u = userService.findUserByUsername(user.getUsername());
             user.setMessage("登录成功");
+            user.setId(u.getId());
             user.setName(u.getName());
             user.setRole(u.getRole());
         } catch (UnknownAccountException e1) {

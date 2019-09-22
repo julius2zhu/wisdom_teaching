@@ -20,7 +20,7 @@ public interface HomeWorkService {
      * @param homeWork 作业信息对象
      * @return
      */
-    Map<String, Object> selectHomeWorkByTeacherName(HomeWork homeWork);
+    Map<String, Object> selectHomeWorkByUserId(HomeWork homeWork);
 
     /**
      * 根据作业id删除作业信息

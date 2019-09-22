@@ -2,7 +2,7 @@ package com.julius.wisdom_teaching.web.studentimport;
 
 import com.julius.wisdom_teaching.domain.entity.StudentInfo;
 import com.julius.wisdom_teaching.service.StudentInfoCheckService;
-import com.julius.wisdom_teaching.service.StudentManageService;
+import com.julius.wisdom_teaching.service.TeacherStudentManageService;
 import com.julius.wisdom_teaching.util.CommonResult;
 import com.julius.wisdom_teaching.util.ExcelUtil;
 import com.julius.wisdom_teaching.util.GlobalUrlMapping;
@@ -19,6 +19,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.net.URLEncoder;
 import java.util.List;
 
 /**
@@ -31,10 +32,15 @@ import java.util.List;
 @RestController
 @CrossOrigin(origins = "*")
 public class StudentInfoImport {
+    private final TeacherStudentManageService teacherStudentManageService;
+    private final StudentInfoCheckService studentInfoCheckService;
+
     @Autowired
-    private StudentManageService studentManageService;
-    @Autowired
-    private StudentInfoCheckService studentInfoCheckService;
+    public StudentInfoImport(TeacherStudentManageService teacherStudentManageService,
+                             StudentInfoCheckService studentInfoCheckService) {
+        this.teacherStudentManageService = teacherStudentManageService;
+        this.studentInfoCheckService = studentInfoCheckService;
+    }
 
     /**
      * 导入学生数据
@@ -45,34 +51,29 @@ public class StudentInfoImport {
      */
     @RequiresPermissions(CommonResult.ROLE_TEACHER_PERMISSION)
     @PostMapping(GlobalUrlMapping.student_upload_template)
-    public void uploadTemplate(MultipartFile file, HttpServletRequest request) throws IOException {
-        String teacherName = request.getParameter("teacherName");
+    public void importStudentInfo(MultipartFile file, HttpServletRequest request) throws IOException {
         //读取excel中数据
-        List<StudentInfo> studentInfos = ExcelUtil.readExcel(file.getInputStream(), teacherName);
-        //执行插入数据库操作
-        for (StudentInfo studentInfo : studentInfos) {
-            studentManageService.add(studentInfo);
-        }
+        List<StudentInfo> studentInfos = ExcelUtil.readExcel(file.getInputStream(),
+                Integer.valueOf(request.getParameter("userId")));
+        //导入学生数据
+        teacherStudentManageService.importStudentInfo(studentInfos);
     }
 
     /**
      * 导出数据为excel
      *
-     * @param ids      多个id的字符串
+     * @param ids      多个id的数组
      * @param response 相应对象
      */
     @RequiresPermissions(CommonResult.ROLE_TEACHER_PERMISSION)
-    @GetMapping(GlobalUrlMapping.student_export)
-    public void exportExcelData(String ids, HttpServletResponse response) {
-        OutputStream outputStream = null;
-        try {
-            outputStream = response.getOutputStream();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    @GetMapping(value = GlobalUrlMapping.student_export)
+    public void exportExcelData(Integer[] ids, HttpServletResponse response) throws IOException {
+        OutputStream outputStream = response.getOutputStream();
         //写出数据
+        //处理乱码问题
+        String fileName = URLEncoder.encode("学生信息导出", "utf-8");
         response.setContentType(MediaType.APPLICATION_OCTET_STREAM_VALUE);
-        response.setHeader("Content-Disposition", "attachment;filename=studentInfo.xlsx");
+        response.setHeader("Content-Disposition", "attachment;filename=" + fileName + ".xlsx");
         studentInfoCheckService.selectStudentById(ids, outputStream);
     }
 }
