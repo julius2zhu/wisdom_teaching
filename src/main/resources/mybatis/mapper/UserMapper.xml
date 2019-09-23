@@ -11,9 +11,9 @@
      (#{name},#{username},#{password},#{role},now())
     </insert>
 
-    <insert id="register">
-        INSERT  INTO user(name,username,password,create_date)
-        VALUES (#{name},#{username},#{password},NOW())
+    <insert id="register" useGeneratedKeys="true" keyProperty="id">
+        INSERT  INTO user(name,username,password,role,create_date)
+        VALUES (#{name},#{username},#{password},'0',NOW())
     </insert>
 
     <insert id="addUsersUseTest">
@@ -47,11 +47,21 @@
     <update id="update">
         UPDATE user
         <set>
-            name=#{name},
-            username=#{username},
-            role=#{role}
+            <if test="name!=null">
+                name=#{name},
+            </if>
+            <if test="username!=null">
+                username=#{username},
+            </if>
+            <if test="role!=null">
+                role=#{role}
+            </if>
         </set>
         WHERE id=#{id}
+    </update>
+
+    <update id="updateStudentInfo">
+
     </update>
 
     <delete id="deleteUser">
@@ -99,5 +109,19 @@
         SELECT  COUNT(*) FROM user
         WHERE   username=#{username}
                  AND state='0'
+    </select>
+    <select id="getUserInfoByUsername" resultType="StudentInfo">
+    SELECT
+	u.NAME,
+    s.sex,
+    s.grade,
+    s.department,
+    s.major,
+    s.class_teacher AS  classTeacher
+    FROM
+	user AS u
+    LEFT JOIN student AS s ON u.id = s.user_id
+    WHERE
+	u.username =#{username}
     </select>
 </mapper>

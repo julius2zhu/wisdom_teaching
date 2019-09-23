@@ -51,4 +51,21 @@ public interface StudentManageService {
      * @return
      */
     Integer findStudentNumberByUsername(String username);
+
+    /**
+     * 添加学生学号,后续让其或者管理员自己完善
+     *
+     * @param number 学号
+     * @param userId 用户id
+     * @return 记录数
+     */
+    int register(Integer number, Integer userId);
+
+    /**
+     * 更新学生信息
+     *
+     * @param studentInfo 学生信息对象
+     */
+    void updateStudentInfo(StudentInfo studentInfo);
+
 }

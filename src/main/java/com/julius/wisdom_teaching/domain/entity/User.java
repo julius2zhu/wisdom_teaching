@@ -17,8 +17,6 @@ public class User extends BaseDomain {
     private String name;
     //用户性别
     private String sex;
-    //用户账号
-    private String username;
     //密码
     private String password;
     //角色信息,学生0/教师1/管理员2
@@ -29,14 +27,14 @@ public class User extends BaseDomain {
     private String newPassWord;
     //登录结果(账号不存在,密码错误,以及成功)
     private String message;
+    //学生学号
+    private Integer number;
 
     @Override
     public String toString() {
         return "User{" +
                 ", name='" + name + '\'' +
                 ", sex='" + sex + '\'' +
-                ", username='" + username + '\'' +
-                ", password='" + password + '\'' +
                 ", role='" + role + '\'' +
                 ", state='" + state + '\'' +
                 ", newPassWord='" + newPassWord + '\'' +

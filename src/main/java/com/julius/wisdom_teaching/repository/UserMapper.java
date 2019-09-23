@@ -108,4 +108,19 @@ public interface UserMapper {
      * @param users 用户信息对象集合
      */
     void addUsersUseTest(@Param("users") List<User> users);
+
+    /**
+     * 根据用户名查询用户信息
+     *
+     * @param username 用户名
+     * @return
+     */
+    StudentInfo getUserInfoByUsername(String username);
+
+    /***
+     * 学生更新信息
+     * @param studentInfo 学生信息对象
+     * @return
+     */
+    int updateStudentInfo(StudentInfo studentInfo);
 }

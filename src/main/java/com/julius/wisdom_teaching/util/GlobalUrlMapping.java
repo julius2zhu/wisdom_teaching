@@ -58,6 +58,10 @@ public class GlobalUrlMapping {
     public static final String user_manage_freezeOrThaw = ROOT + "user_manage_freezeOrThaw";
     //添加或者修改用户信息
     public static final String user_manage_addOrUpdate = ROOT + "user_manage_addOrUpdate";
+    //根据用户名获取信息
+    public static final String user_getUserInfoByUsername = ROOT + "getUserInfoByUsername";
+    //学生更新自己信息
+    public static final String user_update_student = ROOT + "user_update_student";
 
     /*学生作业管理*/
     //作业发布/更新

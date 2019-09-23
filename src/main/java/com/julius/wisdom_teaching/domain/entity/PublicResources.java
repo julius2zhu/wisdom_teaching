@@ -19,8 +19,6 @@ public class PublicResources extends BaseDomain {
     private String path;
     //描述信息
     private String describes;
-    //上传者用户名
-    private String username;
 
     @Override
     public String toString() {
@@ -28,7 +26,6 @@ public class PublicResources extends BaseDomain {
                 "name='" + name + '\'' +
                 ", path='" + path + '\'' +
                 ", describes='" + describes + '\'' +
-                ", username='" + username + '\'' +
                 "} ";
     }
 }

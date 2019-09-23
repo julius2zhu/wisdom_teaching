@@ -1,6 +1,7 @@
 package com.julius.wisdom_teaching.service;
 
 import com.github.pagehelper.PageHelper;
+import com.julius.wisdom_teaching.domain.entity.StudentInfo;
 import com.julius.wisdom_teaching.domain.entity.User;
 import com.julius.wisdom_teaching.repository.UserMapper;
 import com.julius.wisdom_teaching.util.CommonResult;
@@ -9,7 +10,6 @@ import com.julius.wisdom_teaching.util.SelectResultWrap;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.UsernamePasswordToken;
-import org.apache.shiro.authz.AuthorizationException;
 import org.apache.shiro.subject.Subject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,9 +17,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.servlet.http.HttpServletRequest;
-import java.time.LocalDateTime;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -35,6 +32,12 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private UserMapper userMapper;
     private final Logger logger = LoggerFactory.getLogger(getClass());
+    private final StudentManageService studentManageService;
+
+    @Autowired
+    public UserServiceImpl(StudentManageService studentManageService) {
+        this.studentManageService = studentManageService;
+    }
 
     @Override
     public User findUserByUsername(String username) {
@@ -91,7 +94,36 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public String register(User user) {
+        if (this.findUserByUsername(user.getUsername()) != null) {
+            return CommonResult.USERNAME_EXIST;
+        }
         user.setPassword(EncryptUtil.encrypt(user.getPassword(), user.getUsername(), 3));
-        return userMapper.register(user) > 0 ? CommonResult.SUCCESS : CommonResult.FAIL;
+        userMapper.register(user);
+        if (studentManageService.register(user.getNumber(), user.getId()) == -1) {
+            return CommonResult.INFO_EXIST;
+        }
+        //插入到student表中,仅仅添加number和userId,后续让学生或者管理员自己完善
+        studentManageService.register(user.getNumber(), user.getId());
+        return CommonResult.SUCCESS;
+    }
+
+    @Override
+    public StudentInfo getUserInfoByUsername(String username) {
+        return userMapper.getUserInfoByUsername(username);
+    }
+
+    @Override
+    public String updateStudentInfo(StudentInfo studentInfo) {
+        //更新姓名
+        User user = new User();
+        user.setId(studentInfo.getId());
+        user.setName(studentInfo.getName());
+        userMapper.update(user);
+        //更新学生其他信息
+        Integer number = studentManageService.
+                findStudentNumberByUsername(studentInfo.getUsername());
+        studentInfo.setNumber(number);
+        studentManageService.updateStudentInfo(studentInfo);
+        return CommonResult.SUCCESS;
     }
 }

@@ -1,5 +1,6 @@
 package com.julius.wisdom_teaching.web.usermanage;
 
+import com.julius.wisdom_teaching.domain.entity.StudentInfo;
 import com.julius.wisdom_teaching.domain.entity.User;
 import com.julius.wisdom_teaching.service.UserService;
 import com.julius.wisdom_teaching.util.CommonResult;
@@ -76,6 +77,28 @@ public class UserManageController {
             return userService.update(user) > 0 ? CommonResult.SUCCESS : CommonResult.FAIL;
         }
         return userService.addOne(user) > 0 ? CommonResult.SUCCESS : CommonResult.FAIL;
+    }
+
+    /**
+     * 根据用户名获取用户信息
+     *
+     * @param user 用户信息对象
+     * @return
+     */
+    @PostMapping(GlobalUrlMapping.user_getUserInfoByUsername)
+    public StudentInfo getUserInfoByUsername(@RequestBody User user) {
+        return userService.getUserInfoByUsername(user.getUsername());
+    }
+
+    /**
+     * 学生更新自己信息
+     *
+     * @param studentInfo 学生信息对象
+     * @return
+     */
+    @PostMapping(GlobalUrlMapping.user_update_student)
+    public String updateStudentInfo(@RequestBody StudentInfo studentInfo) {
+        return userService.updateStudentInfo(studentInfo);
     }
 }
 

@@ -95,7 +95,7 @@
 	 AND hms.delete_flag='1'
     </select>
     <select id="studentCheckTaskScore" resultMap="baseSelectMap3">
-   SELECT
+    SELECT
 	hm.name AS h_name,
 	u.name AS u_name,
 	hms.submit_state,

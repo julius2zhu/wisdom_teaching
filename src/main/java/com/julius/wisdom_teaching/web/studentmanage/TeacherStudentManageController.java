@@ -80,6 +80,5 @@ public class TeacherStudentManageController {
     @PostMapping(GlobalUrlMapping.student_manage_delete)
     public String delete(@RequestBody StudentInfo studentInfo) {
         return teacherStudentManageService.delete(studentInfo.getId());
-
     }
 }

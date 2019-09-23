@@ -47,6 +47,10 @@
             )
         </foreach>
     </insert>
+    <insert id="register">
+        INSERT  INTO  student(number,user_id)
+        VALUES (#{number},#{userId})
+    </insert>
 
     <update id="update">
         UPDATE student
@@ -71,6 +75,18 @@
             </if>
         </set>
         WHERE id=#{id}
+    </update>
+
+    <update id="updateStudentInfo">
+      UPDATE student
+      <set>
+          sex=#{sex},
+          grade=#{grade},
+          department=#{department},
+          major=#{major},
+          class_teacher=#{classTeacher}
+      </set>
+      WHERE  number=#{number}
     </update>
     <delete id="delete">
         UPDATE      student_user
@@ -104,6 +120,11 @@
             WHERE  username=#{username}
             AND     delete_flag='1'
             )
+    </select>
+    <select id="numberExists" resultType="integer">
+        SELECT  COUNT(*) FROM
+        student
+        WHERE  number=#{number}
     </select>
 
 </mapper>

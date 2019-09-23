@@ -1,6 +1,7 @@
 package com.julius.wisdom_teaching.config;
 
 import com.julius.wisdom_teaching.realm.UserRealm;
+import com.julius.wisdom_teaching.util.GlobalUrlMapping;
 import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
 import org.apache.shiro.cache.ehcache.EhCacheManager;
 import org.apache.shiro.mgt.SecurityManager;
@@ -60,7 +61,9 @@ public class ShiroConfiguration {
 //        shiroFilterFactoryBean.setSuccessUrl("/");
         Map<String, String> chains = new HashMap<>();
         //创建一些拦截规则
-        chains.put("/wisdom_teaching/login", "anon");
+        chains.put(GlobalUrlMapping.LOGIN, "anon");
+        chains.put(GlobalUrlMapping.REGISTER, "anon");
+        chains.put(GlobalUrlMapping.public_data_query_user, "anon");
         //公共静态资源可以匿名访问
         chains.put("/dist/**", "anon");
         //这个拦截需要放到最后

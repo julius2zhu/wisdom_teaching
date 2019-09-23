@@ -85,4 +85,29 @@ public interface StudentManageMapper {
      * @return
      */
     Integer findStudentNumberByUsername(String username);
+
+    /**
+     * 添加学生学号信息
+     *
+     * @param number 学号
+     * @param userId 用户id
+     * @return
+     */
+    int register(@Param("number") Integer number,
+                 @Param("userId") Integer userId);
+
+    /**
+     * 学号是否已经存在
+     *
+     * @param number 学号
+     * @return
+     */
+    int numberExists(Integer number);
+
+    /**
+     * 更新学生信息
+     *
+     * @param studentInfo 学生信息对象
+     */
+    void updateStudentInfo(StudentInfo studentInfo);
 }

@@ -6,6 +6,7 @@ import com.julius.wisdom_teaching.domain.entity.User;
 import com.julius.wisdom_teaching.repository.StudentManageMapper;
 import com.julius.wisdom_teaching.repository.StudentUserMapper;
 import com.julius.wisdom_teaching.repository.UserMapper;
+import com.julius.wisdom_teaching.util.CommonResult;
 import com.julius.wisdom_teaching.util.EncryptUtil;
 import org.apache.shiro.crypto.hash.Md5Hash;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -62,5 +63,18 @@ public class StudentManageServiceImpl implements StudentManageService {
     @Override
     public Integer findStudentNumberByUsername(String username) {
         return studentManageMapper.findStudentNumberByUsername(username);
+    }
+
+    @Override
+    public int register(Integer number, Integer userId) {
+        if (studentManageMapper.numberExists(number) > 0) {
+            return -1;
+        }
+        return studentManageMapper.register(number, userId);
+    }
+
+    @Override
+    public void updateStudentInfo(StudentInfo studentInfo) {
+        studentManageMapper.updateStudentInfo(studentInfo);
     }
 }

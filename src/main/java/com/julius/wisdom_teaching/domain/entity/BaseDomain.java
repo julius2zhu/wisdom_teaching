@@ -10,6 +10,8 @@ package com.julius.wisdom_teaching.domain.entity;
 public class BaseDomain {
     //主键id
     private Integer id;
+    //用户名
+    private String username;
     //创建日期
     private String createDate;
     //更新日期
@@ -78,4 +80,13 @@ public class BaseDomain {
     public final void setId(Integer id) {
         this.id = id;
     }
+
+    public final String getUsername() {
+        return username;
+    }
+
+    public final void setUsername(String username) {
+        this.username = username;
+    }
+
 }

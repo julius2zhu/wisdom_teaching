@@ -1,5 +1,6 @@
 package com.julius.wisdom_teaching.service;
 
+import com.julius.wisdom_teaching.domain.entity.StudentInfo;
 import com.julius.wisdom_teaching.domain.entity.User;
 import org.apache.shiro.authc.AuthenticationException;
 
@@ -84,4 +85,20 @@ public interface UserService {
      * @return 注册结果
      */
     String register(User user);
+
+    /**
+     * 根据用户名获取用户信息
+     *
+     * @param username 用户名
+     * @return 学生信息对象
+     */
+    StudentInfo getUserInfoByUsername(String username);
+
+    /**
+     * 学生更新信息
+     *
+     * @param studentInfo 学生信息对象
+     * @return
+     */
+    String updateStudentInfo(StudentInfo studentInfo);
 }
