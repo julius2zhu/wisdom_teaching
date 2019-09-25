@@ -73,11 +73,11 @@ public class BaseDomain {
         this.createDate = createDate;
     }
 
-    public final Integer getId() {
+    public Integer getId() {
         return id;
     }
 
-    public final void setId(Integer id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

@@ -13,6 +13,8 @@ import lombok.Setter;
 @Setter
 @Getter
 public class User extends BaseDomain {
+    //主键id
+    private Integer id;
     //用户真实姓名
     private String name;
     //用户性别

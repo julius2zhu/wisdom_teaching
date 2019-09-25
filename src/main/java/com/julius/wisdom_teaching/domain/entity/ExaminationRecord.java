@@ -13,6 +13,8 @@ import lombok.Setter;
 @Setter
 @Getter
 public class ExaminationRecord extends BaseDomain {
+    //试题记录id
+    private Integer id;
     //问题名称
     private String question;
     //选项A
@@ -27,7 +29,7 @@ public class ExaminationRecord extends BaseDomain {
     private String correct;
     //解析
     private String analyze;
-    //题目类型1单选2多选3简答
+    //题目类型1单选2多选3简答4填空
     private Integer questionType;
     //对应试题id
     private Integer examinationId;

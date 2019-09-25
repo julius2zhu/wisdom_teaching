@@ -15,6 +15,13 @@ import java.util.Map;
  * 查询结果包装
  */
 public interface SelectResultWrap {
+    /**
+     * 查询结果集包装
+     *
+     * @param eList 需要被包装的集合对象
+     * @param <E>   传递的数据类型
+     * @return 包装后的map映射
+     */
     static <E> Map<String, Object> resultWrap(List<E> eList) {
         //包装下
         PageInfo<E> pageInfo = new PageInfo<>(eList);

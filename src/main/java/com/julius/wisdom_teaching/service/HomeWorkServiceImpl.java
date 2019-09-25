@@ -8,15 +8,10 @@ import com.julius.wisdom_teaching.domain.entity.HomeWorkState;
 import com.julius.wisdom_teaching.domain.entity.User;
 import com.julius.wisdom_teaching.repository.HomeWorkMapper;
 import com.julius.wisdom_teaching.repository.HomeWorkStateMapper;
-import com.julius.wisdom_teaching.repository.StudentUserMapper;
-import com.julius.wisdom_teaching.repository.UserMapper;
 import com.julius.wisdom_teaching.util.SelectResultWrap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 /**

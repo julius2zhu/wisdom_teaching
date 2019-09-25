@@ -2,6 +2,7 @@ package com.julius.wisdom_teaching.repository;
 
 import com.julius.wisdom_teaching.domain.entity.Examination;
 import com.julius.wisdom_teaching.domain.entity.ExaminationRecord;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -44,4 +45,10 @@ public interface ExaminationManageMapper {
      * @return
      */
     List<ExaminationRecord> selectExaminationRecord(ExaminationRecord condition);
+
+    /**
+     * 仅仅做测试使用
+     * @param records
+     */
+    void addRecordTest(@Param("records") List<ExaminationRecord> records);
 }

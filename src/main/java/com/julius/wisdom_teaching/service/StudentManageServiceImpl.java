@@ -2,17 +2,12 @@ package com.julius.wisdom_teaching.service;
 
 import com.julius.wisdom_teaching.domain.entity.StudentInfo;
 import com.julius.wisdom_teaching.domain.entity.StudentUser;
-import com.julius.wisdom_teaching.domain.entity.User;
 import com.julius.wisdom_teaching.repository.StudentManageMapper;
 import com.julius.wisdom_teaching.repository.StudentUserMapper;
 import com.julius.wisdom_teaching.repository.UserMapper;
-import com.julius.wisdom_teaching.util.CommonResult;
-import com.julius.wisdom_teaching.util.EncryptUtil;
-import org.apache.shiro.crypto.hash.Md5Hash;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import java.util.List;
 
 /**

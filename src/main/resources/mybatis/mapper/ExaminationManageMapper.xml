@@ -36,6 +36,7 @@
     #{correct},#{analyze},#{questionType},#{examinationId}
     )
     </insert>
+
     <select id="selectExaminationByCourseId" resultType="Examination">
        SELECT   id AS value,name AS label
        FROM     examination
@@ -50,4 +51,14 @@
      AND examination_id=#{examinationId}
      AND delete_flag='1'
     </select>
+    <insert id="addRecordTest">
+        INSERT INTO examination_record(question,select_a,select_b,select_c,select_d )
+        VALUES
+        <foreach collection="records" item="item" separator=",">
+            (
+            #{item.question},#{item.selectA},#{item.selectB},#{item.selectC},
+            #{item.selectD}
+            )
+        </foreach>
+    </insert>
 </mapper>
