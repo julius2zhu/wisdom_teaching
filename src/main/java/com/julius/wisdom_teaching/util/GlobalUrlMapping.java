@@ -90,10 +90,8 @@ public class GlobalUrlMapping {
     public static final String course_manage_delete = ROOT + "course_manage_delete";
 
     /*试题信息管理*/
-    //添加试题信息
-    public static final String examination_manage_add = ROOT + "examination_manage_add";
-    //添加试题记录
-    public static final String examination_manage_addRecord = ROOT + "examination_manage_addRecord";
+    //导入试题信息
+    public static final String examination_import = ROOT + "examination_import";
 
     /*公共数据查询,例如常见的下拉框中的数据*/
     //根据用户名查询用户是否存在

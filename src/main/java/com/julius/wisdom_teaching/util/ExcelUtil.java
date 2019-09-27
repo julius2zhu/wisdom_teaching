@@ -143,12 +143,4 @@ public interface ExcelUtil {
         workbook.write(outputStream);
         return true;
     }
-
-//    static Integer getNumber() {
-//
-//    }
-//
-//    static Integer getString() {
-//
-//    }
 }

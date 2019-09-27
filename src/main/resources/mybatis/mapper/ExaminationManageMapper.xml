@@ -10,16 +10,26 @@
         <result property="selectD" column="select_d"/>
         <result property="selectE" column="select_e"/>
         <result property="selectF" column="select_f"/>
-        <result property="selectG" column="select_g"/>
         <result property="analyze" column="e_analyze"/>
     </resultMap>
 
     <insert id="add" useGeneratedKeys="true" keyProperty="id">
-        INSERT  INTO examination
-        (name,describes,course_id,create_name,
-        create_date,update_date)
+        INSERT INTO examination
+        (name,
+        describes,
+        course_id,
+        user_id,
+        create_date,
+        update_date)
         VALUES
-        (#{name},#{describes},#{courseId},#{createName},NOW(),NOW())
+        (
+            #{name},
+            #{describes},
+            #{courseId},
+            #{userId},
+            NOW(),
+            NOW()
+        )
     </insert>
 
     <insert id="addRecord">
@@ -45,11 +55,11 @@
 
     <select id="selectExaminationRecord" resultMap="baseSelectSQL">
      SELECT  id,question,select_a,select_b,select_c,
-     select_d,select_e,select_f,select_g,correct,e_analyze
-     FROM examination_record
-     WHERE question_type=#{questionType}
-     AND examination_id=#{examinationId}
-     AND delete_flag='1'
+     select_d,select_e,select_f,correct,e_analyze
+     FROM   examination_record
+     WHERE  question_type=#{questionType}
+     AND    examination_id=#{examinationId}
+     AND    delete_flag='1'
     </select>
     <insert id="addRecordTest">
         INSERT INTO examination_record(question,select_a,select_b,select_c,select_d )
@@ -60,5 +70,40 @@
             #{item.selectD}
             )
         </foreach>
+    </insert>
+
+    <insert id="addRecords">
+        INSERT INTO examination_record
+        (question,
+        select_a,
+        select_b,
+        select_c,
+        select_d,
+        select_e,
+        select_f,
+        correct,
+        e_analyze,
+        score,
+        question_type,
+        examination_id
+        )
+        VALUES
+        <foreach collection="records" item="record" separator=",">
+            (
+            #{record.question},
+            #{record.selectA},
+            #{record.selectB},
+            #{record.selectC},
+            #{record.selectD},
+            #{record.selectE},
+            #{record.selectF},
+            #{record.correct},
+            #{record.analyze},
+            #{record.score},
+            #{record.questionType},
+            #{examinationId}
+            )
+        </foreach>
+
     </insert>
 </mapper>

@@ -51,6 +51,21 @@
         INSERT  INTO  student(number,user_id)
         VALUES (#{number},#{userId})
     </insert>
+    <insert id="addTest">
+         INSERT INTO teacher_student
+        (name,sex,grade,number,department,major,class_teacher,user_id)
+        VALUES(
+        #{name},
+        #{sex},
+        #{grade},
+        #{number},
+        #{department},
+        #{major},
+        #{classTeacher},
+        #{userId}
+        )
+
+    </insert>
 
     <update id="update">
         UPDATE student
@@ -78,15 +93,15 @@
     </update>
 
     <update id="updateStudentInfo">
-      UPDATE student
-      <set>
-          sex=#{sex},
-          grade=#{grade},
-          department=#{department},
-          major=#{major},
-          class_teacher=#{classTeacher}
-      </set>
-      WHERE  number=#{number}
+        UPDATE student
+        <set>
+            sex=#{sex},
+            grade=#{grade},
+            department=#{department},
+            major=#{major},
+            class_teacher=#{classTeacher}
+        </set>
+        WHERE number=#{number}
     </update>
     <delete id="delete">
         UPDATE      student_user

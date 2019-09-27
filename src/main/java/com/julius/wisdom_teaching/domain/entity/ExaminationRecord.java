@@ -24,11 +24,12 @@ public class ExaminationRecord extends BaseDomain {
     private String selectD;
     private String selectE;
     private String selectF;
-    private String selectG;
     //正确答案
     private String correct;
     //解析
     private String analyze;
+    //分数
+    private Double score;
     //题目类型1单选2多选3简答4填空
     private Integer questionType;
     //对应试题id
@@ -44,7 +45,6 @@ public class ExaminationRecord extends BaseDomain {
                 ", selectD='" + selectD + '\'' +
                 ", selectE='" + selectE + '\'' +
                 ", selectF='" + selectF + '\'' +
-                ", selectG='" + selectG + '\'' +
                 ", correct='" + correct + '\'' +
                 ", analyze='" + analyze + '\'' +
                 ", questionType=" + questionType +

@@ -110,4 +110,11 @@ public interface StudentManageMapper {
      * @param studentInfo 学生信息对象
      */
     void updateStudentInfo(StudentInfo studentInfo);
+
+    /**
+     * 添加一条学生信息,仅仅做测试使用
+     *
+     * @param studentInfo
+     */
+    void addTest(StudentInfo studentInfo);
 }

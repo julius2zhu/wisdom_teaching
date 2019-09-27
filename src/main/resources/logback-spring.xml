@@ -120,7 +120,7 @@
     <!-- Logger 根目录
     打印debug以上级别,生产环境开启info级别
     -->
-    <root level="DEBUG">
+    <root level="INFO">
         <appender-ref ref="STDOUT"/>
         <appender-ref ref="TRACE"/>
         <appender-ref ref="DEBUG"/>

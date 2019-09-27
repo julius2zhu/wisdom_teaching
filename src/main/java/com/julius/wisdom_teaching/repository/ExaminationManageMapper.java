@@ -48,7 +48,17 @@ public interface ExaminationManageMapper {
 
     /**
      * 仅仅做测试使用
+     *
      * @param records
      */
     void addRecordTest(@Param("records") List<ExaminationRecord> records);
+
+    /**
+     * 添加多条试题记录
+     *
+     * @param records       试题记录集合对象
+     * @param examinationId 试题信息id
+     */
+    void addRecords(@Param("records") List<ExaminationRecord> records,
+                    @Param("examinationId") Integer examinationId);
 }

@@ -1,7 +1,9 @@
 package com.julius.wisdom_teaching.service;
 
 import com.julius.wisdom_teaching.domain.entity.Examination;
-import com.julius.wisdom_teaching.domain.entity.ExaminationRecord;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
 
 /**
  * author julius.zhu
@@ -11,18 +13,13 @@ import com.julius.wisdom_teaching.domain.entity.ExaminationRecord;
  * 试题信息业务层
  */
 public interface ExaminationServiceManage {
-    /**
-     * 添加试题信息
-     *
-     * @param examination 试题信息对象
-     * @return 自动生成的主键
-     */
-    int add(Examination examination);
 
     /**
-     *  添加试题信息
-     * @param examinationRecord 试题信息记录对象
+     * 试题信息导入
+     *
+     * @param file        文件对象
+     * @param examination 试题信息对象
      * @return
      */
-    String addRecord(ExaminationRecord examinationRecord);
+    String examinationImport(MultipartFile file, Examination examination) throws IOException;
 }

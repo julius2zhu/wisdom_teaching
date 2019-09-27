@@ -19,8 +19,8 @@ public class Examination extends BaseDomain {
     private String describes;
     //课程编号
     private Integer courseId;
-    //创建人姓名
-    private String createName;
+    //添加人用户id
+    private Integer userId;
     //为了符合前端需求,特意加两个属性,仅仅用作查询setter方法使用
     private String label;
     private String value;
@@ -31,9 +31,9 @@ public class Examination extends BaseDomain {
                 "name='" + name + '\'' +
                 ", describes='" + describes + '\'' +
                 ", courseId=" + courseId +
-                ", createName='" + createName + '\'' +
+                ", userId=" + userId +
                 ", label='" + label + '\'' +
                 ", value='" + value + '\'' +
-                "} ";
+                '}';
     }
 }

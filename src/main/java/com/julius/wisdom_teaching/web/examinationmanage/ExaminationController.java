@@ -1,28 +1,27 @@
 package com.julius.wisdom_teaching.web.examinationmanage;
 
 import com.julius.wisdom_teaching.domain.entity.Examination;
-import com.julius.wisdom_teaching.domain.entity.ExaminationRecord;
 import com.julius.wisdom_teaching.service.ExaminationServiceManage;
-import com.julius.wisdom_teaching.util.CommonResult;
 import com.julius.wisdom_teaching.util.GlobalUrlMapping;
-import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
+
+import javax.servlet.http.HttpServletRequest;
+import java.io.IOException;
 
 /**
  * author julius.zhu
  * date   2019/9/17
  * time   10:16
  * describe:
- * 试题信息表controller层
+ * 在线试题管理controller层
  */
 @CrossOrigin(origins = "*")
 @RestController
 public class ExaminationController {
-
     private final ExaminationServiceManage examinationServiceManage;
 
     @Autowired
@@ -31,26 +30,18 @@ public class ExaminationController {
     }
 
     /**
-     * 添加试题信息
+     * 试题信息导入,服务器不留存文件
      *
-     * @param examination 试题信息对象
-     * @return 自动生成的主键
-     */
-    @RequiresPermissions(CommonResult.ROLE_TEACHER_PERMISSION)
-    @PostMapping(GlobalUrlMapping.examination_manage_add)
-    public int add(@RequestBody Examination examination) {
-        return examinationServiceManage.add(examination);
-    }
-
-    /**
-     * 添加试题信息记录
-     *
-     * @param examinationRecord 试题信息记录对象
+     * @param file    文件对象
+     * @param request 请求对象
      * @return
      */
-    @RequiresPermissions(CommonResult.ROLE_TEACHER_PERMISSION)
-    @PostMapping(GlobalUrlMapping.examination_manage_addRecord)
-    public String addRecord(@RequestBody ExaminationRecord examinationRecord) {
-        return examinationServiceManage.addRecord(examinationRecord);
+    @PostMapping(GlobalUrlMapping.examination_import)
+    public String examinationImport(MultipartFile file, HttpServletRequest request) throws IOException {
+        //获取上传者id信息
+        Examination examination = new Examination();
+        examination.setCourseId(Integer.valueOf(request.getParameter("courseId")));
+        examination.setUserId(Integer.valueOf(request.getParameter("userId")));
+        return examinationServiceManage.examinationImport(file, examination);
     }
 }
