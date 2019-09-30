@@ -34,6 +34,4 @@ public class ExaminationRecordServiceImpl implements ExaminationRecordService {
         PageHelper.startPage(condition.getCurrentPage(), condition.getCount());
         return SelectResultWrap.resultWrap(examinationManageMapper.selectExaminationRecord(condition));
     }
-
-
 }

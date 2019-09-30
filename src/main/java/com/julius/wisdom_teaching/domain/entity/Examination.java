@@ -15,6 +15,8 @@ import lombok.Setter;
 public class Examination extends BaseDomain {
     //试题名称
     private String name;
+    //试题内容,带格式的html串
+    private String content;
     //试题描述
     private String describes;
     //课程编号

@@ -22,4 +22,36 @@ public interface ExaminationServiceManage {
      * @return
      */
     String examinationImport(MultipartFile file, Examination examination) throws IOException;
+
+    /**
+     * 提那家试题信息
+     *
+     * @param examination 试题信息对象
+     * @return
+     */
+    String examinationAdd(Examination examination);
+
+    /**
+     * 根据试题id查询试题信息
+     *
+     * @param id 试题id
+     * @return
+     */
+    Examination examinationSelect(Integer id);
+
+    /**
+     * 更新试题信息
+     *
+     * @param examination 试题信息对象
+     * @return
+     */
+    String examination_update(Examination examination);
+
+    /**
+     * 根据试题id删除试题信息
+     *
+     * @param id 试题id
+     * @return
+     */
+    String examinationDelete(Integer id);
 }

@@ -92,6 +92,14 @@ public class GlobalUrlMapping {
     /*试题信息管理*/
     //导入试题信息
     public static final String examination_import = ROOT + "examination_import";
+    //添加/更新试题信息
+    public static final String examination_addOrUpdate = ROOT + "examination_addOrUpdate";
+    //查询试题信息
+    public static final String examination_select = ROOT + "examination_select";
+    //更新试题信息
+    public static final String examination_update = ROOT + "examination_update";
+    //删除试题信息
+    public static final String examination_delete = ROOT + "examination_delete";
 
     /*公共数据查询,例如常见的下拉框中的数据*/
     //根据用户名查询用户是否存在

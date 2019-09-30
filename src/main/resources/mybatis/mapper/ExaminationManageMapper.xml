@@ -47,19 +47,58 @@
     )
     </insert>
 
+    <update id="examination_update">
+        UPDATE examination
+        <set>
+            <if test="name!=null">
+                name=#{name},
+            </if>
+            <if test="content!=null">
+                content=#{content},
+            </if>
+        </set>
+        WHERE id=#{id}
+    </update>
+
+    <delete id="examinationDelete">
+         UPDATE  examination
+         SET     delete_flag='0'
+         WHERE  id=#{id}
+    </delete>
+
+    <select id="examinationSelect" resultType="Examination">
+        SELECT  id,name,content FROM  examination
+        WHERE   id=#{id}
+                 AND delete_flag='1'
+    </select>
+
     <select id="selectExaminationByCourseId" resultType="Examination">
        SELECT   id AS value,name AS label
        FROM     examination
        WHERE    course_id=#{id}
+                 AND delete_flag='1'
     </select>
 
     <select id="selectExaminationRecord" resultMap="baseSelectSQL">
-     SELECT  id,question,select_a,select_b,select_c,
-     select_d,select_e,select_f,correct,e_analyze
-     FROM   examination_record
-     WHERE  question_type=#{questionType}
-     AND    examination_id=#{examinationId}
-     AND    delete_flag='1'
+   SELECT
+	er.id,
+	question,
+	select_a,
+	select_b,
+	select_c,
+	select_d,
+	select_e,
+	select_f,
+	correct,
+	e_analyze
+    FROM
+	examination_record  er
+    RIGHT JOIN examination ex ON  ex.id=er.examination_id
+    WHERE
+	   er.question_type =#{questionType}
+   AND er.examination_id = #{examinationId}
+   AND er.delete_flag = '1'
+   AND ex.delete_flag = '1'
     </select>
     <insert id="addRecordTest">
         INSERT INTO examination_record(question,select_a,select_b,select_c,select_d )
@@ -104,6 +143,18 @@
             #{examinationId}
             )
         </foreach>
+    </insert>
 
+    <insert id="examinationAdd">
+        INSERT INTO  examination
+        (name,content,course_id,user_id,create_date,update_date)
+        VALUES(
+        #{name},
+        #{content},
+        #{courseId},
+        #{userId},
+        NOW(),
+        NOW()
+        )
     </insert>
 </mapper>

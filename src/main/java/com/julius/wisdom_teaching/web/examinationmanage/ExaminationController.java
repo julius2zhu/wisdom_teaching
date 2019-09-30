@@ -6,6 +6,7 @@ import com.julius.wisdom_teaching.util.GlobalUrlMapping;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -43,5 +44,52 @@ public class ExaminationController {
         examination.setCourseId(Integer.valueOf(request.getParameter("courseId")));
         examination.setUserId(Integer.valueOf(request.getParameter("userId")));
         return examinationServiceManage.examinationImport(file, examination);
+    }
+
+    /**
+     * 添加/更新试题信息
+     *
+     * @param examination 试题信息对象
+     * @return
+     */
+    @PostMapping(GlobalUrlMapping.examination_addOrUpdate)
+    public String examinationAddOrUpdate(@RequestBody Examination examination) {
+        if (examination.getId() > 0) {
+            return this.examinationUpdate(examination);
+        }
+        return examinationServiceManage.examinationAdd(examination);
+    }
+
+    /**
+     * 根据试题id查询试题信息
+     *
+     * @param examination 包含试题id
+     * @return 试题信息对象
+     */
+    @PostMapping(GlobalUrlMapping.examination_select)
+    public Examination examinationSelect(@RequestBody Examination examination) {
+        return examinationServiceManage.examinationSelect(examination.getId());
+    }
+
+    /**
+     * 更新试题信息
+     *
+     * @param examination 试题信息对象
+     * @return
+     */
+    @PostMapping(GlobalUrlMapping.examination_update)
+    public String examinationUpdate(Examination examination) {
+        return examinationServiceManage.examination_update(examination);
+    }
+
+    /**
+     * 根据试题id删除试题信息
+     *
+     * @param examination 试题信息对象
+     * @return
+     */
+    @PostMapping(GlobalUrlMapping.examination_delete)
+    public String examinationDelete(@RequestBody Examination examination) {
+        return examinationServiceManage.examinationDelete(examination.getId());
     }
 }

@@ -43,4 +43,26 @@ public class ExaminationServiceManageImpl implements ExaminationServiceManage {
         return CommonResult.SUCCESS;
     }
 
+    @Override
+    public String examinationAdd(Examination examination) {
+        examinationManageMapper.examinationAdd(examination);
+        return CommonResult.SUCCESS;
+    }
+
+    @Override
+    public Examination examinationSelect(Integer id) {
+        return examinationManageMapper.examinationSelect(id);
+    }
+
+    @Override
+    public String examination_update(Examination examination) {
+        examinationManageMapper.examination_update(examination);
+        return CommonResult.SUCCESS;
+    }
+
+    @Override
+    public String examinationDelete(Integer id) {
+        return examinationManageMapper.examinationDelete(id)
+                > 0 ? CommonResult.SUCCESS : CommonResult.FAIL;
+    }
 }
