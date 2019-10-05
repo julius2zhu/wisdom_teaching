@@ -2,7 +2,9 @@ package com.julius.wisdom_teaching.web.examinationmanage;
 
 import com.julius.wisdom_teaching.domain.entity.Examination;
 import com.julius.wisdom_teaching.service.ExaminationServiceManage;
+import com.julius.wisdom_teaching.util.CommonResult;
 import com.julius.wisdom_teaching.util.GlobalUrlMapping;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -53,6 +55,7 @@ public class ExaminationController {
      * @return
      */
     @PostMapping(GlobalUrlMapping.examination_addOrUpdate)
+    @RequiresPermissions(CommonResult.ROLE_TEACHER_PERMISSION)
     public String examinationAddOrUpdate(@RequestBody Examination examination) {
         if (examination.getId() > 0) {
             return this.examinationUpdate(examination);
@@ -78,6 +81,7 @@ public class ExaminationController {
      * @return
      */
     @PostMapping(GlobalUrlMapping.examination_update)
+    @RequiresPermissions(CommonResult.ROLE_TEACHER_PERMISSION)
     public String examinationUpdate(Examination examination) {
         return examinationServiceManage.examination_update(examination);
     }
@@ -89,6 +93,7 @@ public class ExaminationController {
      * @return
      */
     @PostMapping(GlobalUrlMapping.examination_delete)
+    @RequiresPermissions(CommonResult.ROLE_TEACHER_PERMISSION)
     public String examinationDelete(@RequestBody Examination examination) {
         return examinationServiceManage.examinationDelete(examination.getId());
     }

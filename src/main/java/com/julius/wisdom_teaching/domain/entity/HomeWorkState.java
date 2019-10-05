@@ -31,17 +31,31 @@ public class HomeWorkState extends BaseDomain {
     private String remark;
     //作业id
     private Integer homeWorkId;
+    /**
+     * 查询条件
+     **/
+    //学生姓名
+    private String name;
+    //学生学号
+    private Integer number;
+    //学生班级
+    private String grade;
 
     @Override
     public String toString() {
         return "HomeWorkState{" +
                 "homeWork=" + homeWork +
+                ", user=" + user +
                 ", studentId=" + studentId +
                 ", submitPath='" + submitPath + '\'' +
                 ", submitState='" + submitState + '\'' +
-                ", userId='" + userId + '\'' +
+                ", userId=" + userId +
                 ", score=" + score +
+                ", remark='" + remark + '\'' +
                 ", homeWorkId=" + homeWorkId +
-                "} ";
+                ", name='" + name + '\'' +
+                ", number=" + number +
+                ", grade='" + grade + '\'' +
+                '}';
     }
 }

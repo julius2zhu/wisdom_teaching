@@ -115,7 +115,7 @@ public class StudentTaskManageController {
     @RequiresPermissions(CommonResult.ROLE_TEACHER_PERMISSION)
     @PostMapping(GlobalUrlMapping.student_submit_task_read)
     public Map<String, Object> studentSubmitTaskRead(@RequestBody HomeWorkState homeWorkState) {
-        return this.homeWorkService.studentSubmitTaskRead(homeWorkState);
+        return homeWorkService.studentSubmitTaskRead(homeWorkState);
     }
 
     /**

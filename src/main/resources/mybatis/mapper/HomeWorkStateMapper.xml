@@ -80,19 +80,29 @@
 	)
     </select>
     <select id="studentSubmitTaskRead" resultMap="baseSelectMap2">
-     SELECT
-	 hms.id,
-	 hms.submit_state,
-	 hms.submit_path,
-	 hm.name AS h_name,
-     ts.name AS s_name
-     FROM
-	 home_work_state AS hms
-     LEFT JOIN home_work AS hm ON hm.id = hms.home_work_id
-     LEFT JOIN teacher_student AS ts ON ts.id = hms.student_id
-     WHERE
-	 hms.user_id = #{userId}
-	 AND hms.delete_flag='1'
+        SELECT
+        hms.id,
+        hms.submit_state,
+        hms.submit_path,
+        hm.name AS h_name,
+        ts.name AS s_name
+        FROM
+        home_work_state AS hms
+        LEFT JOIN home_work AS hm ON hm.id = hms.home_work_id
+        LEFT JOIN teacher_student AS ts ON ts.id = hms.student_id
+        <where>
+            hms.user_id = #{userId}
+            <if test="name!=null">
+                AND ts.name LIKE CONCAT('%',#{name},'%')
+            </if>
+            <if test="number!=null">
+                AND ts.number=#{number}
+            </if>
+            <if test="grade!=null">
+                AND ts.grade=#{grade}
+            </if>
+            AND hms.delete_flag='1'
+        </where>
     </select>
     <select id="studentCheckTaskScore" resultMap="baseSelectMap3">
     SELECT

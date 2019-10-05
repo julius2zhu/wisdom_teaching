@@ -35,12 +35,12 @@ public interface HomeWorkStateMapper {
     void updateTaskSubmitState(HomeWorkState homeWorkState);
 
     /**
-     * 根据发布者id查询学生作业提交情况
+     * 根据发布者id和其他条件信息查询学生作业提交情况
      *
-     * @param userId 发布者id
+     * @param homeWorkState 条件对象
      * @return
      */
-    List<HomeWorkState> studentSubmitTaskRead(Integer userId);
+    List<HomeWorkState> studentSubmitTaskRead(HomeWorkState homeWorkState);
 
     /**
      * 教师批改学生作业
